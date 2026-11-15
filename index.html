@@ -219,8 +219,21 @@
           <div class="flex flex-col justify-between">
             <div>
               <span id="modal-prod-badge" class="inline-block bg-orange-100 text-daraz-orange text-[10px] font-bold px-2.5 py-0.5 rounded-full uppercase tracking-wide mb-2">In Stock</span>
-              <h2 id="modal-prod-name" class="text-lg font-extrabold text-zinc-900 leading-snug mb-2"></h2>
+              <h2 id="modal-prod-name" class="text-lg font-extrabold text-zinc-900 leading-snug mb-1"></h2>
               
+              <!-- Modal Star Rating -->
+              <div class="flex items-center gap-1.5 mb-2 text-xs">
+                <div class="text-amber-400 text-xs">
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i>
+                </div>
+                <span class="font-bold text-zinc-700">4.9 / 5.0</span>
+                <span class="text-zinc-400">(50+ Verified Ratings)</span>
+              </div>
+
               <div class="flex items-baseline gap-2.5 mb-3">
                 <span id="modal-prod-price" class="text-2xl font-extrabold text-daraz-orange"></span>
                 <span id="modal-prod-old-price" class="text-xs text-zinc-400 line-through"></span>
@@ -420,7 +433,7 @@
       { c: "Fabric aur material bohat soft aur comfortable hai. Use karke maza aa gaya.", r: "Bohat shukria positive feedback ke liye! Aap ki satisfaction hi hamara asal sarmaya hai." },
       { c: "Customer support walon ne WhatsApp pe bohat achay se guide kiya. 10/10 service!", r: "Jazakallah bhai! Hum 24/7 apne customers ki khidmat ke liye hazir hain." },
       { c: "Shadi ke function pe pehni thi, sab ne bohat tareef ki. Amazing product!", r: "Bohat khushi hui yeh jaan kar! Aap ki tareef ka shukria." },
-      { c: "Pehli baar online shopping ka itna acha experience hua hai. Jazakallah Saddat Store!", r: "Shukria! Aap ke is bharose ke liye dil se shukria, mazeed achhi items milti rahengi." },
+      { c: "Pehli baar online shopping ka itنا acha experience hua hai. Jazakallah Saddat Store!", r: "Shukria! Aap ke is bharose ke liye dil se shukria, mazeed achhi items milti rahengi." },
       { c: "Gifting ke liye mangwaya tha, packaging dekh kar samne wale ka dil khush ho gaya.", r: "Bohat shukria! Hamare gift boxes specially weddings aur events ke liye design kiye jate hain." }
     ];
 
@@ -560,7 +573,7 @@
       document.getElementById('modal-prod-qty').innerText = currentModalQty;
     };
 
-    // --- HERO PRODUCT SLIDER LOGIC ---
+    // --- HERO PRODUCT SLIDER LOGIC (With Rating) ---
     window.initHeroSlider = function() {
       if (sliderInterval) clearInterval(sliderInterval);
       renderHeroSlide();
@@ -601,7 +614,7 @@
         </div>
 
         <div class="bg-white text-zinc-900 rounded-lg overflow-hidden shadow-lg slide-fade relative group">
-          <div onclick="openProductDetail('${p.id}')" class="relative h-48 w-full bg-zinc-100 overflow-hidden cursor-pointer" title="Click to view full details">
+          <div onclick="openProductDetail('${p.id}')" class="relative h-44 w-full bg-zinc-100 overflow-hidden cursor-pointer" title="Click to view full details">
             <img src="${p.img || 'https://via.placeholder.com/300'}" alt="${p.name}" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
             <span class="absolute bottom-2 right-2 bg-black/60 text-white text-[10px] px-2 py-0.5 rounded backdrop-blur-xs">
               <i class="fa-solid fa-eye mr-1"></i> View Details & Reviews
@@ -610,25 +623,40 @@
 
           <!-- Prev / Next Arrows -->
           ${products.length > 1 ? `
-            <button onclick="prevHeroSlide()" class="absolute left-2 top-24 -translate-y-1/2 bg-black/50 hover:bg-black/80 text-white w-7 h-7 rounded-full flex items-center justify-center text-xs transition z-10">
+            <button onclick="prevHeroSlide()" class="absolute left-2 top-20 -translate-y-1/2 bg-black/50 hover:bg-black/80 text-white w-7 h-7 rounded-full flex items-center justify-center text-xs transition z-10">
               <i class="fa-solid fa-chevron-left"></i>
             </button>
-            <button onclick="nextHeroSlide()" class="absolute right-2 top-24 -translate-y-1/2 bg-black/50 hover:bg-black/80 text-white w-7 h-7 rounded-full flex items-center justify-center text-xs transition z-10">
+            <button onclick="nextHeroSlide()" class="absolute right-2 top-20 -translate-y-1/2 bg-black/50 hover:bg-black/80 text-white w-7 h-7 rounded-full flex items-center justify-center text-xs transition z-10">
               <i class="fa-solid fa-chevron-right"></i>
             </button>
           ` : ''}
 
-          <div class="p-3 flex items-center justify-between gap-2 bg-white">
-            <div onclick="openProductDetail('${p.id}')" class="overflow-hidden cursor-pointer">
+          <div class="p-3 bg-white space-y-1.5">
+            <div onclick="openProductDetail('${p.id}')" class="cursor-pointer">
               <h4 class="text-xs font-bold text-zinc-800 truncate hover:text-daraz-orange">${p.name}</h4>
-              <div class="flex items-baseline gap-1.5 mt-0.5">
-                <span class="text-sm font-extrabold text-daraz-orange">Rs. ${p.price}</span>
-                <span class="text-[10px] text-zinc-400 line-through">Rs. ${p.oldPrice || p.price + 500}</span>
+              
+              <!-- Star Rating in Slider -->
+              <div class="flex items-center gap-1 my-1 text-[11px]">
+                <div class="text-amber-400 text-[10px]">
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i>
+                </div>
+                <span class="text-zinc-500 text-[10px]">(4.9/5 • 50+ Reviews)</span>
+              </div>
+
+              <div class="flex items-baseline justify-between">
+                <div class="flex items-baseline gap-1.5">
+                  <span class="text-sm font-extrabold text-daraz-orange">Rs. ${p.price}</span>
+                  <span class="text-[10px] text-zinc-400 line-through">Rs. ${p.oldPrice || p.price + 500}</span>
+                </div>
+                <button onclick="addToCart('${p.id}')" class="bg-daraz-orange hover:bg-orange-700 text-white text-[11px] font-bold px-3 py-1.5 rounded shadow shrink-0 transition">
+                  <i class="fa-solid fa-cart-plus mr-1"></i> Buy
+                </button>
               </div>
             </div>
-            <button onclick="addToCart('${p.id}')" class="bg-daraz-orange hover:bg-orange-700 text-white text-[11px] font-bold px-3 py-1.5 rounded shadow shrink-0 transition">
-              <i class="fa-solid fa-cart-plus mr-1"></i> Buy
-            </button>
           </div>
         </div>
 
@@ -660,7 +688,7 @@
       sliderInterval = setInterval(nextHeroSlide, 3500);
     };
 
-    // --- PRODUCTS GRID ---
+    // --- PRODUCTS GRID (With Star Ratings Added) ---
     window.renderProducts = function(filteredList = null) {
       const list = filteredList || products;
       const grid = document.getElementById('products-grid');
@@ -675,16 +703,28 @@
         <div class="bg-white border border-zinc-200 rounded-lg overflow-hidden shadow-sm hover:shadow-md transition flex flex-col justify-between group">
           <!-- Clickable Area to Open Product Details -->
           <div onclick="openProductDetail('${p.id}')" class="cursor-pointer">
-            <div class="relative bg-zinc-100 h-44 overflow-hidden">
+            <div class="relative bg-zinc-100 h-40 overflow-hidden">
               <img src="${p.img || 'https://via.placeholder.com/300'}" alt="${p.name}" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
               <span class="absolute top-1.5 left-1.5 bg-red-600 text-white text-[9px] font-bold px-1.5 py-0.5 rounded shadow">Sale</span>
               <span class="absolute bottom-1.5 right-1.5 bg-black/60 text-white text-[9px] px-2 py-0.5 rounded opacity-0 group-hover:opacity-100 transition">
-                <i class="fa-solid fa-star text-amber-400 mr-1"></i> 50+ Reviews
+                <i class="fa-solid fa-star text-amber-400 mr-1"></i> Tap for Reviews
               </span>
             </div>
             <div class="p-3 pb-1">
               <h3 class="text-xs font-semibold text-zinc-800 group-hover:text-daraz-orange line-clamp-2 mb-1 transition">${p.name}</h3>
-              <p class="text-[11px] text-zinc-500 line-clamp-1 mb-1.5">${p.desc || 'Tap to view full product details & reviews'}</p>
+              
+              <!-- Star Rating Badge on Card -->
+              <div class="flex items-center gap-1 mb-1.5 text-[10px]">
+                <div class="text-amber-400">
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i>
+                </div>
+                <span class="text-zinc-500 font-medium">(4.9/5)</span>
+              </div>
+
               <div class="flex items-baseline space-x-2 mb-2">
                 <span class="text-sm font-bold text-daraz-orange">Rs. ${p.price}</span>
                 <span class="text-[10px] text-zinc-400 line-through">Rs. ${p.oldPrice || p.price + 500}</span>
