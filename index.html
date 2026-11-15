@@ -85,14 +85,14 @@
                 </div>
                 <div class="hidden sm:block">
                     <h1 class="font-bold text-sm tracking-wide text-white">ONLINE STORE</h1>
-                    <p class="text-[10px] text-orange-400 font-medium">Pakistan's Live Real-Time Store</p>
+                    <p class="text-[10px] text-orange-400 font-medium">Pakistan's Live Cloud Store</p>
                 </div>
             </div>
 
             <!-- Search Bar -->
             <div class="flex-1 max-w-2xl relative">
                 <div class="flex shadow-inner rounded-xl overflow-hidden bg-slate-800 border border-slate-700 focus-within:border-daraz-orange transition">
-                    <input type="text" id="searchInput" oninput="handleSearch(this.value)" placeholder="Search in Saddat Online Store (Real-time live search)..." class="w-full px-4 py-2.5 text-sm bg-transparent focus:outline-none text-slate-100 placeholder-slate-400">
+                    <input type="text" id="searchInput" oninput="handleSearch(this.value)" placeholder="Search in Saddat Online Store..." class="w-full px-4 py-2.5 text-sm bg-transparent focus:outline-none text-slate-100 placeholder-slate-400">
                     <button class="bg-daraz-orange text-white px-6 hover:bg-orange-600 transition font-bold flex items-center justify-center">
                         <i class="fa-solid fa-magnifying-glass"></i>
                     </button>
@@ -134,9 +134,9 @@
             <!-- Hero Banner -->
             <div class="relative bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 rounded-2xl shadow-2xl overflow-hidden border border-slate-800 p-6 md:p-12 flex flex-col md:flex-row items-center justify-between">
                 <div class="max-w-xl space-y-4 text-center md:text-left z-10">
-                    <span class="bg-daraz-orange text-white text-xs font-bold px-3.5 py-1.5 rounded-full uppercase tracking-widest inline-flex items-center shadow"><i class="fa-solid fa-bolt mr-1.5"></i> Real-Time Global Cloud Store</span>
+                    <span class="bg-daraz-orange text-white text-xs font-bold px-3.5 py-1.5 rounded-full uppercase tracking-widest inline-flex items-center shadow"><i class="fa-solid fa-bolt mr-1.5"></i> Real-Time Cloud Store</span>
                     <h2 class="text-3xl md:text-5xl font-extrabold tracking-tight text-white leading-tight">Saddat Online Store Grand Festival</h2>
-                    <p class="text-slate-300 text-sm md:text-base leading-relaxed">Changes made in the Admin Panel instantly reflect across the world in real-time. Pay securely via Easypaisa or Cash on Delivery.</p>
+                    <p class="text-slate-300 text-sm md:text-base leading-relaxed">Changes made in the Admin Panel instantly sync worldwide in real-time. Pay securely via Easypaisa or Cash on Delivery.</p>
                     <div class="pt-2 flex flex-wrap gap-3 justify-center md:justify-start">
                         <button onclick="filterCategory('Flash Sale')" class="bg-daraz-orange hover:bg-orange-600 text-white px-6 py-3.5 rounded-xl font-bold shadow-lg transition"><i class="fa-solid fa-bolt mr-2"></i> Shop Flash Sale</button>
                         <a href="https://wa.me/923406724840?text=Hello%20Saddat%20Online%20Store" target="_blank" class="bg-emerald-600 hover:bg-emerald-700 text-white px-6 py-3.5 rounded-xl font-bold shadow-lg transition flex items-center"><i class="fa-brands fa-whatsapp mr-2 text-lg"></i> WhatsApp Support</a>
@@ -147,7 +147,7 @@
                     <div id="heroBankAccountsContainer" class="bg-slate-950/90 backdrop-blur-xl p-6 rounded-2xl border border-slate-700 shadow-2xl text-center space-y-3 min-w-[280px]">
                         <div class="text-xs uppercase tracking-wider text-orange-400 font-bold flex items-center justify-center"><i class="fa-solid fa-wallet mr-1.5"></i> Official Bank Accounts</div>
                         <div id="heroBankAccountsList" class="space-y-3">
-                            <!-- Populated dynamically from Firestore -->
+                            <!-- Populated dynamically -->
                         </div>
                     </div>
                 </div>
@@ -319,7 +319,7 @@
         </div>
     </div>
 
-    <!-- Admin Panel Modal (Full CRUD for Products & Bank Accounts) -->
+    <!-- Admin Panel Modal -->
     <div id="adminModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 hidden bg-slate-950/80 backdrop-blur-sm">
         <div class="bg-slate-900 border border-slate-800 rounded-2xl max-w-4xl w-full overflow-hidden shadow-2xl relative">
             <div class="bg-slate-950 border-b border-slate-800 text-white p-4 flex justify-between items-center">
@@ -330,7 +330,6 @@
                 </div>
             </div>
             <div class="p-6 max-h-[80vh] overflow-y-auto space-y-8">
-                <!-- Tab switcher inside Admin -->
                 <div class="flex space-x-2 border-b border-slate-800 pb-3">
                     <button onclick="switchAdminTab('products')" id="adminTabProdBtn" class="bg-daraz-orange text-white text-xs font-bold px-4 py-2 rounded-xl transition">Manage Products</button>
                     <button onclick="switchAdminTab('banks')" id="adminTabBankBtn" class="bg-slate-800 text-slate-300 text-xs font-bold px-4 py-2 rounded-xl transition hover:bg-slate-700">Manage Bank Accounts</button>
@@ -338,7 +337,6 @@
 
                 <!-- Products Section -->
                 <div id="adminProductsSection" class="space-y-6">
-                    <!-- Add / Edit Product Form -->
                     <div class="bg-slate-950 border border-slate-800 rounded-2xl p-5">
                         <h4 id="productFormHeading" class="font-bold text-white text-sm mb-3 flex items-center"><i class="fa-solid fa-plus-circle text-daraz-orange mr-2"></i> Add New Product (Live Cloud Sync)</h4>
                         <form id="addProductForm" onsubmit="handleSaveProduct(event)" class="space-y-3">
@@ -371,7 +369,6 @@
                             </div>
                         </form>
                     </div>
-                    <!-- Existing Products List -->
                     <div>
                         <h4 class="font-bold text-white text-sm mb-3">Existing Store Products (Real-Time Cloud)</h4>
                         <div id="adminProductList" class="space-y-2 max-h-60 overflow-y-auto divide-y divide-slate-800 pr-1"></div>
@@ -380,7 +377,6 @@
 
                 <!-- Bank Accounts Section -->
                 <div id="adminBanksSection" class="space-y-6 hidden">
-                    <!-- Add / Edit Bank Form -->
                     <div class="bg-slate-950 border border-slate-800 rounded-2xl p-5">
                         <h4 id="bankFormHeading" class="font-bold text-white text-sm mb-3 flex items-center"><i class="fa-solid fa-wallet text-daraz-orange mr-2"></i> Add New Bank / Easypaisa Account</h4>
                         <form id="addBankForm" onsubmit="handleSaveBank(event)" class="space-y-3">
@@ -396,7 +392,6 @@
                             </div>
                         </form>
                     </div>
-                    <!-- Existing Banks List -->
                     <div>
                         <h4 class="font-bold text-white text-sm mb-3">Configured Bank Accounts (Real-Time Cloud)</h4>
                         <div id="adminBankList" class="space-y-2 max-h-60 overflow-y-auto divide-y divide-slate-800 pr-1"></div>
@@ -447,11 +442,11 @@
         </div>
     </footer>
 
-    <!-- Firebase SDKs & Real-Time Sync Logic -->
+    <!-- Firebase SDKs & Direct Real-Time Sync Logic -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-        import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-        import { getFirestore, collection, doc, addDoc, setDoc, updateDoc, deleteDoc, onSnapshot, getDocs } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+        import { getAuth, signInAnonymously, signInWithCustomToken } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, collection, doc, setDoc, deleteDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
         const appId = typeof __app_id !== 'undefined' ? __app_id : 'saddat-online-store-pk';
         const firebaseConfig = JSON.parse(typeof __firebase_config !== 'undefined' ? __firebase_config : '{}');
@@ -463,7 +458,6 @@
         let wishlist = [];
         let currentFilter = 'All';
 
-        // Default initial seed data if DB is empty
         const defaultProducts = [
             {
                 id: "seed_1",
@@ -539,7 +533,6 @@
 
                     initRealtimeSync();
                 } else {
-                    // Fallback local execution if config is absent
                     products = defaultProducts;
                     bankAccounts = defaultBanks;
                     renderProducts(products);
@@ -553,7 +546,6 @@
                 renderBankAccounts();
             }
 
-            // Click particle listener
             document.addEventListener('click', function(e) {
                 const particle = document.createElement('div');
                 particle.className = 'click-particle';
@@ -564,25 +556,24 @@
             });
         });
 
-        // Real-Time Firebase Listeners (Rule 1 & Rule 2 & Rule 3 compliant)
         function initRealtimeSync() {
             if (!auth || !db) return;
 
             // Products Real-time Snapshot
             const productsColl = collection(db, 'artifacts', appId, 'public', 'data', 'products');
             onSnapshot(productsColl, (snapshot) => {
-                products = [];
+                const fetchedProducts = [];
                 snapshot.forEach(docSnap => {
-                    products.push({ id: docSnap.id, ...docSnap.data() });
+                    fetchedProducts.push({ id: docSnap.id, ...docSnap.data() });
                 });
 
-                // If empty for the very first time, seed default products once
-                if (products.length === 0 && !localStorage.getItem('saddat_seeded')) {
+                if (fetchedProducts.length === 0 && !localStorage.getItem('saddat_seeded')) {
                     localStorage.setItem('saddat_seeded', 'true');
                     defaultProducts.forEach(async (p) => {
                         await setDoc(doc(db, 'artifacts', appId, 'public', 'data', 'products', p.id), p);
                     });
                 } else {
+                    products = fetchedProducts;
                     renderProducts(currentFilter === 'All' ? products : products.filter(p => p.category === currentFilter));
                     renderAdminProductList();
                 }
@@ -593,18 +584,18 @@
             // Bank Accounts Real-time Snapshot
             const banksColl = collection(db, 'artifacts', appId, 'public', 'data', 'bank_accounts');
             onSnapshot(banksColl, (snapshot) => {
-                bankAccounts = [];
+                const fetchedBanks = [];
                 snapshot.forEach(docSnap => {
-                    bankAccounts.push({ id: docSnap.id, ...docSnap.data() });
+                    fetchedBanks.push({ id: docSnap.id, ...docSnap.data() });
                 });
 
-                // If empty for the very first time, seed default banks once
-                if (bankAccounts.length === 0 && !localStorage.getItem('saddat_banks_seeded')) {
+                if (fetchedBanks.length === 0 && !localStorage.getItem('saddat_banks_seeded')) {
                     localStorage.setItem('saddat_banks_seeded', 'true');
                     defaultBanks.forEach(async (b) => {
                         await setDoc(doc(db, 'artifacts', appId, 'public', 'data', 'bank_accounts', b.id), b);
                     });
                 } else {
+                    bankAccounts = fetchedBanks;
                     renderBankAccounts();
                     renderAdminBankList();
                 }
@@ -613,7 +604,6 @@
             });
         }
 
-        // Render Bank Accounts in UI
         function renderBankAccounts() {
             const heroList = document.getElementById('heroBankAccountsList');
             const footerList = document.getElementById('footerBankAccountsList');
@@ -632,7 +622,6 @@
             if (checkoutList) checkoutList.innerHTML = bankAccounts.map(b => `<div class="bg-slate-900 p-2.5 rounded-lg border border-slate-800 text-xs text-slate-300"><span class="font-bold text-daraz-orange">${b.name}</span>: <span class="font-mono text-white font-bold">${b.accNo}</span> (${b.title})</div>`).join('');
         }
 
-        // Global functions exposed to window
         window.renderProducts = function(itemsToRender) {
             const grid = document.getElementById('productGrid');
             if (!grid) return;
@@ -958,7 +947,7 @@
             showToast("Order submitted! Redirecting to WhatsApp...");
         };
 
-        // ================= SECURE ADMIN AUTH & CRUD (FIREBASE SYNCED) =================
+        // ================= SECURE ADMIN AUTH & CRUD =================
         window.verifyAdminAccess = function() {
             const isAuthed = sessionStorage.getItem('saddat_admin_authed');
             if (isAuthed === 'true') {
@@ -1051,15 +1040,15 @@
                 };
 
                 try {
+                    const targetId = editId || 'prod_' + Date.now();
                     if (db) {
-                        const targetId = editId || 'prod_' + Date.now();
                         await setDoc(doc(db, 'artifacts', appId, 'public', 'data', 'products', targetId), prodData);
                     } else {
                         if (editId) {
                             const idx = products.findIndex(p => p.id === editId);
                             if (idx > -1) products[idx] = { id: editId, ...prodData };
                         } else {
-                            products.unshift({ id: 'prod_' + Date.now(), ...prodData });
+                            products.unshift({ id: targetId, ...prodData });
                         }
                         renderProducts(currentFilter === 'All' ? products : products.filter(p => p.category === currentFilter));
                         renderAdminProductList();
@@ -1138,7 +1127,7 @@
                         renderProducts(currentFilter === 'All' ? products : products.filter(p => p.category === currentFilter));
                         renderAdminProductList();
                     }
-                    showToast("Product deleted successfully in real-time!");
+                    showToast("Product deleted permanently!");
                 } catch (err) {
                     console.error("Delete product error:", err);
                     showToast("Error deleting product.");
@@ -1157,15 +1146,15 @@
             const bankData = { name, accNo, title };
 
             try {
+                const targetId = editId || 'bank_' + Date.now();
                 if (db) {
-                    const targetId = editId || 'bank_' + Date.now();
                     await setDoc(doc(db, 'artifacts', appId, 'public', 'data', 'bank_accounts', targetId), bankData);
                 } else {
                     if (editId) {
                         const idx = bankAccounts.findIndex(b => b.id === editId);
                         if (idx > -1) bankAccounts[idx] = { id: editId, ...bankData };
                     } else {
-                        bankAccounts.push({ id: 'bank_' + Date.now(), ...bankData });
+                        bankAccounts.push({ id: targetId, ...bankData });
                     }
                     renderBankAccounts();
                     renderAdminBankList();
@@ -1226,7 +1215,7 @@
                         renderBankAccounts();
                         renderAdminBankList();
                     }
-                    showToast("Bank account deleted successfully!");
+                    showToast("Bank account deleted permanently!");
                 } catch (err) {
                     console.error("Delete bank error:", err);
                     showToast("Error deleting bank account.");
