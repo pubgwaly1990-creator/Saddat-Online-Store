@@ -1,1238 +1,526 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Saddat Online Store - Online Shopping in Pakistan</title>
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    colors: {
-                        daraz: {
-                            orange: '#F85606',
-                            dark: '#0F172A',
-                            accent: '#F37021',
-                            light: '#F8FAFC',
-                            gray: '#EFF1F5',
-                            slateDark: '#1E293B',
-                            slateDeep: '#0F172A'
-                        }
-                    }
-                }
-            }
-        }
-    </script>
-    <!-- FontAwesome Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Google Fonts Inter -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <style>
-        body { font-family: 'Inter', sans-serif; }
-        ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-track { background: #0F172A; }
-        ::-webkit-scrollbar-thumb { background: #F85606; border-radius: 3px; }
-        
-        .click-particle {
-            position: absolute;
-            pointer-events: none;
-            border-radius: 50%;
-            animation: particleAnim 0.6s ease-out forwards;
-            background: rgba(248, 86, 6, 0.7);
-            z-index: 9999;
-            transform: translate(-50%, -50%);
-        }
-        @keyframes particleAnim {
-            0% { transform: scale(0); opacity: 1; width: 10px; height: 10px; }
-            100% { transform: scale(3.5); opacity: 0; width: 45px; height: 45px; }
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Saddat Online Store</title>
+  <!-- Tailwind CSS & FontAwesome -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    body {
+      background-color: #121212;
+      color: #e0e0e0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      overflow-x: hidden;
+    }
+    /* Custom Dark Gray Theme */
+    .bg-dark-card { background-color: #1e1e1e; }
+    .bg-dark-main { background-color: #121212; }
+    .border-dark { border-color: #2d2d2d; }
+    
+    /* Click Circle Animation */
+    .click-circle {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      border: 2px solid #3b82f6;
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+      animation: circleAnim 0.6s linear forwards;
+      z-index: 9999;
+    }
+    @keyframes circleAnim {
+      0% { width: 0px; height: 0px; opacity: 1; }
+      100% { width: 60px; height: 60px; opacity: 0; }
+    }
 
-        .tab-content {
-            animation: fadeInTab 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-        }
-        @keyframes fadeInTab {
-            from { opacity: 0; transform: translateY(8px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-    </style>
+    /* Tab Transition Effect */
+    .tab-content {
+      animation: fadeIn 0.4s ease-in-out;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
 </head>
-<body class="bg-slate-950 text-slate-100 antialiased min-h-screen flex flex-col justify-between relative selection:bg-daraz-orange selection:text-white">
+<body class="bg-dark-main min-h-screen flex flex-col justify-between">
 
-    <!-- Top Utility Bar -->
-    <div class="bg-slate-900 border-b border-slate-800 text-slate-300 text-xs py-2 px-4">
-        <div class="max-w-7xl mx-auto flex justify-between items-center">
-            <div class="flex items-center space-x-6">
-                <span class="hover:text-daraz-orange cursor-pointer transition flex items-center"><i class="fa-solid fa-mobile-screen mr-1.5 text-daraz-orange"></i> SAVE MORE ON APP</span>
-                <span class="hover:text-daraz-orange cursor-pointer transition flex items-center"><i class="fa-solid fa-store mr-1.5 text-daraz-orange"></i> SADDAT AFFILIATE</span>
-                <span class="hover:text-daraz-orange cursor-pointer transition flex items-center"><i class="fa-solid fa-headset mr-1.5 text-daraz-orange"></i> HELP & SUPPORT</span>
-            </div>
-            <div class="flex items-center space-x-6">
-                <a href="https://wa.me/923406724840" target="_blank" class="hover:text-daraz-orange transition flex items-center"><i class="fa-brands fa-whatsapp mr-1.5 text-green-400 text-sm"></i> WhatsApp: 0340-6724840</a>
-                <span class="hover:text-daraz-orange cursor-pointer transition flex items-center font-semibold text-orange-400" onclick="verifyAdminAccess()"><i class="fa-solid fa-user-shield mr-1.5"></i> Admin Panel</span>
-            </div>
+  <!-- Top Announcement Bar -->
+  <div class="bg-zinc-800 text-zinc-300 text-xs py-2 px-4 text-center font-medium border-b border-dark">
+    🔥 Welcome to Saddat Online Store | Easy & Fast Shopping Experience | Helpline: 0340-6724840 🔥
+  </div>
+
+  <!-- Header / Navigation -->
+  <header class="bg-dark-card border-b border-dark sticky top-0 z-50 shadow-md">
+    <div class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
+      <div class="flex items-center space-x-3 cursor-pointer" onclick="switchTab('home')">
+        <div class="bg-blue-600 text-white p-2 rounded-lg font-bold text-lg"><i class="fa-solid fa-store"></i></div>
+        <div>
+          <h1 class="text-lg font-bold text-white tracking-wide">Saddat Online Store</h1>
+          <p class="text-xs text-zinc-400">Daraz Style E-Commerce Platform</p>
         </div>
+      </div>
+      <!-- Nav Links & Cart/Admin -->
+      <div class="flex items-center space-x-4">
+        <button onclick="switchTab('home')" class="text-sm font-medium hover:text-blue-400 transition hidden sm:inline-block">Home</button>
+        <button onclick="switchTab('cart')" class="relative bg-zinc-800 hover:bg-zinc-700 px-3 py-2 rounded-lg text-sm flex items-center space-x-1 border border-dark">
+          <i class="fa-solid fa-cart-shopping text-blue-400"></i>
+          <span class="hidden sm:inline">Cart</span>
+          <span id="cart-count" class="bg-blue-600 text-white text-xs px-1.5 py-0.5 rounded-full font-bold">0</span>
+        </button>
+        <button onclick="openAdminModal()" class="bg-zinc-800 hover:bg-zinc-700 px-3 py-2 rounded-lg text-sm flex items-center space-x-1 border border-dark text-amber-400">
+          <i class="fa-solid fa-lock"></i>
+          <span class="hidden sm:inline">Admin</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <main class="max-w-7xl mx-auto px-4 py-6 flex-grow w-full">
+
+    <!-- HOME TAB -->
+    <div id="tab-home" class="tab-content">
+      <!-- Search & Banner -->
+      <div class="mb-6 flex flex-col md:flex-row gap-4 items-center justify-between bg-dark-card p-4 rounded-xl border border-dark">
+        <div class="w-full md:w-1/2 relative">
+          <i class="fa-solid fa-magnifying-glass absolute left-3 top-3.5 text-zinc-400"></i>
+          <input type="text" id="search-input" oninput="filterProducts()" placeholder="Search products like Daraz..." class="w-full bg-zinc-900 border border-dark rounded-lg pl-10 pr-4 py-2.5 text-sm text-zinc-200 focus:outline-none focus:border-blue-500">
+        </div>
+        <div class="text-xs text-zinc-400 flex items-center gap-2">
+          <span class="inline-block w-2 h-2 rounded-full bg-green-500 animate-pulse"></span> Cloud Sync Active (Firebase)
+        </div>
+      </div>
+
+      <!-- Categories / Flash Deals Header -->
+      <div class="flex items-center justify-between mb-4">
+        <h2 class="text-xl font-bold text-white border-l-4 border-blue-600 pl-3">All Products</h2>
+        <span class="text-xs text-zinc-400" id="product-count">Loading products...</span>
+      </div>
+
+      <!-- Products Grid -->
+      <div id="products-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+        <!-- Dynamic Products Will Load Here -->
+      </div>
     </div>
 
-    <!-- Main Navigation Header -->
-    <header class="sticky top-0 z-40 bg-slate-900/95 backdrop-blur-md border-b border-slate-800 shadow-xl transition-all">
-        <div class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between gap-4">
-            <div class="flex items-center space-x-3 cursor-pointer group" onclick="switchTab('home')">
-                <div class="bg-daraz-orange text-white font-black text-xl md:text-2xl px-3.5 py-1.5 rounded-xl shadow-lg tracking-wider flex items-center group-hover:bg-orange-600 transition">
-                    <i class="fa-solid fa-bag-shopping mr-2"></i> SADDAT
-                </div>
-                <div class="hidden sm:block">
-                    <h1 class="font-bold text-sm tracking-wide text-white">ONLINE STORE</h1>
-                    <p class="text-[10px] text-orange-400 font-medium">Pakistan's Live Cloud Store</p>
-                </div>
-            </div>
-
-            <!-- Search Bar -->
-            <div class="flex-1 max-w-2xl relative">
-                <div class="flex shadow-inner rounded-xl overflow-hidden bg-slate-800 border border-slate-700 focus-within:border-daraz-orange transition">
-                    <input type="text" id="searchInput" oninput="handleSearch(this.value)" placeholder="Search in Saddat Online Store..." class="w-full px-4 py-2.5 text-sm bg-transparent focus:outline-none text-slate-100 placeholder-slate-400">
-                    <button class="bg-daraz-orange text-white px-6 hover:bg-orange-600 transition font-bold flex items-center justify-center">
-                        <i class="fa-solid fa-magnifying-glass"></i>
-                    </button>
-                </div>
-                <div id="searchSuggestions" class="absolute left-0 right-0 top-full mt-2 bg-slate-900 rounded-xl shadow-2xl border border-slate-700 hidden z-50 max-h-80 overflow-y-auto divide-y divide-slate-800"></div>
-            </div>
-
-            <!-- Cart & Wishlist Actions -->
-            <div class="flex items-center space-x-3 md:space-x-5 text-white">
-                <button onclick="openWishlistModal()" class="relative hover:text-daraz-orange transition flex items-center bg-slate-800 p-2.5 rounded-xl border border-slate-700">
-                    <i class="fa-regular fa-heart text-xl"></i>
-                    <span id="wishlistCountBadge" class="absolute -top-2 -right-2 bg-daraz-orange text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full border border-slate-900">0</span>
-                </button>
-                <button onclick="toggleCartDrawer()" class="relative hover:text-orange-200 transition flex items-center bg-daraz-orange hover:bg-orange-600 px-4 py-2.5 rounded-xl shadow-lg">
-                    <i class="fa-solid fa-cart-shopping text-lg mr-2"></i>
-                    <span class="hidden md:inline text-xs font-bold uppercase tracking-wider">Cart</span>
-                    <span id="cartCountBadge" class="absolute -top-2 -right-2 bg-slate-950 text-daraz-orange text-[10px] font-black px-1.5 py-0.5 rounded-full border border-daraz-orange">0</span>
-                </button>
-            </div>
+    <!-- CART TAB -->
+    <div id="tab-cart" class="tab-content hidden">
+      <div class="max-w-2xl mx-auto bg-dark-card border border-dark rounded-xl p-6 shadow-lg">
+        <h2 class="text-xl font-bold text-white mb-4 border-b border-dark pb-3"><i class="fa-solid fa-cart-shopping text-blue-500 mr-2"></i> Your Shopping Cart</h2>
+        <div id="cart-items-container" class="space-y-4 mb-6">
+          <!-- Cart items injected here -->
         </div>
+        <div id="cart-summary" class="border-t border-dark pt-4 hidden">
+          <div class="flex justify-between text-lg font-bold mb-4">
+            <span>Total Amount:</span>
+            <span id="cart-total" class="text-blue-400">Rs. 0</span>
+          </div>
 
-        <!-- Categories Navbar -->
-        <div class="bg-slate-950 border-t border-slate-800 text-slate-300 text-xs md:text-sm px-4">
-            <div class="max-w-7xl mx-auto flex items-center space-x-6 overflow-x-auto py-2.5 scrollbar-none">
-                <button onclick="filterCategory('All')" class="category-btn whitespace-nowrap hover:text-daraz-orange font-semibold transition text-daraz-orange"><i class="fa-solid fa-bars mr-1.5"></i> All Categories</button>
-                <button onclick="filterCategory('Flash Sale')" class="category-btn whitespace-nowrap hover:text-daraz-orange font-medium transition text-orange-400"><i class="fa-solid fa-bolt mr-1.5"></i> Flash Sale</button>
-                <button onclick="filterCategory('Electronics')" class="category-btn whitespace-nowrap hover:text-daraz-orange font-medium transition">Electronics</button>
-                <button onclick="filterCategory('Fashion')" class="category-btn whitespace-nowrap hover:text-daraz-orange font-medium transition">Fashion & Apparel</button>
-                <button onclick="filterCategory('Mobile Accessories')" class="category-btn whitespace-nowrap hover:text-daraz-orange font-medium transition">Mobile Accessories</button>
-                <button onclick="filterCategory('Home & Living')" class="category-btn whitespace-nowrap hover:text-daraz-orange font-medium transition">Home & Living</button>
-                <button onclick="filterCategory('Groceries')" class="category-btn whitespace-nowrap hover:text-daraz-orange font-medium transition">Groceries</button>
-            </div>
+          <!-- Checkout Form -->
+          <div class="bg-zinc-900 p-4 rounded-lg border border-dark mb-4">
+            <h3 class="text-sm font-semibold mb-3 text-zinc-300">Customer Details</h3>
+            <input type="text" id="cust-name" placeholder="Full Name" class="w-full bg-zinc-800 border border-dark rounded p-2 mb-2 text-sm text-zinc-200">
+            <input type="text" id="cust-phone" placeholder="Phone Number" class="w-full bg-zinc-800 border border-dark rounded p-2 mb-2 text-sm text-zinc-200">
+            <textarea id="cust-address" placeholder="Delivery Address / City" class="w-full bg-zinc-800 border border-dark rounded p-2 text-sm text-zinc-200 h-20"></textarea>
+          </div>
+
+          <!-- Bank / Payment Info Box -->
+          <div class="bg-zinc-900 p-4 rounded-lg border border-dark mb-4 text-xs space-y-1">
+            <p class="font-bold text-blue-400 mb-1"><i class="fa-solid fa-wallet"></i> Payment Details (Easypaisa):</p>
+            <p><strong>Store:</strong> Saddat Online Store</p>
+            <p><strong>Easypaisa No:</strong> <span class="text-white font-mono">0317-0546013</span></p>
+            <p><strong>Account Title:</strong> <span class="text-white">Kashif Javaid Naqvi</span></p>
+            <p class="text-zinc-400 mt-2">Send payment to the above account & place order via WhatsApp.</p>
+          </div>
+
+          <button onclick="checkoutWhatsApp()" class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 rounded-lg flex items-center justify-center space-x-2 transition">
+            <i class="fa-brands fa-whatsapp text-lg"></i>
+            <span>Confirm Order via WhatsApp</span>
+          </button>
         </div>
-    </header>
-
-    <!-- Main Container -->
-    <main class="flex-1 max-w-7xl w-full mx-auto px-4 py-6 tab-content">
-        <div id="homeView" class="space-y-8">
-            <!-- Hero Banner -->
-            <div class="relative bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 rounded-2xl shadow-2xl overflow-hidden border border-slate-800 p-6 md:p-12 flex flex-col md:flex-row items-center justify-between">
-                <div class="max-w-xl space-y-4 text-center md:text-left z-10">
-                    <span class="bg-daraz-orange text-white text-xs font-bold px-3.5 py-1.5 rounded-full uppercase tracking-widest inline-flex items-center shadow"><i class="fa-solid fa-bolt mr-1.5"></i> Real-Time Cloud Store</span>
-                    <h2 class="text-3xl md:text-5xl font-extrabold tracking-tight text-white leading-tight">Saddat Online Store Grand Festival</h2>
-                    <p class="text-slate-300 text-sm md:text-base leading-relaxed">Changes made in the Admin Panel instantly sync worldwide in real-time. Pay securely via Easypaisa or Cash on Delivery.</p>
-                    <div class="pt-2 flex flex-wrap gap-3 justify-center md:justify-start">
-                        <button onclick="filterCategory('Flash Sale')" class="bg-daraz-orange hover:bg-orange-600 text-white px-6 py-3.5 rounded-xl font-bold shadow-lg transition"><i class="fa-solid fa-bolt mr-2"></i> Shop Flash Sale</button>
-                        <a href="https://wa.me/923406724840?text=Hello%20Saddat%20Online%20Store" target="_blank" class="bg-emerald-600 hover:bg-emerald-700 text-white px-6 py-3.5 rounded-xl font-bold shadow-lg transition flex items-center"><i class="fa-brands fa-whatsapp mr-2 text-lg"></i> WhatsApp Support</a>
-                    </div>
-                </div>
-                <div class="mt-8 md:mt-0 relative z-10 w-full md:w-auto">
-                    <!-- Dynamic Bank Accounts Container -->
-                    <div id="heroBankAccountsContainer" class="bg-slate-950/90 backdrop-blur-xl p-6 rounded-2xl border border-slate-700 shadow-2xl text-center space-y-3 min-w-[280px]">
-                        <div class="text-xs uppercase tracking-wider text-orange-400 font-bold flex items-center justify-center"><i class="fa-solid fa-wallet mr-1.5"></i> Official Bank Accounts</div>
-                        <div id="heroBankAccountsList" class="space-y-3">
-                            <!-- Populated dynamically -->
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Features Perks -->
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                <div class="bg-slate-900 p-4 rounded-2xl border border-slate-800 flex items-center space-x-3.5">
-                    <div class="bg-slate-800 text-daraz-orange w-12 h-12 rounded-xl flex items-center justify-center text-xl shadow"><i class="fa-solid fa-globe"></i></div>
-                    <div>
-                        <h4 class="font-bold text-sm text-white">Real-Time Sync</h4>
-                        <p class="text-xs text-slate-400">Live global cloud updates</p>
-                    </div>
-                </div>
-                <div class="bg-slate-900 p-4 rounded-2xl border border-slate-800 flex items-center space-x-3.5">
-                    <div class="bg-slate-800 text-daraz-orange w-12 h-12 rounded-xl flex items-center justify-center text-xl shadow"><i class="fa-solid fa-wallet"></i></div>
-                    <div>
-                        <h4 class="font-bold text-sm text-white">Easy Payment</h4>
-                        <p class="text-xs text-slate-400">Easypaisa & COD</p>
-                    </div>
-                </div>
-                <div class="bg-slate-900 p-4 rounded-2xl border border-slate-800 flex items-center space-x-3.5">
-                    <div class="bg-slate-800 text-daraz-orange w-12 h-12 rounded-xl flex items-center justify-center text-xl shadow"><i class="fa-solid fa-rotate-left"></i></div>
-                    <div>
-                        <h4 class="font-bold text-sm text-white">7 Days Return</h4>
-                        <p class="text-xs text-slate-400">Hassle free returns</p>
-                    </div>
-                </div>
-                <div class="bg-slate-900 p-4 rounded-2xl border border-slate-800 flex items-center space-x-3.5">
-                    <div class="bg-slate-800 text-daraz-orange w-12 h-12 rounded-xl flex items-center justify-center text-xl shadow"><i class="fa-solid fa-headset"></i></div>
-                    <div>
-                        <h4 class="font-bold text-sm text-white">24/7 Support</h4>
-                        <p class="text-xs text-slate-400">0340-6724840</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Products Header -->
-            <div class="flex justify-between items-center pt-4">
-                <div>
-                    <h3 id="currentCategoryTitle" class="text-xl md:text-2xl font-black text-white tracking-tight">Just For You</h3>
-                    <p class="text-xs text-slate-400">Live real-time product catalog</p>
-                </div>
-                <div class="flex items-center space-x-2 text-xs font-semibold text-slate-300">
-                    <span>Sort by:</span>
-                    <select id="sortSelect" onchange="sortProducts(this.value)" class="bg-slate-900 border border-slate-700 text-slate-200 rounded-xl px-3.5 py-2 focus:outline-none focus:border-daraz-orange">
-                        <option value="default">Popularity</option>
-                        <option value="low-high">Price: Low to High</option>
-                        <option value="high-low">Price: High to Low</option>
-                    </select>
-                </div>
-            </div>
-
-            <!-- Product Grid -->
-            <div id="productGrid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
-                <!-- Dynamically populated from Firestore -->
-            </div>
-        </div>
-    </main>
-
-    <!-- Cart Drawer -->
-    <div id="cartDrawer" class="fixed inset-0 z-50 overflow-hidden hidden">
-        <div class="absolute inset-0 bg-slate-950/70 backdrop-blur-sm" onclick="toggleCartDrawer()"></div>
-        <div class="absolute inset-y-0 right-0 max-w-full flex pl-10">
-            <div class="w-screen max-w-md bg-slate-900 border-l border-slate-800 shadow-2xl flex flex-col">
-                <div class="p-4 bg-daraz-orange text-white flex items-center justify-between">
-                    <h3 class="font-bold text-lg flex items-center"><i class="fa-solid fa-cart-shopping mr-2"></i> Your Shopping Cart</h3>
-                    <button onclick="toggleCartDrawer()" class="text-white hover:text-orange-200 text-xl font-bold p-1"><i class="fa-solid fa-xmark"></i></button>
-                </div>
-                <div id="cartItemsList" class="flex-1 overflow-y-auto p-4 space-y-4 divide-y divide-slate-800"></div>
-                <div class="p-4 bg-slate-950 border-t border-slate-800 space-y-3">
-                    <div class="flex justify-between items-center text-base font-bold text-white">
-                        <span>Total Subtotal:</span>
-                        <span id="cartTotalPrice" class="text-daraz-orange text-xl font-mono">Rs. 0</span>
-                    </div>
-                    <button onclick="openCheckoutModal()" class="w-full bg-daraz-orange hover:bg-orange-600 text-white font-bold py-3.5 rounded-xl shadow-lg transition flex items-center justify-center text-base">
-                        <i class="fa-solid fa-lock mr-2"></i> Proceed to Checkout
-                    </button>
-                </div>
-            </div>
-        </div>
+      </div>
     </div>
 
-    <!-- Product Details Modal -->
-    <div id="productModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 hidden bg-slate-950/70 backdrop-blur-sm">
-        <div class="bg-slate-900 border border-slate-800 rounded-2xl max-w-2xl w-full overflow-hidden shadow-2xl relative">
-            <button onclick="closeProductModal()" class="absolute top-4 right-4 z-10 bg-slate-800 hover:bg-slate-700 text-slate-200 w-9 h-9 rounded-full flex items-center justify-center font-bold transition"><i class="fa-solid fa-xmark"></i></button>
-            <div id="productModalContent" class="grid grid-cols-1 md:grid-cols-2 gap-6 p-6 max-h-[85vh] overflow-y-auto"></div>
-        </div>
+  </main>
+
+  <!-- Admin Modal PIN Prompt -->
+  <div id="admin-modal" class="fixed inset-0 bg-black/80 flex items-center justify-center z-50 hidden">
+    <div class="bg-dark-card border border-dark p-6 rounded-xl w-full max-w-sm relative">
+      <button onclick="closeAdminModal()" class="absolute top-3 right-3 text-zinc-400 hover:text-white"><i class="fa-solid fa-xmark text-lg"></i></button>
+      <h3 class="text-lg font-bold text-white mb-4"><i class="fa-solid fa-lock text-amber-500 mr-2"></i> Admin Login</h3>
+      <p class="text-xs text-zinc-400 mb-4">Enter Admin PIN to manage products & bank accounts.</p>
+      <input type="password" id="admin-pin-input" placeholder="Enter PIN (7866)" class="w-full bg-zinc-900 border border-dark rounded p-2.5 mb-4 text-sm text-center text-zinc-200 tracking-widest focus:outline-none focus:border-amber-500">
+      <button onclick="verifyAdminPin()" class="w-full bg-amber-600 hover:bg-amber-700 text-white font-bold py-2.5 rounded text-sm transition">Access Admin Panel</button>
     </div>
+  </div>
 
-    <!-- Checkout Modal -->
-    <div id="checkoutModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 hidden bg-slate-950/70 backdrop-blur-sm">
-        <div class="bg-slate-900 border border-slate-800 rounded-2xl max-w-xl w-full overflow-hidden shadow-2xl relative">
-            <div class="bg-daraz-orange text-white p-4 flex justify-between items-center">
-                <h3 class="font-bold text-lg"><i class="fa-solid fa-bag-shopping mr-2"></i> Complete Order</h3>
-                <button onclick="closeCheckoutModal()" class="text-white hover:text-orange-200 text-lg font-bold"><i class="fa-solid fa-xmark"></i></button>
-            </div>
-            <div class="p-6 max-h-[80vh] overflow-y-auto space-y-6">
-                <div class="bg-slate-950 border border-slate-800 rounded-xl p-4 space-y-2">
-                    <div class="flex items-center text-daraz-orange font-bold text-sm">
-                        <i class="fa-solid fa-wallet text-lg mr-2"></i> Payment Instructions
-                    </div>
-                    <p class="text-xs text-slate-400">Transfer total amount to our official accounts:</p>
-                    <div id="checkoutAccountsList" class="space-y-2">
-                        <!-- Populated dynamically -->
-                    </div>
-                </div>
-                <form id="checkoutForm" onsubmit="submitOrder(event)" class="space-y-4">
-                    <div>
-                        <label class="block text-xs font-bold text-slate-300 uppercase mb-1">Full Name</label>
-                        <input type="text" id="custName" required placeholder="Muhammad Ali" class="w-full px-3.5 py-2.5 text-sm bg-slate-950 border border-slate-700 text-white rounded-xl focus:outline-none focus:border-daraz-orange">
-                    </div>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div>
-                            <label class="block text-xs font-bold text-slate-300 uppercase mb-1">WhatsApp Number</label>
-                            <input type="tel" id="custPhone" required placeholder="03XXXXXXXXX" class="w-full px-3.5 py-2.5 text-sm bg-slate-950 border border-slate-700 text-white rounded-xl focus:outline-none focus:border-daraz-orange">
-                        </div>
-                        <div>
-                            <label class="block text-xs font-bold text-slate-300 uppercase mb-1">Payment Method</label>
-                            <select id="paymentMethod" class="w-full px-3.5 py-2.5 text-sm bg-slate-950 border border-slate-700 text-white rounded-xl focus:outline-none focus:border-daraz-orange">
-                                <option value="Easypaisa">Easypaisa / Bank Transfer</option>
-                                <option value="Cash on Delivery">Cash on Delivery (COD)</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div>
-                        <label class="block text-xs font-bold text-slate-300 uppercase mb-1">Delivery Address & City</label>
-                        <textarea id="custAddress" required rows="2" placeholder="House #, Street name, City" class="w-full px-3.5 py-2.5 text-sm bg-slate-950 border border-slate-700 text-white rounded-xl focus:outline-none focus:border-daraz-orange"></textarea>
-                    </div>
-                    <div>
-                        <label class="block text-xs font-bold text-slate-300 uppercase mb-1">Transaction ID (TID) / Note</label>
-                        <input type="text" id="custTID" placeholder="Enter TID e.g. 3849201948" class="w-full px-3.5 py-2.5 text-sm bg-slate-950 border border-slate-700 text-white rounded-xl focus:outline-none focus:border-daraz-orange">
-                    </div>
-                    <button type="submit" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3.5 rounded-xl shadow-lg transition flex items-center justify-center text-base">
-                        <i class="fa-brands fa-whatsapp mr-2 text-xl"></i> Confirm Order via WhatsApp (0340-6724840)
-                    </button>
-                </form>
-            </div>
+  <!-- Admin Dashboard Modal -->
+  <div id="admin-dashboard" class="fixed inset-0 bg-black/90 flex flex-col z-50 hidden overflow-y-auto p-4 md:p-8">
+    <div class="max-w-4xl mx-auto w-full bg-dark-card border border-dark rounded-xl p-6 shadow-2xl relative mb-10">
+      <div class="flex justify-between items-center mb-6 border-b border-dark pb-4">
+        <div>
+          <h2 class="text-xl font-bold text-white"><i class="fa-solid fa-gauge-high text-amber-500 mr-2"></i> Admin Control Panel</h2>
+          <p class="text-xs text-zinc-400">Manage real-time cloud inventory for Saddat Online Store</p>
         </div>
+        <button onclick="closeAdminDashboard()" class="bg-zinc-800 hover:bg-zinc-700 px-3 py-1.5 rounded text-xs text-zinc-300">Close Panel</button>
+      </div>
+
+      <!-- Add New Product Form -->
+      <div class="bg-zinc-900 p-4 rounded-lg border border-dark mb-6">
+        <h3 class="text-sm font-bold text-white mb-3"><i class="fa-solid fa-plus text-blue-500 mr-1"></i> Add New Product</h3>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-3">
+          <input type="text" id="new-prod-name" placeholder="Product Title" class="bg-zinc-800 border border-dark rounded p-2 text-xs text-zinc-200">
+          <input type="number" id="new-prod-price" placeholder="Price (Rs)" class="bg-zinc-800 border border-dark rounded p-2 text-xs text-zinc-200">
+          <input type="number" id="new-prod-old-price" placeholder="Original Price (Rs)" class="bg-zinc-800 border border-dark rounded p-2 text-xs text-zinc-200">
+          <input type="file" id="new-prod-img" accept="image/*" class="bg-zinc-800 border border-dark rounded p-1.5 text-xs text-zinc-400 file:mr-2 file:py-1 file:px-2 file:rounded file:border-0 file:text-xs file:bg-blue-600 file:text-white">
+        </div>
+        <textarea id="new-prod-desc" placeholder="Product Description / Details" class="w-full bg-zinc-800 border border-dark rounded p-2 text-xs text-zinc-200 mb-3 h-16"></textarea>
+        <button onclick="addNewProduct()" class="bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold px-4 py-2 rounded transition">Save Product to Cloud</button>
+      </div>
+
+      <!-- Live Product Management List -->
+      <h3 class="text-sm font-bold text-white mb-3">Existing Live Products</h3>
+      <div id="admin-products-list" class="space-y-2">
+        <!-- Injected list -->
+      </div>
     </div>
+  </div>
 
-    <!-- Wishlist Modal -->
-    <div id="wishlistModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 hidden bg-slate-950/70 backdrop-blur-sm">
-        <div class="bg-slate-900 border border-slate-800 rounded-2xl max-w-lg w-full overflow-hidden shadow-2xl relative">
-            <div class="bg-daraz-orange text-white p-4 flex justify-between items-center">
-                <h3 class="font-bold text-lg"><i class="fa-regular fa-heart mr-2"></i> My Wishlist</h3>
-                <button onclick="closeWishlistModal()" class="text-white hover:text-orange-200 text-lg font-bold"><i class="fa-solid fa-xmark"></i></button>
-            </div>
-            <div id="wishlistItemsList" class="p-4 max-h-[70vh] overflow-y-auto space-y-3 divide-y divide-slate-800"></div>
-        </div>
-    </div>
+  <!-- Footer -->
+  <footer class="bg-dark-card border-t border-dark py-4 text-center text-xs text-zinc-500 mt-auto">
+    <p>&copy; 2026 Saddat Online Store. All rights reserved. | Powered by Firebase Realtime Cloud</p>
+  </footer>
 
-    <!-- Admin PIN Modal (PIN: 7866) -->
-    <div id="pinModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 hidden bg-slate-950/80 backdrop-blur-md">
-        <div class="bg-slate-900 border border-slate-800 rounded-2xl max-w-sm w-full p-6 shadow-2xl text-center space-y-4">
-            <div class="bg-slate-950 text-daraz-orange w-14 h-14 rounded-2xl mx-auto flex items-center justify-center text-2xl border border-slate-800">
-                <i class="fa-solid fa-user-shield"></i>
-            </div>
-            <div>
-                <h3 class="font-bold text-lg text-white">Admin Authentication</h3>
-                <p class="text-xs text-slate-400 mt-1">Enter PIN (7866) to manage products & bank accounts globally.</p>
-            </div>
-            <form onsubmit="handlePinSubmit(event)" class="space-y-3">
-                <input type="password" id="adminPinInput" maxlength="4" autofocus required placeholder="••••" class="w-full text-center tracking-[1em] text-xl font-bold px-4 py-3 bg-slate-950 border border-slate-700 text-white rounded-xl focus:outline-none focus:border-daraz-orange">
-                <button type="submit" class="w-full bg-daraz-orange hover:bg-orange-600 text-white font-bold py-3 rounded-xl shadow transition">Access Dashboard</button>
-            </form>
-            <button onclick="closePinModal()" class="text-xs text-slate-400 hover:text-white transition">Cancel</button>
-        </div>
-    </div>
+  <!-- Firebase SDKs & App Logic -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/13.3.0/firebase-app.js";
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/13.3.0/firebase-analytics.js";
+    import { 
+      getFirestore, 
+      collection, 
+      getDocs, 
+      setDoc, 
+      deleteDoc, 
+      doc, 
+      onSnapshot 
+    } from "https://www.gstatic.com/firebasejs/13.3.0/firebase-firestore.js";
 
-    <!-- Admin Panel Modal -->
-    <div id="adminModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 hidden bg-slate-950/80 backdrop-blur-sm">
-        <div class="bg-slate-900 border border-slate-800 rounded-2xl max-w-4xl w-full overflow-hidden shadow-2xl relative">
-            <div class="bg-slate-950 border-b border-slate-800 text-white p-4 flex justify-between items-center">
-                <h3 class="font-bold text-base flex items-center"><i class="fa-solid fa-user-shield mr-2 text-daraz-orange"></i> Saddat Online Store - Live Cloud Admin Dashboard</h3>
-                <div class="flex items-center space-x-3">
-                    <button onclick="lockAdminSession()" class="bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs px-3 py-1.5 rounded-lg font-semibold transition"><i class="fa-solid fa-lock mr-1"></i> Lock</button>
-                    <button onclick="closeAdminModal()" class="text-white hover:text-orange-200 text-lg font-bold"><i class="fa-solid fa-xmark"></i></button>
-                </div>
-            </div>
-            <div class="p-6 max-h-[80vh] overflow-y-auto space-y-8">
-                <div class="flex space-x-2 border-b border-slate-800 pb-3">
-                    <button onclick="switchAdminTab('products')" id="adminTabProdBtn" class="bg-daraz-orange text-white text-xs font-bold px-4 py-2 rounded-xl transition">Manage Products</button>
-                    <button onclick="switchAdminTab('banks')" id="adminTabBankBtn" class="bg-slate-800 text-slate-300 text-xs font-bold px-4 py-2 rounded-xl transition hover:bg-slate-700">Manage Bank Accounts</button>
-                </div>
+    // Firebase Configuration
+    const firebaseConfig = {
+      apiKey: "AIzaSyCQDTxaq51WEDum1QbUxxHsEYiMrtQre80",
+      authDomain: "saddatonlinestore.firebaseapp.com",
+      projectId: "saddatonlinestore",
+      storageBucket: "saddatonlinestore.firebasestorage.app",
+      messagingSenderId: "929117985627",
+      appId: "1:929117985627:web:b4e810a193c9b9c29e587e",
+      measurementId: "G-M5X2LS6CC5"
+    };
 
-                <!-- Products Section -->
-                <div id="adminProductsSection" class="space-y-6">
-                    <div class="bg-slate-950 border border-slate-800 rounded-2xl p-5">
-                        <h4 id="productFormHeading" class="font-bold text-white text-sm mb-3 flex items-center"><i class="fa-solid fa-plus-circle text-daraz-orange mr-2"></i> Add New Product (Live Cloud Sync)</h4>
-                        <form id="addProductForm" onsubmit="handleSaveProduct(event)" class="space-y-3">
-                            <input type="hidden" id="editProductId" value="">
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
-                                <input type="text" id="newTitle" required placeholder="Product Title / Name" class="px-3.5 py-2.5 text-sm bg-slate-900 border border-slate-700 text-white rounded-xl focus:outline-none focus:border-daraz-orange">
-                                <select id="newCategory" class="px-3.5 py-2.5 text-sm bg-slate-900 border border-slate-700 text-white rounded-xl focus:outline-none focus:border-daraz-orange">
-                                    <option value="Flash Sale">Flash Sale</option>
-                                    <option value="Electronics">Electronics</option>
-                                    <option value="Fashion">Fashion</option>
-                                    <option value="Mobile Accessories">Mobile Accessories</option>
-                                    <option value="Home & Living">Home & Living</option>
-                                    <option value="Groceries">Groceries</option>
-                                </select>
-                            </div>
-                            <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
-                                <input type="number" id="newPrice" required placeholder="Price in PKR" class="px-3.5 py-2.5 text-sm bg-slate-900 border border-slate-700 text-white rounded-xl focus:outline-none focus:border-daraz-orange">
-                                <input type="number" id="newOriginalPrice" placeholder="Original Price" class="px-3.5 py-2.5 text-sm bg-slate-900 border border-slate-700 text-white rounded-xl focus:outline-none focus:border-daraz-orange">
-                                <input type="text" id="newBadge" placeholder="Badge (e.g. -40% or HOT)" class="px-3.5 py-2.5 text-sm bg-slate-900 border border-slate-700 text-white rounded-xl focus:outline-none focus:border-daraz-orange">
-                            </div>
-                            <div>
-                                <label class="block text-xs font-bold text-slate-300 mb-1">Product Image (File Upload or Direct URL)</label>
-                                <input type="file" id="newImageFile" accept="image/*" class="w-full text-xs text-slate-300 file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-bold file:bg-daraz-orange file:text-white hover:file:bg-orange-600 bg-slate-900 border border-slate-700 rounded-xl p-1 mb-2">
-                                <input type="text" id="newImageUrl" placeholder="Or paste Image URL here" class="w-full px-3.5 py-2 text-xs bg-slate-900 border border-slate-700 text-white rounded-xl focus:outline-none focus:border-daraz-orange">
-                            </div>
-                            <textarea id="newDesc" placeholder="Detailed Product Description" rows="2" class="w-full px-3.5 py-2.5 text-sm bg-slate-900 border border-slate-700 text-white rounded-xl focus:outline-none focus:border-daraz-orange"></textarea>
-                            <div class="flex space-x-3">
-                                <button type="submit" id="productSubmitBtn" class="bg-daraz-orange hover:bg-orange-600 text-white font-bold px-5 py-2.5 text-sm rounded-xl shadow transition"><i class="fa-solid fa-plus mr-1.5"></i> Save Product</button>
-                                <button type="button" id="productCancelEditBtn" onclick="resetProductForm()" class="hidden bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold px-4 py-2.5 text-sm rounded-xl transition">Cancel Edit</button>
-                            </div>
-                        </form>
-                    </div>
-                    <div>
-                        <h4 class="font-bold text-white text-sm mb-3">Existing Store Products (Real-Time Cloud)</h4>
-                        <div id="adminProductList" class="space-y-2 max-h-60 overflow-y-auto divide-y divide-slate-800 pr-1"></div>
-                    </div>
-                </div>
+    const app = initializeApp(firebaseConfig);
+    const analytics = getAnalytics(app);
+    const db = getFirestore(app);
 
-                <!-- Bank Accounts Section -->
-                <div id="adminBanksSection" class="space-y-6 hidden">
-                    <div class="bg-slate-950 border border-slate-800 rounded-2xl p-5">
-                        <h4 id="bankFormHeading" class="font-bold text-white text-sm mb-3 flex items-center"><i class="fa-solid fa-wallet text-daraz-orange mr-2"></i> Add New Bank / Easypaisa Account</h4>
-                        <form id="addBankForm" onsubmit="handleSaveBank(event)" class="space-y-3">
-                            <input type="hidden" id="editBankId" value="">
-                            <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
-                                <input type="text" id="bankName" required placeholder="Bank Name (e.g. Easypaisa / JazzCash / HBL)" class="px-3.5 py-2.5 text-sm bg-slate-900 border border-slate-700 text-white rounded-xl focus:outline-none focus:border-daraz-orange">
-                                <input type="text" id="bankAccNo" required placeholder="Account No (e.g. 0317-0546013)" class="px-3.5 py-2.5 text-sm bg-slate-900 border border-slate-700 text-white rounded-xl focus:outline-none focus:border-daraz-orange">
-                                <input type="text" id="bankTitle" required placeholder="Account Title (e.g. Kashif Javaid Naqvi)" class="px-3.5 py-2.5 text-sm bg-slate-900 border border-slate-700 text-white rounded-xl focus:outline-none focus:border-daraz-orange">
-                            </div>
-                            <div class="flex space-x-3">
-                                <button type="submit" id="bankSubmitBtn" class="bg-daraz-orange hover:bg-orange-600 text-white font-bold px-5 py-2.5 text-sm rounded-xl shadow transition"><i class="fa-solid fa-plus mr-1.5"></i> Save Bank Account</button>
-                                <button type="button" id="bankCancelEditBtn" onclick="resetBankForm()" class="hidden bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold px-4 py-2.5 text-sm rounded-xl transition">Cancel Edit</button>
-                            </div>
-                        </form>
-                    </div>
-                    <div>
-                        <h4 class="font-bold text-white text-sm mb-3">Configured Bank Accounts (Real-Time Cloud)</h4>
-                        <div id="adminBankList" class="space-y-2 max-h-60 overflow-y-auto divide-y divide-slate-800 pr-1"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+    window.db = db;
+    window.colCollection = collection;
+    window.setDocRef = setDoc;
+    window.deleteDocRef = deleteDoc;
+    window.docRef = doc;
+    window.onSnapshotRef = onSnapshot;
+    window.getDocsRef = getDocs;
 
-    <!-- Footer -->
-    <footer class="bg-slate-950 text-slate-400 text-xs md:text-sm pt-12 pb-8 mt-12 border-t border-slate-800">
-        <div class="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-4 gap-8 pb-8 border-b border-slate-800">
-            <div class="space-y-3">
-                <div class="text-white font-black text-xl flex items-center">
-                    <i class="fa-solid fa-bag-shopping text-daraz-orange mr-2"></i> SADDAT ONLINE
-                </div>
-                <p class="text-slate-400 text-xs leading-relaxed">Pakistan's premier real-time online shopping destination. All updates sync instantly worldwide.</p>
-                <p class="text-white font-semibold text-xs pt-1"><i class="fa-brands fa-whatsapp text-emerald-400 mr-1.5 text-base"></i> WhatsApp Support: <a href="https://wa.me/923406724840" target="_blank" class="text-orange-400 font-bold hover:underline">0340-6724840</a></p>
-            </div>
-            <div class="space-y-2">
-                <h4 class="text-white font-bold text-sm uppercase tracking-wider mb-3">Customer Care</h4>
-                <p class="hover:text-daraz-orange cursor-pointer transition">Help Center</p>
-                <p class="hover:text-daraz-orange cursor-pointer transition">How to Buy</p>
-                <p class="hover:text-daraz-orange cursor-pointer transition">Returns & Refunds</p>
-            </div>
-            <div class="space-y-2">
-                <h4 class="text-white font-bold text-sm uppercase tracking-wider mb-3">Official Accounts</h4>
-                <div id="footerBankAccountsList" class="space-y-2">
-                    <!-- Populated dynamically -->
-                </div>
-            </div>
-            <div class="space-y-3">
-                <h4 class="text-white font-bold text-sm uppercase tracking-wider mb-3">Download Saddat App</h4>
-                <div class="flex items-center space-x-2">
-                    <div class="bg-slate-900 border border-slate-800 p-2.5 rounded-xl flex items-center space-x-2">
-                        <i class="fa-brands fa-google-play text-2xl text-daraz-orange"></i>
-                        <div><p class="text-[9px] text-slate-500">GET IT ON</p><p class="text-xs font-bold text-white">Google Play</p></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="max-w-7xl mx-auto px-4 pt-6 flex flex-col md:flex-row justify-between items-center text-xs text-slate-500">
-            <p>&copy; 2026 Saddat Online Store. All Rights Reserved. Real-Time Firebase Synchronized.</p>
-            <div class="flex space-x-4 mt-3 md:mt-0">
-                <span class="hover:text-white cursor-pointer">Privacy Policy</span>
-                <span class="hover:text-white cursor-pointer">Terms & Conditions</span>
-            </div>
-        </div>
-    </footer>
+    // Default Products Seed if Database is empty
+    const defaultProducts = [
+      { id: "prod_1", name: "Wireless Bluetooth Earbuds Pro", price: 1499, oldPrice: 2999, img: "https://images.unsplash.com/photo-1572569511254-d8f925fe2cbb?w=300", desc: "High quality sound with deep bass and long battery life." },
+      { id: "prod_2", name: "Smart Fitness Watch Series 8", price: 2499, oldPrice: 4999, img: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=300", desc: "Track your health, heart rate, and sports activities instantly." },
+      { id: "prod_3", name: "HD Ring Light 10 Inch with Stand", price: 1899, oldPrice: 3500, img: "https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?w=300", desc: "Perfect for TikTok videos, live streaming, and photography." },
+      { id: "prod_4", name: "Mini Portable Thermal Printer", price: 3299, oldPrice: 5999, img: "https://images.unsplash.com/photo-1612817288484-6f916006741a?w=300", desc: "Print notes, receipts, and photos instantly without ink." }
+    ];
 
-    <!-- Firebase SDKs & Direct Real-Time Sync Logic -->
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-        import { getAuth, signInAnonymously, signInWithCustomToken } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-        import { getFirestore, collection, doc, setDoc, deleteDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+    let products = [];
+    let cart = [];
 
-        const appId = typeof __app_id !== 'undefined' ? __app_id : 'saddat-online-store-pk';
-        const firebaseConfig = JSON.parse(typeof __firebase_config !== 'undefined' ? __firebase_config : '{}');
+    // Real-time Listener on Firestore
+    async function initFirestoreSync() {
+      try {
+        const querySnapshot = await getDocs(collection(db, "products"));
+        if (querySnapshot.empty) {
+          // Seed default products once
+          for (let p of defaultProducts) {
+            await setDoc(doc(db, "products", p.id), p);
+          }
+        }
 
-        let app, db, auth;
-        let products = [];
-        let bankAccounts = [];
-        let cart = [];
-        let wishlist = [];
-        let currentFilter = 'All';
-
-        const defaultProducts = [
-            {
-                id: "seed_1",
-                title: "T900 Ultra Smartwatch Series 8 with Bluetooth Calling",
-                category: "Flash Sale",
-                price: 1899,
-                originalPrice: 3500,
-                badge: "-46%",
-                rating: 4.8,
-                reviews: 142,
-                image: "https://placehold.co/400x400/1E293B/F85606?text=Smartwatch+T900",
-                desc: "High quality T900 Ultra smartwatch with vibrant IPS display, heart rate monitor, fitness tracking, and Bluetooth calling."
-            },
-            {
-                id: "seed_2",
-                title: "M10 TWS Wireless Bluetooth Earbuds HiFi Stereo",
-                category: "Mobile Accessories",
-                price: 999,
-                originalPrice: 2200,
-                badge: "-55%",
-                rating: 4.7,
-                reviews: 289,
-                image: "https://placehold.co/400x400/1E293B/F85606?text=M10+Earbuds",
-                desc: "True wireless earbuds with LED power display charging case, deep bass, and crystal clear sound."
-            },
-            {
-                id: "seed_3",
-                title: "Men's Casual Cotton Stitched Kurta Shalwar Suit",
-                category: "Fashion",
-                price: 1650,
-                originalPrice: 2800,
-                badge: "-41%",
-                rating: 4.6,
-                reviews: 95,
-                image: "https://placehold.co/400x400/1E293B/F85606?text=Kurta+Shalwar",
-                desc: "Premium fabric stitched Kurta Shalwar designed for elegance and maximum comfort."
-            },
-            {
-                id: "seed_4",
-                title: "Professional Rechargeable Hair Clipper & Trimmer",
-                category: "Electronics",
-                price: 1299,
-                originalPrice: 2500,
-                badge: "-48%",
-                rating: 4.9,
-                reviews: 310,
-                image: "https://placehold.co/400x400/1E293B/F85606?text=Hair+Trimmer",
-                desc: "Stainless steel precision blades with adjustable trimming lengths."
-            }
-        ];
-
-        const defaultBanks = [
-            {
-                id: "bank_seed_1",
-                name: "Easypaisa",
-                accNo: "0317-0546013",
-                title: "Kashif Javaid Naqvi"
-            }
-        ];
-
-        window.addEventListener('DOMContentLoaded', async () => {
-            try {
-                if (Object.keys(firebaseConfig).length > 0) {
-                    app = initializeApp(firebaseConfig);
-                    db = getFirestore(app);
-                    auth = getAuth(app);
-
-                    if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
-                        await signInWithCustomToken(auth, __initial_auth_token);
-                    } else {
-                        await signInAnonymously(auth);
-                    }
-
-                    initRealtimeSync();
-                } else {
-                    products = defaultProducts;
-                    bankAccounts = defaultBanks;
-                    renderProducts(products);
-                    renderBankAccounts();
-                }
-            } catch (err) {
-                console.error("Initialization error:", err);
-                products = defaultProducts;
-                bankAccounts = defaultBanks;
-                renderProducts(products);
-                renderBankAccounts();
-            }
-
-            document.addEventListener('click', function(e) {
-                const particle = document.createElement('div');
-                particle.className = 'click-particle';
-                particle.style.left = e.pageX + 'px';
-                particle.style.top = e.pageY + 'px';
-                document.body.appendChild(particle);
-                setTimeout(() => particle.remove(), 600);
-            });
+        // Real-time listener
+        onSnapshot(collection(db, "products"), (snapshot) => {
+          products = [];
+          snapshot.forEach((docSnap) => {
+            products.push({ id: docSnap.id, ...docSnap.data() });
+          });
+          renderProducts();
+          renderAdminProductsList();
         });
+      } catch (err) {
+        console.error("Firestore sync error:", err);
+        // Fallback to defaults if offline
+        products = defaultProducts;
+        renderProducts();
+      }
+    }
 
-        function initRealtimeSync() {
-            if (!auth || !db) return;
+    initFirestoreSync();
 
-            // Products Real-time Snapshot
-            const productsColl = collection(db, 'artifacts', appId, 'public', 'data', 'products');
-            onSnapshot(productsColl, (snapshot) => {
-                const fetchedProducts = [];
-                snapshot.forEach(docSnap => {
-                    fetchedProducts.push({ id: docSnap.id, ...docSnap.data() });
-                });
+    // Global Functions Attached to Window
+    window.renderProducts = function(filteredList = null) {
+      const list = filteredList || products;
+      const grid = document.getElementById('products-grid');
+      document.getElementById('product-count').innerText = `${list.length} Items Available`;
+      
+      if(list.length === 0) {
+        grid.innerHTML = `<div class="col-span-full text-center py-10 text-zinc-500">No products found.</div>`;
+        return;
+      }
 
-                if (fetchedProducts.length === 0 && !localStorage.getItem('saddat_seeded')) {
-                    localStorage.setItem('saddat_seeded', 'true');
-                    defaultProducts.forEach(async (p) => {
-                        await setDoc(doc(db, 'artifacts', appId, 'public', 'data', 'products', p.id), p);
-                    });
-                } else {
-                    products = fetchedProducts;
-                    renderProducts(currentFilter === 'All' ? products : products.filter(p => p.category === currentFilter));
-                    renderAdminProductList();
-                }
-            }, (error) => {
-                console.error("Products snapshot error:", error);
-            });
+      grid.innerHTML = list.map(p => `
+        <div class="bg-dark-card border border-dark rounded-xl overflow-hidden shadow-md flex flex-col justify-between hover:border-blue-600 transition group">
+          <div>
+            <div class="relative overflow-hidden bg-zinc-900 h-40">
+              <img src="${p.img || 'https://via.placeholder.com/300'}" alt="${p.name}" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
+              <span class="absolute top-2 left-2 bg-red-600 text-white text-[10px] font-bold px-1.5 py-0.5 rounded">Sale</span>
+            </div>
+            <div class="p-3">
+              <h3 class="text-xs font-semibold text-zinc-200 line-clamp-2 mb-1">${p.name}</h3>
+              <div class="flex items-baseline space-x-2 mb-2">
+                <span class="text-sm font-bold text-blue-400">Rs. ${p.price}</span>
+                <span class="text-[10px] text-zinc-500 line-through">Rs. ${p.oldPrice || p.price + 500}</span>
+              </div>
+            </div>
+          </div>
+          <div class="p-3 pt-0">
+            <button onclick="addToCart('${p.id}')" class="w-full bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold py-2 rounded-lg flex items-center justify-center space-x-1 transition">
+              <i class="fa-solid fa-cart-plus"></i>
+              <span>Add to Cart</span>
+            </button>
+          </div>
+        </div>
+      `).join('');
+    };
 
-            // Bank Accounts Real-time Snapshot
-            const banksColl = collection(db, 'artifacts', appId, 'public', 'data', 'bank_accounts');
-            onSnapshot(banksColl, (snapshot) => {
-                const fetchedBanks = [];
-                snapshot.forEach(docSnap => {
-                    fetchedBanks.push({ id: docSnap.id, ...docSnap.data() });
-                });
+    window.filterProducts = function() {
+      const query = document.getElementById('search-input').value.toLowerCase();
+      const filtered = products.filter(p => p.name.toLowerCase().includes(query) || (p.desc && p.desc.toLowerCase().includes(query)));
+      renderProducts(filtered);
+    };
 
-                if (fetchedBanks.length === 0 && !localStorage.getItem('saddat_banks_seeded')) {
-                    localStorage.setItem('saddat_banks_seeded', 'true');
-                    defaultBanks.forEach(async (b) => {
-                        await setDoc(doc(db, 'artifacts', appId, 'public', 'data', 'bank_accounts', b.id), b);
-                    });
-                } else {
-                    bankAccounts = fetchedBanks;
-                    renderBankAccounts();
-                    renderAdminBankList();
-                }
-            }, (error) => {
-                console.error("Banks snapshot error:", error);
-            });
+    window.switchTab = function(tabName) {
+      document.getElementById('tab-home').classList.add('hidden');
+      document.getElementById('tab-cart').classList.add('hidden');
+      document.getElementById(`tab-${tabName}`).classList.remove('hidden');
+      window.scrollTo({top: 0, behavior: 'smooth'});
+    };
+
+    window.addToCart = function(id) {
+      const prod = products.find(p => p.id === id);
+      if(!prod) return;
+      const existing = cart.find(item => item.id === id);
+      if(existing) {
+        existing.qty += 1;
+      } else {
+        cart.push({ ...prod, qty: 1 });
+      }
+      updateCartBadge();
+      renderCart();
+      alert(`"${prod.name}" added to cart!`);
+    };
+
+    window.updateCartBadge = function() {
+      const totalQty = cart.reduce((sum, item) => sum + item.qty, 0);
+      document.getElementById('cart-count').innerText = totalQty;
+    };
+
+    window.renderCart = function() {
+      const container = document.getElementById('cart-items-container');
+      const summary = document.getElementById('cart-summary');
+      if(cart.length === 0) {
+        container.innerHTML = `<p class="text-xs text-zinc-500 text-center py-6">Your cart is empty.</p>`;
+        summary.classList.add('hidden');
+        return;
+      }
+      summary.classList.remove('hidden');
+      container.innerHTML = cart.map((item, index) => `
+        <div class="flex items-center justify-between bg-zinc-900 p-3 rounded-lg border border-dark text-xs">
+          <div class="flex items-center space-x-3">
+            <img src="${item.img}" class="w-10 h-10 object-cover rounded">
+            <div>
+              <p class="font-bold text-white">${item.name}</p>
+              <p class="text-blue-400">Rs. ${item.price} x ${item.qty}</p>
+            </div>
+          </div>
+          <div class="flex items-center space-x-2">
+            <button onclick="changeQty(${index}, 1)" class="bg-zinc-800 px-2 py-1 rounded text-white">+</button>
+            <span>${item.qty}</span>
+            <button onclick="changeQty(${index}, -1)" class="bg-zinc-800 px-2 py-1 rounded text-white">-</button>
+            <button onclick="removeFromCart(${index})" class="text-red-500 ml-2"><i class="fa-solid fa-trash"></i></button>
+          </div>
+        </div>
+      `).join('');
+
+      const total = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+      document.getElementById('cart-total').innerText = `Rs. ${total}`;
+    };
+
+    window.changeQty = function(index, delta) {
+      cart[index].qty += delta;
+      if(cart[index].qty <= 0) cart.splice(index, 1);
+      updateCartBadge();
+      renderCart();
+    };
+
+    window.removeFromCart = function(index) {
+      cart.splice(index, 1);
+      updateCartBadge();
+      renderCart();
+    };
+
+    window.checkoutWhatsApp = function() {
+      const name = document.getElementById('cust-name').value.trim();
+      const phone = document.getElementById('cust-phone').value.trim();
+      const address = document.getElementById('cust-address').value.trim();
+
+      if(!name || !phone || !address) {
+        alert("Please fill in all customer details (Name, Phone, Address).");
+        return;
+      }
+
+      let msg = `🛍️ *NEW ORDER - SADDAT ONLINE STORE* 🛍️\n\n`;
+      msg += `👤 *Name:* ${name}\n`;
+      msg += `📞 *Phone:* ${phone}\n`;
+      msg += `📍 *Address:* ${address}\n\n`;
+      msg += `🛒 *Ordered Items:*\n`;
+      cart.forEach((item, i) => {
+        msg += `${i+1}. ${item.name} (x${item.qty}) - Rs. ${item.price * item.qty}\n`;
+      });
+      const total = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+      msg += `\n💰 *Total Amount:* Rs. ${total}\n`;
+      msg += `🏦 *Payment Method:* Easypaisa (0317-0546013 / Kashif Javaid Naqvi)\n`;
+      msg += `✅ Please confirm my order!`;
+
+      const encoded = encodeURIComponent(msg);
+      window.open(`https://wa.me/923406724840?text=${encoded}`, '_blank');
+    };
+
+    // Admin Authentication & Dashboard
+    window.openAdminModal = function() {
+      document.getElementById('admin-modal').classList.remove('hidden');
+    };
+    window.closeAdminModal = function() {
+      document.getElementById('admin-modal').classList.add('hidden');
+    };
+    window.verifyAdminPin = function() {
+      const pin = document.getElementById('admin-pin-input').value;
+      if(pin === "7866") {
+        closeAdminModal();
+        document.getElementById('admin-pin-input').value = "";
+        document.getElementById('admin-dashboard').classList.remove('hidden');
+      } else {
+        alert("Incorrect PIN! Correct PIN is 7866.");
+      }
+    };
+    window.closeAdminDashboard = function() {
+      document.getElementById('admin-dashboard').classList.add('hidden');
+    };
+
+    window.renderAdminProductsList = function() {
+      const list = document.getElementById('admin-products-list');
+      if(products.length === 0) {
+        list.innerHTML = `<p class="text-xs text-zinc-500">No products in cloud database.</p>`;
+        return;
+      }
+      list.innerHTML = products.map(p => `
+        <div class="flex items-center justify-between bg-zinc-900 p-2.5 rounded border border-dark text-xs">
+          <div class="flex items-center space-x-2">
+            <img src="${p.img}" class="w-8 h-8 object-cover rounded">
+            <div>
+              <p class="font-bold text-white">${p.name}</p>
+              <p class="text-blue-400">Rs. ${p.price}</p>
+            </div>
+          </div>
+          <button onclick="deleteProduct('${p.id}')" class="bg-red-600/20 hover:bg-red-600 text-red-400 hover:text-white px-2.5 py-1.5 rounded transition"><i class="fa-solid fa-trash"></i> Delete</button>
+        </div>
+      `).join('');
+    };
+
+    window.addNewProduct = async function() {
+      const name = document.getElementById('new-prod-name').value.trim();
+      const price = parseFloat(document.getElementById('new-prod-price').value);
+      const oldPrice = parseFloat(document.getElementById('new-prod-old-price').value) || (price + 500);
+      const desc = document.getElementById('new-prod-desc').value.trim();
+      const imgFile = document.getElementById('new-prod-img').files[0];
+
+      if(!name || isNaN(price)) {
+        alert("Please enter product name and price.");
+        return;
+      }
+
+      let imgUrl = "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=300";
+
+      const saveToFirestore = async (finalImg) => {
+        try {
+          const newId = "prod_" + Date.now();
+          await setDoc(doc(db, "products", newId), {
+            name,
+            price,
+            oldPrice,
+            desc: desc || "High quality product.",
+            img: finalImg
+          });
+          document.getElementById('new-prod-name').value = "";
+          document.getElementById('new-prod-price').value = "";
+          document.getElementById('new-prod-old-price').value = "";
+          document.getElementById('new-prod-desc').value = "";
+          document.getElementById('new-prod-img').value = "";
+          alert("Product added successfully to live cloud database!");
+        } catch(err) {
+          console.error("Error adding product:", err);
+          alert("Failed to save product.");
         }
+      };
 
-        function renderBankAccounts() {
-            const heroList = document.getElementById('heroBankAccountsList');
-            const footerList = document.getElementById('footerBankAccountsList');
-            const checkoutList = document.getElementById('checkoutAccountsList');
+      if(imgFile) {
+        const reader = new FileReader();
+        reader.onloadend = function() {
+          saveToFirestore(reader.result);
+        };
+        reader.readAsDataURL(imgFile);
+      } else {
+        saveToFirestore(imgUrl);
+      }
+    };
 
-            const htmlContent = bankAccounts.map(b => `
-                <div class="bg-slate-900 p-3 rounded-xl border border-slate-800 text-left space-y-0.5">
-                    <p class="text-xs text-orange-400 font-bold">${b.name}</p>
-                    <p class="text-sm font-black font-mono text-white">${b.accNo}</p>
-                    <p class="text-[11px] text-slate-300">Title: <span class="font-bold">${b.title}</span></p>
-                </div>
-            `).join('');
-
-            if (heroList) heroList.innerHTML = htmlContent;
-            if (footerList) footerList.innerHTML = bankAccounts.map(b => `<p class="text-slate-400">${b.name}: <span class="font-bold text-daraz-orange font-mono">${b.accNo}</span> (${b.title})</p>`).join('');
-            if (checkoutList) checkoutList.innerHTML = bankAccounts.map(b => `<div class="bg-slate-900 p-2.5 rounded-lg border border-slate-800 text-xs text-slate-300"><span class="font-bold text-daraz-orange">${b.name}</span>: <span class="font-mono text-white font-bold">${b.accNo}</span> (${b.title})</div>`).join('');
+    window.deleteProduct = async function(id) {
+      if(confirm("Are you sure you want to delete this product from live database?")) {
+        try {
+          await deleteDoc(doc(db, "products", id));
+          alert("Product deleted permanently!");
+        } catch(err) {
+          console.error("Error deleting product:", err);
+          alert("Failed to delete product.");
         }
+      }
+    };
 
-        window.renderProducts = function(itemsToRender) {
-            const grid = document.getElementById('productGrid');
-            if (!grid) return;
-            if (itemsToRender.length === 0) {
-                grid.innerHTML = `<div class="col-span-full py-16 text-center text-slate-400">
-                    <i class="fa-solid fa-box-open text-4xl text-daraz-orange mb-2"></i>
-                    <p class="font-semibold">No products found.</p>
-                </div>`;
-                return;
-            }
-
-            grid.innerHTML = itemsToRender.map(p => `
-                <div class="bg-slate-900 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 border border-slate-800 flex flex-col justify-between overflow-hidden group">
-                    <div class="relative cursor-pointer overflow-hidden bg-slate-950" onclick="openProductModal('${p.id}')">
-                        <img src="${p.image}" alt="${p.title}" onerror="this.src='https://placehold.co/400x400/1E293B/F85606?text=Saddat+Item'" class="w-full h-48 object-cover group-hover:scale-105 transition duration-300">
-                        ${p.badge ? `<span class="absolute top-2.5 left-2.5 bg-daraz-orange text-white text-[10px] font-bold px-2 py-0.5 rounded shadow">${p.badge}</span>` : ''}
-                        <button onclick="event.stopPropagation(); toggleWishlist('${p.id}')" class="absolute top-2.5 right-2.5 bg-slate-900/80 hover:bg-slate-900 text-slate-200 p-1.5 rounded-full shadow transition">
-                            <i class="${wishlist.includes(p.id) ? 'fa-solid fa-heart text-red-500' : 'fa-regular fa-heart'}"></i>
-                        </button>
-                    </div>
-                    <div class="p-3.5 flex flex-col flex-1 justify-between space-y-2">
-                        <div>
-                            <span class="text-[10px] text-slate-400 uppercase tracking-wider font-semibold">${p.category}</span>
-                            <h4 class="font-medium text-xs sm:text-sm text-slate-100 line-clamp-2 hover:text-daraz-orange cursor-pointer transition" onclick="openProductModal('${p.id}')">${p.title}</h4>
-                        </div>
-                        <div>
-                            <div class="flex items-baseline space-x-2">
-                                <span class="text-daraz-orange font-bold text-base sm:text-lg font-mono">Rs. ${Number(p.price).toLocaleString()}</span>
-                                ${p.originalPrice ? `<span class="text-slate-500 text-xs line-through font-mono">Rs. ${Number(p.originalPrice).toLocaleString()}</span>` : ''}
-                            </div>
-                            <div class="flex items-center text-[11px] text-slate-400 mt-1">
-                                <i class="fa-solid fa-star text-amber-400 mr-1"></i>
-                                <span class="font-semibold text-slate-200">${p.rating}</span>
-                                <span class="ml-1">(${p.reviews})</span>
-                            </div>
-                        </div>
-                        <div class="pt-2 grid grid-cols-2 gap-2">
-                            <button onclick="addToCart('${p.id}')" class="bg-slate-800 hover:bg-slate-700 text-daraz-orange font-bold text-xs py-2 px-2 rounded-xl transition text-center flex items-center justify-center border border-slate-700">
-                                <i class="fa-solid fa-cart-plus mr-1"></i> Add
-                            </button>
-                            <button onclick="buyNow('${p.id}')" class="bg-daraz-orange hover:bg-orange-600 text-white font-bold text-xs py-2 px-2 rounded-xl transition text-center shadow">
-                                Buy Now
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            `).join('');
-        };
-
-        window.filterCategory = function(category) {
-            currentFilter = category;
-            document.getElementById('currentCategoryTitle').innerText = category === 'All' ? 'Just For You' : category;
-            
-            document.querySelectorAll('.category-btn').forEach(btn => {
-                if(btn.innerText.includes(category)) {
-                    btn.classList.add('text-daraz-orange', 'font-bold');
-                } else {
-                    btn.classList.remove('text-daraz-orange', 'font-bold');
-                }
-            });
-
-            const mainContent = document.querySelector('main');
-            mainContent.classList.remove('tab-content');
-            void mainContent.offsetWidth;
-            mainContent.classList.add('tab-content');
-
-            if (category === 'All') {
-                renderProducts(products);
-            } else {
-                const filtered = products.filter(p => p.category === category);
-                renderProducts(filtered);
-            }
-        };
-
-        window.handleSearch = function(query) {
-            const q = query.toLowerCase().trim();
-            const suggestionsBox = document.getElementById('searchSuggestions');
-            
-            if (q.length === 0) {
-                suggestionsBox.classList.add('hidden');
-                renderProducts(currentFilter === 'All' ? products : products.filter(p => p.category === currentFilter));
-                return;
-            }
-
-            const matched = products.filter(p => p.title.toLowerCase().includes(q) || p.category.toLowerCase().includes(q));
-            
-            if (matched.length > 0) {
-                suggestionsBox.innerHTML = matched.slice(0, 5).map(m => `
-                    <div onclick="openProductModal('${m.id}'); document.getElementById('searchSuggestions').classList.add('hidden');" class="p-3 hover:bg-slate-800 cursor-pointer flex items-center space-x-3 transition">
-                        <img src="${m.image}" class="w-10 h-10 object-cover rounded-lg border border-slate-700">
-                        <div>
-                            <p class="text-xs font-semibold text-slate-100 line-clamp-1">${m.title}</p>
-                            <p class="text-xs text-daraz-orange font-bold font-mono">Rs. ${Number(m.price).toLocaleString()}</p>
-                        </div>
-                    </div>
-                `).join('');
-                suggestionsBox.classList.remove('hidden');
-            } else {
-                suggestionsBox.innerHTML = `<div class="p-3 text-xs text-slate-400 text-center">No matching products found</div>`;
-                suggestionsBox.classList.remove('hidden');
-            }
-
-            renderProducts(matched);
-        };
-
-        window.sortProducts = function(criteria) {
-            let sorted = [...products];
-            if (criteria === 'low-high') {
-                sorted.sort((a, b) => Number(a.price) - Number(b.price));
-            } else if (criteria === 'high-low') {
-                sorted.sort((a, b) => Number(b.price) - Number(a.price));
-            }
-            renderProducts(sorted);
-        };
-
-        window.addToCart = function(productId) {
-            const product = products.find(p => p.id === productId);
-            if (!product) return;
-            const existing = cart.find(item => item.id === productId);
-            if (existing) {
-                existing.quantity += 1;
-            } else {
-                cart.push({ ...product, quantity: 1 });
-            }
-            updateBadges();
-            renderCartItems();
-            showToast(`Added "${product.title.substring(0, 25)}..." to cart!`);
-        };
-
-        window.buyNow = function(productId) {
-            const product = products.find(p => p.id === productId);
-            if (!product) return;
-            cart = [{ ...product, quantity: 1 }];
-            updateBadges();
-            renderCartItems();
-            openCheckoutModal();
-        };
-
-        function updateBadges() {
-            const totalCount = cart.reduce((sum, item) => sum + item.quantity, 0);
-            document.getElementById('cartCountBadge').innerText = totalCount;
-            document.getElementById('wishlistCountBadge').innerText = wishlist.length;
-        }
-
-        window.toggleCartDrawer = function() {
-            const drawer = document.getElementById('cartDrawer');
-            drawer.classList.toggle('hidden');
-            renderCartItems();
-        };
-
-        function renderCartItems() {
-            const list = document.getElementById('cartItemsList');
-            const totalPriceEl = document.getElementById('cartTotalPrice');
-            
-            if (cart.length === 0) {
-                list.innerHTML = `<div class="py-12 text-center text-slate-500">
-                    <i class="fa-solid fa-cart-shopping text-4xl mb-2 text-slate-700"></i>
-                    <p class="text-sm font-semibold">Your cart is empty</p>
-                </div>`;
-                totalPriceEl.innerText = 'Rs. 0';
-                return;
-            }
-
-            let total = 0;
-            list.innerHTML = cart.map(item => {
-                total += Number(item.price) * item.quantity;
-                return `
-                    <div class="flex items-center space-x-3 py-3">
-                        <img src="${item.image}" class="w-16 h-16 object-cover rounded-xl border border-slate-700" onerror="this.src='https://placehold.co/100x100'">
-                        <div class="flex-1">
-                            <h4 class="text-xs font-semibold text-slate-100 line-clamp-1">${item.title}</h4>
-                            <p class="text-daraz-orange font-bold text-sm mt-0.5 font-mono">Rs. ${Number(item.price).toLocaleString()}</p>
-                            <div class="flex items-center space-x-2 mt-1">
-                                <button onclick="updateQty('${item.id}', -1)" class="w-6 h-6 bg-slate-800 rounded-lg text-slate-200 font-bold hover:bg-slate-700 border border-slate-700">-</button>
-                                <span class="text-xs font-bold font-mono">${item.quantity}</span>
-                                <button onclick="updateQty('${item.id}', 1)" class="w-6 h-6 bg-slate-800 rounded-lg text-slate-200 font-bold hover:bg-slate-700 border border-slate-700">+</button>
-                            </div>
-                        </div>
-                        <button onclick="removeFromCart('${item.id}')" class="text-slate-500 hover:text-red-400 p-2"><i class="fa-solid fa-trash-can"></i></button>
-                    </div>
-                `;
-            }).join('');
-
-            totalPriceEl.innerText = `Rs. ${total.toLocaleString()}`;
-        }
-
-        window.updateQty = function(id, change) {
-            const item = cart.find(i => i.id === id);
-            if (item) {
-                item.quantity += change;
-                if (item.quantity <= 0) {
-                    cart = cart.filter(i => i.id !== id);
-                }
-            }
-            updateBadges();
-            renderCartItems();
-        };
-
-        window.removeFromCart = function(id) {
-            cart = cart.filter(i => i.id !== id);
-            updateBadges();
-            renderCartItems();
-        };
-
-        window.openProductModal = function(id) {
-            const product = products.find(p => p.id === id);
-            if (!product) return;
-            
-            const modalContent = document.getElementById('productModalContent');
-            modalContent.innerHTML = `
-                <div class="bg-slate-950 rounded-2xl overflow-hidden flex items-center justify-center p-2 border border-slate-800">
-                    <img src="${product.image}" class="w-full h-72 object-cover rounded-xl" onerror="this.src='https://placehold.co/400x400'">
-                </div>
-                <div class="space-y-3 flex flex-col justify-between">
-                    <div>
-                        <span class="bg-slate-800 text-daraz-orange font-bold text-[10px] px-3 py-1 rounded-full uppercase tracking-wider border border-slate-700">${product.category}</span>
-                        <h2 class="text-lg font-bold text-white mt-2">${product.title}</h2>
-                        <div class="flex items-center space-x-2 mt-1 text-xs text-slate-400">
-                            <div class="flex items-center text-amber-400"><i class="fa-solid fa-star"></i><span class="ml-1 font-bold text-slate-200">${product.rating}</span></div>
-                            <span>•</span>
-                            <span>${product.reviews} Ratings</span>
-                        </div>
-                        <div class="flex items-baseline space-x-3 mt-3">
-                            <span class="text-2xl font-black text-daraz-orange font-mono">Rs. ${Number(product.price).toLocaleString()}</span>
-                            ${product.originalPrice ? `<span class="text-sm text-slate-500 line-through font-mono">Rs. ${Number(product.originalPrice).toLocaleString()}</span>` : ''}
-                        </div>
-                        <p class="text-xs text-slate-300 mt-3 leading-relaxed">${product.desc}</p>
-                    </div>
-                    <div class="grid grid-cols-2 gap-3 pt-2">
-                        <button onclick="addToCart('${product.id}'); closeProductModal();" class="bg-slate-800 hover:bg-slate-700 text-daraz-orange font-bold py-3 px-4 rounded-xl transition text-xs flex items-center justify-center border border-slate-700">
-                            <i class="fa-solid fa-cart-plus mr-1.5"></i> Add to Cart
-                        </button>
-                        <button onclick="closeProductModal(); buyNow('${product.id}');" class="bg-daraz-orange hover:bg-orange-600 text-white font-bold py-3 px-4 rounded-xl transition text-xs shadow">
-                            Buy Now
-                        </button>
-                    </div>
-                </div>
-            `;
-            document.getElementById('productModal').classList.remove('hidden');
-        };
-
-        window.closeProductModal = function() {
-            document.getElementById('productModal').classList.add('hidden');
-        };
-
-        window.toggleWishlist = function(id) {
-            const index = wishlist.indexOf(id);
-            if (index > -1) {
-                wishlist.splice(index, 1);
-                showToast("Removed from wishlist");
-            } else {
-                wishlist.push(id);
-                showToast("Added to wishlist!");
-            }
-            updateBadges();
-            renderProducts(currentFilter === 'All' ? products : products.filter(p => p.category === currentFilter));
-        };
-
-        window.openWishlistModal = function() {
-            const list = document.getElementById('wishlistItemsList');
-            if (wishlist.length === 0) {
-                list.innerHTML = `<p class="text-center text-slate-500 py-8 text-sm">Your wishlist is empty.</p>`;
-            } else {
-                const wishItems = products.filter(p => wishlist.includes(p.id));
-                list.innerHTML = wishItems.map(item => `
-                    <div class="flex items-center space-x-3 py-2.5">
-                        <img src="${item.image}" class="w-12 h-12 object-cover rounded-xl border border-slate-700">
-                        <div class="flex-1">
-                            <h4 class="text-xs font-semibold text-slate-100 line-clamp-1">${item.title}</h4>
-                            <p class="text-daraz-orange font-bold text-xs font-mono">Rs. ${Number(item.price).toLocaleString()}</p>
-                        </div>
-                        <button onclick="addToCart('${item.id}'); toggleWishlist('${item.id}'); closeWishlistModal();" class="bg-daraz-orange text-white text-xs px-3 py-1.5 rounded-xl font-bold shadow">Add to Cart</button>
-                    </div>
-                `).join('');
-            }
-            document.getElementById('wishlistModal').classList.remove('hidden');
-        };
-
-        window.closeWishlistModal = function() {
-            document.getElementById('wishlistModal').classList.add('hidden');
-        };
-
-        window.openCheckoutModal = function() {
-            if (cart.length === 0) {
-                showToast("Your cart is empty!");
-                return;
-            }
-            toggleCartDrawer();
-            document.getElementById('checkoutModal').classList.remove('hidden');
-        };
-
-        window.closeCheckoutModal = function() {
-            document.getElementById('checkoutModal').classList.add('hidden');
-        };
-
-        window.submitOrder = function(e) {
-            e.preventDefault();
-            const name = document.getElementById('custName').value;
-            const phone = document.getElementById('custPhone').value;
-            const payment = document.getElementById('paymentMethod').value;
-            const address = document.getElementById('custAddress').value;
-            const tid = document.getElementById('custTID').value || 'Not provided yet';
-
-            let total = cart.reduce((sum, item) => sum + (Number(item.price) * item.quantity), 0);
-            let itemsSummary = cart.map(i => `- ${i.title} (Qty: ${i.quantity}) - Rs. ${Number(i.price) * i.quantity}`).join('%0A');
-
-            let message = `*New Order - Saddat Online Store*%0A%0A` +
-                          `*Customer Name:* ${name}%0A` +
-                          `*Phone:* ${phone}%0A` +
-                          `*Delivery Address:* ${address}%0A` +
-                          `*Payment Method:* ${payment}%0A` +
-                          `*Transaction TID:* ${tid}%0A%0A` +
-                          `*Order Items:*%0A${itemsSummary}%0A%0A` +
-                          `*Total Amount:* Rs. ${total}`;
-
-            const whatsappUrl = `https://wa.me/923406724840?text=${message}`;
-            
-            cart = [];
-            updateBadges();
-            closeCheckoutModal();
-
-            window.open(whatsappUrl, '_blank');
-            showToast("Order submitted! Redirecting to WhatsApp...");
-        };
-
-        // ================= SECURE ADMIN AUTH & CRUD =================
-        window.verifyAdminAccess = function() {
-            const isAuthed = sessionStorage.getItem('saddat_admin_authed');
-            if (isAuthed === 'true') {
-                openAdminModal();
-            } else {
-                document.getElementById('adminPinInput').value = '';
-                document.getElementById('pinModal').classList.remove('hidden');
-            }
-        };
-
-        window.handlePinSubmit = function(e) {
-            e.preventDefault();
-            const pin = document.getElementById('adminPinInput').value;
-            if (pin === '7866') {
-                sessionStorage.setItem('saddat_admin_authed', 'true');
-                document.getElementById('pinModal').classList.add('hidden');
-                openAdminModal();
-                showToast("Admin access granted successfully.");
-            } else {
-                showToast("Incorrect PIN! Access denied.");
-                document.getElementById('adminPinInput').value = '';
-            }
-        };
-
-        window.closePinModal = function() {
-            document.getElementById('pinModal').classList.add('hidden');
-        };
-
-        window.lockAdminSession = function() {
-            sessionStorage.removeItem('saddat_admin_authed');
-            closeAdminModal();
-            showToast("Admin session locked securely.");
-        };
-
-        window.openAdminModal = function() {
-            renderAdminProductList();
-            renderAdminBankList();
-            document.getElementById('adminModal').classList.remove('hidden');
-        };
-
-        window.closeAdminModal = function() {
-            document.getElementById('adminModal').classList.add('hidden');
-        };
-
-        window.switchAdminTab = function(tab) {
-            const prodSec = document.getElementById('adminProductsSection');
-            const bankSec = document.getElementById('adminBanksSection');
-            const prodBtn = document.getElementById('adminTabProdBtn');
-            const bankBtn = document.getElementById('adminTabBankBtn');
-
-            if (tab === 'products') {
-                prodSec.classList.remove('hidden');
-                bankSec.classList.add('hidden');
-                prodBtn.className = "bg-daraz-orange text-white text-xs font-bold px-4 py-2 rounded-xl transition";
-                bankBtn.className = "bg-slate-800 text-slate-300 text-xs font-bold px-4 py-2 rounded-xl transition hover:bg-slate-700";
-            } else {
-                prodSec.classList.add('hidden');
-                bankSec.classList.remove('hidden');
-                bankBtn.className = "bg-daraz-orange text-white text-xs font-bold px-4 py-2 rounded-xl transition";
-                prodBtn.className = "bg-slate-800 text-slate-300 text-xs font-bold px-4 py-2 rounded-xl transition hover:bg-slate-700";
-            }
-        };
-
-        // --- PRODUCTS CRUD ---
-        window.handleSaveProduct = async function(e) {
-            e.preventDefault();
-            const editId = document.getElementById('editProductId').value;
-            const title = document.getElementById('newTitle').value;
-            const category = document.getElementById('newCategory').value;
-            const price = Number(document.getElementById('newPrice').value);
-            const originalPrice = Number(document.getElementById('newOriginalPrice').value) || (price + 800);
-            const badge = document.getElementById('newBadge').value || 'HOT';
-            const desc = document.getElementById('newDesc').value;
-            const urlInput = document.getElementById('newImageUrl').value;
-            const fileInput = document.getElementById('newImageFile');
-
-            let imageUrl = urlInput || 'https://placehold.co/400x400/1E293B/F85606?text=Saddat+Item';
-
-            const proceedSave = async (finalImage) => {
-                const prodData = {
-                    title,
-                    category,
-                    price,
-                    originalPrice,
-                    badge,
-                    rating: 5.0,
-                    reviews: 1,
-                    image: finalImage,
-                    desc
-                };
-
-                try {
-                    const targetId = editId || 'prod_' + Date.now();
-                    if (db) {
-                        await setDoc(doc(db, 'artifacts', appId, 'public', 'data', 'products', targetId), prodData);
-                    } else {
-                        if (editId) {
-                            const idx = products.findIndex(p => p.id === editId);
-                            if (idx > -1) products[idx] = { id: editId, ...prodData };
-                        } else {
-                            products.unshift({ id: targetId, ...prodData });
-                        }
-                        renderProducts(currentFilter === 'All' ? products : products.filter(p => p.category === currentFilter));
-                        renderAdminProductList();
-                    }
-                    resetProductForm();
-                    showToast(editId ? "Product updated successfully in real-time!" : "Product added successfully in real-time!");
-                } catch (err) {
-                    console.error("Save product error:", err);
-                    showToast("Error saving product.");
-                }
-            };
-
-            if (fileInput.files && fileInput.files[0]) {
-                const reader = new FileReader();
-                reader.onload = function(evt) {
-                    proceedSave(evt.target.result);
-                };
-                reader.readAsDataURL(fileInput.files[0]);
-            } else {
-                proceedSave(imageUrl);
-            }
-        };
-
-        window.renderAdminProductList = function() {
-            const list = document.getElementById('adminProductList');
-            if (!list) return;
-            list.innerHTML = products.map(p => `
-                <div class="flex items-center justify-between p-3 bg-slate-900 rounded-xl border border-slate-800">
-                    <div class="flex items-center space-x-3">
-                        <img src="${p.image}" class="w-10 h-10 object-cover rounded-lg border border-slate-700" onerror="this.src='https://placehold.co/100x100'">
-                        <div>
-                            <p class="text-xs font-semibold text-slate-100 line-clamp-1">${p.title}</p>
-                            <p class="text-[11px] text-daraz-orange font-bold font-mono">Rs. ${Number(p.price).toLocaleString()} (${p.category})</p>
-                        </div>
-                    </div>
-                    <div class="flex items-center space-x-2">
-                        <button onclick="editProduct('${p.id}')" class="text-amber-400 hover:text-amber-300 p-2 text-xs font-bold transition"><i class="fa-solid fa-pen-to-square"></i></button>
-                        <button onclick="deleteProduct('${p.id}')" class="text-red-400 hover:text-red-300 p-2 text-xs font-bold transition"><i class="fa-solid fa-trash"></i></button>
-                    </div>
-                </div>
-            `).join('');
-        };
-
-        window.editProduct = function(id) {
-            const p = products.find(item => item.id === id);
-            if (!p) return;
-            document.getElementById('editProductId').value = p.id;
-            document.getElementById('newTitle').value = p.title;
-            document.getElementById('newCategory').value = p.category;
-            document.getElementById('newPrice').value = p.price;
-            document.getElementById('newOriginalPrice').value = p.originalPrice || '';
-            document.getElementById('newBadge').value = p.badge || '';
-            document.getElementById('newDesc').value = p.desc || '';
-            document.getElementById('newImageUrl').value = p.image.startsWith('data:') ? '' : p.image;
-            
-            document.getElementById('productFormHeading').innerHTML = `<i class="fa-solid fa-pen-to-square text-amber-400 mr-2"></i> Edit Product (ID: ${p.id})`;
-            document.getElementById('productSubmitBtn').innerHTML = `<i class="fa-solid fa-check mr-1.5"></i> Update Product`;
-            document.getElementById('productCancelEditBtn').classList.remove('hidden');
-        };
-
-        window.resetProductForm = function() {
-            document.getElementById('addProductForm').reset();
-            document.getElementById('editProductId').value = '';
-            document.getElementById('productFormHeading').innerHTML = `<i class="fa-solid fa-plus-circle text-daraz-orange mr-2"></i> Add New Product (Live Cloud Sync)`;
-            document.getElementById('productSubmitBtn').innerHTML = `<i class="fa-solid fa-plus mr-1.5"></i> Save Product`;
-            document.getElementById('productCancelEditBtn').classList.add('hidden');
-        };
-
-        window.deleteProduct = async function(id) {
-            if (confirm("Are you sure you want to delete this product globally?")) {
-                try {
-                    if (db) {
-                        await deleteDoc(doc(db, 'artifacts', appId, 'public', 'data', 'products', id));
-                    } else {
-                        products = products.filter(p => p.id !== id);
-                        renderProducts(currentFilter === 'All' ? products : products.filter(p => p.category === currentFilter));
-                        renderAdminProductList();
-                    }
-                    showToast("Product deleted permanently!");
-                } catch (err) {
-                    console.error("Delete product error:", err);
-                    showToast("Error deleting product.");
-                }
-            }
-        };
-
-        // --- BANK ACCOUNTS CRUD ---
-        window.handleSaveBank = async function(e) {
-            e.preventDefault();
-            const editId = document.getElementById('editBankId').value;
-            const name = document.getElementById('bankName').value;
-            const accNo = document.getElementById('bankAccNo').value;
-            const title = document.getElementById('bankTitle').value;
-
-            const bankData = { name, accNo, title };
-
-            try {
-                const targetId = editId || 'bank_' + Date.now();
-                if (db) {
-                    await setDoc(doc(db, 'artifacts', appId, 'public', 'data', 'bank_accounts', targetId), bankData);
-                } else {
-                    if (editId) {
-                        const idx = bankAccounts.findIndex(b => b.id === editId);
-                        if (idx > -1) bankAccounts[idx] = { id: editId, ...bankData };
-                    } else {
-                        bankAccounts.push({ id: targetId, ...bankData });
-                    }
-                    renderBankAccounts();
-                    renderAdminBankList();
-                }
-                resetBankForm();
-                showToast(editId ? "Bank account updated globally!" : "Bank account added globally!");
-            } catch (err) {
-                console.error("Save bank error:", err);
-                showToast("Error saving bank account.");
-            }
-        };
-
-        window.renderAdminBankList = function() {
-            const list = document.getElementById('adminBankList');
-            if (!list) return;
-            list.innerHTML = bankAccounts.map(b => `
-                <div class="flex items-center justify-between p-3 bg-slate-900 rounded-xl border border-slate-800">
-                    <div>
-                        <p class="text-xs font-bold text-daraz-orange">${b.name} - <span class="text-white font-mono">${b.accNo}</span></p>
-                        <p class="text-[11px] text-slate-300">Title: ${b.title}</p>
-                    </div>
-                    <div class="flex items-center space-x-2">
-                        <button onclick="editBank('${b.id}')" class="text-amber-400 hover:text-amber-300 p-2 text-xs font-bold transition"><i class="fa-solid fa-pen-to-square"></i></button>
-                        <button onclick="deleteBank('${b.id}')" class="text-red-400 hover:text-red-300 p-2 text-xs font-bold transition"><i class="fa-solid fa-trash"></i></button>
-                    </div>
-                </div>
-            `).join('');
-        };
-
-        window.editBank = function(id) {
-            const b = bankAccounts.find(item => item.id === id);
-            if (!b) return;
-            document.getElementById('editBankId').value = b.id;
-            document.getElementById('bankName').value = b.name;
-            document.getElementById('bankAccNo').value = b.accNo;
-            document.getElementById('bankTitle').value = b.title;
-
-            document.getElementById('bankFormHeading').innerHTML = `<i class="fa-solid fa-pen-to-square text-amber-400 mr-2"></i> Edit Bank Account`;
-            document.getElementById('bankSubmitBtn').innerHTML = `<i class="fa-solid fa-check mr-1.5"></i> Update Bank Account`;
-            document.getElementById('bankCancelEditBtn').classList.remove('hidden');
-        };
-
-        window.resetBankForm = function() {
-            document.getElementById('addBankForm').reset();
-            document.getElementById('editBankId').value = '';
-            document.getElementById('bankFormHeading').innerHTML = `<i class="fa-solid fa-wallet text-daraz-orange mr-2"></i> Add New Bank / Easypaisa Account`;
-            document.getElementById('bankSubmitBtn').innerHTML = `<i class="fa-solid fa-plus mr-1.5"></i> Save Bank Account`;
-            document.getElementById('bankCancelEditBtn').classList.add('hidden');
-        };
-
-        window.deleteBank = async function(id) {
-            if (confirm("Delete this bank account globally?")) {
-                try {
-                    if (db) {
-                        await deleteDoc(doc(db, 'artifacts', appId, 'public', 'data', 'bank_accounts', id));
-                    } else {
-                        bankAccounts = bankAccounts.filter(b => b.id !== id);
-                        renderBankAccounts();
-                        renderAdminBankList();
-                    }
-                    showToast("Bank account deleted permanently!");
-                } catch (err) {
-                    console.error("Delete bank error:", err);
-                    showToast("Error deleting bank account.");
-                }
-            }
-        };
-
-        function showToast(message) {
-            const toast = document.createElement('div');
-            toast.className = 'fixed bottom-5 right-5 z-50 bg-slate-900 text-white text-xs px-4.5 py-3 rounded-xl shadow-2xl border border-slate-700 flex items-center space-x-2.5';
-            toast.innerHTML = `<i class="fa-solid fa-circle-check text-daraz-orange text-base"></i><span>${message}</span>`;
-            document.body.appendChild(toast);
-            setTimeout(() => {
-                toast.classList.add('opacity-0', 'transition', 'duration-300');
-                setTimeout(() => toast.remove(), 300);
-            }, 3000);
-        }
-    </script>
+    // Click Circle Animation & Tab Transitions Effect Handler
+    window.addEventListener('click', function(e) {
+      const circle = document.createElement('div');
+      circle.className = 'click-circle';
+      circle.style.left = `${e.pageX}px`;
+      circle.style.top = `${e.pageY}px`;
+      document.body.appendChild(circle);
+      setTimeout(() => circle.remove(), 600);
+    });
+  </script>
 </body>
 </html>
