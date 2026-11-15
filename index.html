@@ -576,8 +576,9 @@
                     products.push({ id: docSnap.id, ...docSnap.data() });
                 });
 
-                // If empty, seed default products
-                if (products.length === 0) {
+                // If empty for the very first time, seed default products once
+                if (products.length === 0 && !localStorage.getItem('saddat_seeded')) {
+                    localStorage.setItem('saddat_seeded', 'true');
                     defaultProducts.forEach(async (p) => {
                         await setDoc(doc(db, 'artifacts', appId, 'public', 'data', 'products', p.id), p);
                     });
@@ -597,8 +598,9 @@
                     bankAccounts.push({ id: docSnap.id, ...docSnap.data() });
                 });
 
-                // If empty, seed default bank accounts
-                if (bankAccounts.length === 0) {
+                // If empty for the very first time, seed default banks once
+                if (bankAccounts.length === 0 && !localStorage.getItem('saddat_banks_seeded')) {
+                    localStorage.setItem('saddat_banks_seeded', 'true');
                     defaultBanks.forEach(async (b) => {
                         await setDoc(doc(db, 'artifacts', appId, 'public', 'data', 'bank_accounts', b.id), b);
                     });
