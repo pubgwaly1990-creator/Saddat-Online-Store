@@ -43,6 +43,15 @@
       from { opacity: 0; transform: translateY(6px); }
       to { opacity: 1; transform: translateY(0); }
     }
+
+    /* Slider Smooth Fade */
+    .slide-fade {
+      animation: slideFade 0.5s ease-in-out;
+    }
+    @keyframes slideFade {
+      from { opacity: 0.4; transform: scale(0.98); }
+      to { opacity: 1; transform: scale(1); }
+    }
   </style>
 </head>
 <body class="min-h-screen flex flex-col justify-between">
@@ -82,7 +91,7 @@
 
         <!-- Search Bar -->
         <div class="flex-grow max-w-2xl relative">
-          <input type="text" id="search-input" oninput="filterProducts()" placeholder="Search in Saddat Online Store..." class="w-full bg-white rounded-sm pl-4 pr-10 py-2.5 text-xs text-zinc-800 focus:outline-none shadow-inner">
+          <input type="text" id="search-input" oninput="filterProducts()" placeholder="Search Shawls, Herbal Oil, Shampoo..." class="w-full bg-white rounded-sm pl-4 pr-10 py-2.5 text-xs text-zinc-800 focus:outline-none shadow-inner">
           <button class="absolute right-0 top-0 h-full px-4 bg-orange-100 hover:bg-orange-200 text-daraz-orange rounded-r-sm transition">
             <i class="fa-solid fa-magnifying-glass"></i>
           </button>
@@ -101,10 +110,10 @@
       <!-- Sub Navigation Bar -->
       <div class="bg-orange-800 text-white text-xs py-2 px-4 shadow-inner">
         <div class="max-w-7xl mx-auto flex items-center space-x-6 overflow-x-auto whitespace-nowrap font-medium">
-          <span class="cursor-pointer hover:underline text-orange-200" onclick="switchTab('home')"><i class="fa-solid fa-bars mr-1"></i> All Products</span>
+          <span class="cursor-pointer hover:underline text-orange-200" onclick="resetFilter()"><i class="fa-solid fa-bars mr-1"></i> All Products</span>
+          <span class="cursor-pointer hover:underline" onclick="filterByCategory('Shawl')">Luxury Velvet Shawls</span>
           <span class="cursor-pointer hover:underline" onclick="filterByCategory('Herbal')">MS Herbal Oil & Shampoo</span>
           <span class="cursor-pointer hover:underline" onclick="filterByCategory('Flash Sale')">Flash Sale</span>
-          <span class="cursor-pointer hover:underline" onclick="filterByCategory('Electronics')">Electronics</span>
         </div>
       </div>
     </header>
@@ -120,11 +129,11 @@
         <div class="max-w-xl">
           <span class="bg-orange-500/20 text-orange-400 text-[11px] font-bold px-3 py-1 rounded-full uppercase tracking-wider border border-orange-500/30 mb-3 inline-block">Mega Sale Live</span>
           <h2 class="text-2xl md:text-4xl font-extrabold tracking-tight mb-3">Saddat Online Store Grand Shopping Festival</h2>
-          <p class="text-xs md:text-sm text-zinc-300 mb-6 leading-relaxed">Discover unbeatable deals across Pakistan! Pay securely via Easypaisa or Cash on Delivery. Fast shipping nationwide[cite: 3].</p>
+          <p class="text-xs md:text-sm text-zinc-300 mb-6 leading-relaxed">Discover Luxury Micro Velvet Shawls & 100% Pure Herbal Products across Pakistan! Pay securely via Easypaisa or Cash on Delivery.</p>
           <div class="flex flex-wrap gap-3">
-            <button onclick="switchTab('home')" class="bg-daraz-orange hover:bg-orange-700 text-white font-bold px-5 py-2.5 rounded-lg text-xs flex items-center space-x-2 shadow-lg transition">
+            <button onclick="resetFilter()" class="bg-daraz-orange hover:bg-orange-700 text-white font-bold px-5 py-2.5 rounded-lg text-xs flex items-center space-x-2 shadow-lg transition">
               <i class="fa-solid fa-bolt"></i>
-              <span>Shop Flash Sale</span>
+              <span>Shop Collection</span>
             </button>
             <a href="https://wa.me/923406724840?text=Hello%20Saddat%20Online%20Store,%20I%20want%20to%20place%20an%20order." target="_blank" class="bg-green-600 hover:bg-green-700 text-white font-bold px-5 py-2.5 rounded-lg text-xs flex items-center space-x-2 shadow-lg transition">
               <i class="fa-brands fa-whatsapp text-sm"></i>
@@ -133,9 +142,11 @@
           </div>
         </div>
 
-        <!-- Dynamic Payment Partner Card Widget -->
-        <div id="hero-bank-card" class="bg-white/10 backdrop-blur-md p-5 rounded-xl border border-white/20 w-full md:w-80 shadow-2xl">
-          <!-- Dynamic bank details injected here -->
+        <!-- Dynamic Product Image Slider Widget -->
+        <div id="hero-product-slider" class="bg-white/10 backdrop-blur-md p-4 rounded-xl border border-white/20 w-full md:w-80 shadow-2xl relative">
+          <div class="text-center py-10 text-xs text-zinc-300">
+            <i class="fa-solid fa-spinner fa-spin mr-1"></i> Loading Featured Products...
+          </div>
         </div>
       </div>
 
@@ -189,6 +200,67 @@
 
   </main>
 
+  <!-- PRODUCT DETAIL POPUP MODAL (Click on Product to Read Description) -->
+  <div id="product-detail-modal" class="fixed inset-0 bg-black/75 flex items-center justify-center z-50 hidden p-4 backdrop-blur-xs" onclick="if(event.target === this) closeProductModal()">
+    <div class="bg-white border border-zinc-200 rounded-2xl w-full max-w-2xl overflow-hidden shadow-2xl relative animate-[fadeIn_0.25s_ease-out] max-h-[90vh] flex flex-col">
+      <!-- Close Button -->
+      <button onclick="closeProductModal()" class="absolute top-3 right-3 z-10 bg-white/90 hover:bg-red-500 hover:text-white text-zinc-700 w-8 h-8 rounded-full flex items-center justify-center shadow-md transition">
+        <i class="fa-solid fa-xmark text-sm"></i>
+      </button>
+
+      <div class="overflow-y-auto grid grid-cols-1 md:grid-cols-2">
+        <!-- Left: Large Product Image -->
+        <div class="bg-zinc-100 flex items-center justify-center p-4 min-h-[260px] md:min-h-[360px]">
+          <img id="modal-prod-img" src="" alt="Product Image" class="max-h-80 w-full object-contain rounded-lg shadow-sm">
+        </div>
+
+        <!-- Right: Product Info & Full Description -->
+        <div class="p-6 flex flex-col justify-between">
+          <div>
+            <span id="modal-prod-badge" class="inline-block bg-orange-100 text-daraz-orange text-[10px] font-bold px-2.5 py-0.5 rounded-full uppercase tracking-wide mb-2">In Stock</span>
+            <h2 id="modal-prod-name" class="text-lg font-extrabold text-zinc-900 leading-snug mb-2"></h2>
+            
+            <div class="flex items-baseline gap-2.5 mb-4 pb-3 border-b border-zinc-200">
+              <span id="modal-prod-price" class="text-2xl font-extrabold text-daraz-orange"></span>
+              <span id="modal-prod-old-price" class="text-xs text-zinc-400 line-through"></span>
+            </div>
+
+            <!-- Full Description Section -->
+            <div class="mb-5">
+              <h4 class="text-xs font-bold text-zinc-700 uppercase tracking-wider mb-1.5 flex items-center gap-1.5">
+                <i class="fa-solid fa-align-left text-daraz-orange"></i> Product Details & Description
+              </h4>
+              <div id="modal-prod-desc" class="text-xs text-zinc-600 leading-relaxed whitespace-pre-line bg-zinc-50 p-3 rounded-lg border border-zinc-200 max-h-40 overflow-y-auto"></div>
+            </div>
+          </div>
+
+          <!-- Quantity & Action Buttons -->
+          <div class="space-y-3 pt-2 border-t border-zinc-200">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-bold text-zinc-700">Quantity:</span>
+              <div class="flex items-center border border-zinc-300 rounded-lg overflow-hidden">
+                <button onclick="changeModalQty(-1)" class="bg-zinc-100 hover:bg-zinc-200 px-3 py-1 text-sm font-bold text-zinc-700">-</button>
+                <span id="modal-prod-qty" class="px-4 py-1 text-xs font-extrabold text-zinc-900">1</span>
+                <button onclick="changeModalQty(1)" class="bg-zinc-100 hover:bg-zinc-200 px-3 py-1 text-sm font-bold text-zinc-700">+</button>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-2 gap-2.5">
+              <button id="modal-add-cart-btn" class="bg-daraz-orange hover:bg-orange-700 text-white font-bold py-2.5 px-3 rounded-lg text-xs flex items-center justify-center gap-1.5 shadow transition">
+                <i class="fa-solid fa-cart-plus"></i>
+                <span>Add to Cart</span>
+              </button>
+              <button id="modal-whatsapp-btn" class="bg-green-600 hover:bg-green-700 text-white font-bold py-2.5 px-3 rounded-lg text-xs flex items-center justify-center gap-1.5 shadow transition">
+                <i class="fa-brands fa-whatsapp text-sm"></i>
+                <span>Order Direct</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- Admin PIN Modal -->
   <div id="admin-modal" class="fixed inset-0 bg-black/70 flex items-center justify-center z-50 hidden p-4">
     <div class="bg-white border border-zinc-200 p-6 rounded-xl w-full max-w-sm relative shadow-2xl">
@@ -224,7 +296,7 @@
             <input type="file" id="edit-prod-img" accept="image/*" class="bg-white border border-amber-300 rounded p-1 text-xs text-zinc-600 file:mr-2 file:py-1 file:px-2 file:rounded file:border-0 file:text-[11px] file:bg-amber-600 file:text-white w-full">
           </div>
         </div>
-        <textarea id="edit-prod-desc" placeholder="Product Description" class="w-full bg-white border border-amber-300 rounded p-2 text-xs text-zinc-800 mb-3 h-14"></textarea>
+        <textarea id="edit-prod-desc" placeholder="Product Description (Size, Fabric, Box Price, Features...)" class="w-full bg-white border border-amber-300 rounded p-2 text-xs text-zinc-800 mb-3 h-24"></textarea>
         <div class="flex gap-2">
           <button onclick="updateProductInCloud()" class="bg-amber-600 hover:bg-amber-700 text-white text-xs font-bold px-4 py-2 rounded transition shadow">Update Product</button>
           <button onclick="cancelEditProduct()" class="bg-zinc-300 hover:bg-zinc-400 text-zinc-800 text-xs font-bold px-4 py-2 rounded transition">Cancel</button>
@@ -233,14 +305,14 @@
 
       <!-- ADD PRODUCT FORM -->
       <div class="bg-zinc-50 p-4 rounded-lg border border-zinc-200 mb-6">
-        <h3 class="text-xs font-bold text-zinc-800 mb-3"><i class="fa-solid fa-plus text-daraz-orange mr-1"></i> Add New Product</h3>
+        <h3 class="text-xs font-bold text-zinc-800 mb-3"><i class="fa-solid fa-plus text-daraz-orange mr-1"></i> Add New Product (Shawl / Herbal)</h3>
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-2.5">
-          <input type="text" id="new-prod-name" placeholder="Product Title" class="bg-white border border-zinc-300 rounded p-2 text-xs text-zinc-800">
+          <input type="text" id="new-prod-name" placeholder="Product Title (e.g. Royal Maroon Velvet Shawl)" class="bg-white border border-zinc-300 rounded p-2 text-xs text-zinc-800">
           <input type="number" id="new-prod-price" placeholder="Price (Rs)" class="bg-white border border-zinc-300 rounded p-2 text-xs text-zinc-800">
           <input type="number" id="new-prod-old-price" placeholder="Original Price (Rs)" class="bg-white border border-zinc-300 rounded p-2 text-xs text-zinc-800">
           <input type="file" id="new-prod-img" accept="image/*" class="bg-white border border-zinc-300 rounded p-1 text-xs text-zinc-500 file:mr-2 file:py-1 file:px-2 file:rounded file:border-0 file:text-[11px] file:bg-orange-600 file:text-white">
         </div>
-        <textarea id="new-prod-desc" placeholder="Product Description" class="w-full bg-white border border-zinc-300 rounded p-2 text-xs text-zinc-800 mb-3 h-14"></textarea>
+        <textarea id="new-prod-desc" placeholder="Full Product Description (Customers can read this by clicking the product)" class="w-full bg-white border border-zinc-300 rounded p-2 text-xs text-zinc-800 mb-3 h-24"></textarea>
         <button onclick="addNewProduct()" class="bg-daraz-orange hover:bg-orange-700 text-white text-xs font-bold px-4 py-2 rounded transition shadow">Save Product to Cloud</button>
       </div>
 
@@ -275,7 +347,7 @@
   <footer class="bg-zinc-900 text-zinc-400 border-t border-zinc-800 py-6 text-center text-xs mt-auto">
     <div class="max-w-7xl mx-auto px-4 space-y-2">
       <p>&copy; 2026 Saddat Online Store. All rights reserved. | Official WhatsApp: 0340-6724840</p>
-      <p class="text-[11px] text-zinc-500" id="footer-bank-info">Easypaisa: 0317-0546013 (Kashif Javaid Naqvi)[cite: 3]</p>
+      <p class="text-[11px] text-zinc-500" id="footer-bank-info">Easypaisa: 0317-0546013 (Kashif Javaid Naqvi)</p>
     </div>
   </footer>
 
@@ -310,6 +382,9 @@
     let products = [];
     let bankAccounts = [];
     let cart = [];
+    let currentSlideIndex = 0;
+    let sliderInterval = null;
+    let currentModalQty = 1;
 
     const defaultBank = { id: "bank_default", bankName: "Easypaisa Mobile Account", accNumber: "0317-0546013", accTitle: "Kashif Javaid Naqvi" };
 
@@ -322,6 +397,7 @@
           });
           renderProducts();
           renderAdminProductsList();
+          initHeroSlider();
         });
 
         const bankSnapshot = await getDocs(collection(db, "banks"));
@@ -345,6 +421,150 @@
 
     initFirestoreSync();
 
+    // --- PRODUCT DETAIL MODAL LOGIC ---
+    window.openProductDetail = function(id) {
+      const p = products.find(item => item.id === id);
+      if (!p) return;
+
+      currentModalQty = 1;
+      document.getElementById('modal-prod-qty').innerText = currentModalQty;
+      document.getElementById('modal-prod-img').src = p.img || 'https://via.placeholder.com/400';
+      document.getElementById('modal-prod-name').innerText = p.name;
+      document.getElementById('modal-prod-price').innerText = `Rs. ${p.price}`;
+      document.getElementById('modal-prod-old-price').innerText = `Rs. ${p.oldPrice || (p.price + 500)}`;
+      document.getElementById('modal-prod-desc').innerText = p.desc && p.desc.trim() !== "" 
+        ? p.desc 
+        : "Premium quality product from Saddat Online Store. Fast nationwide delivery & Cash on Delivery available.";
+
+      const isHerbal = (p.name + " " + (p.desc || "")).toLowerCase().includes("herbal");
+      document.getElementById('modal-prod-badge').innerText = isHerbal ? "100% Pure Herbal" : "Luxury Collection";
+
+      // Attach Add to Cart inside Modal
+      document.getElementById('modal-add-cart-btn').onclick = function() {
+        addToCartWithQty(p.id, currentModalQty);
+        closeProductModal();
+      };
+
+      // Attach Direct WhatsApp Order inside Modal
+      document.getElementById('modal-whatsapp-btn').onclick = function() {
+        const msg = `Assalam-o-Alaikum Saddat Online Store!\nI want to order:\n*Product:* ${p.name}\n*Quantity:* ${currentModalQty}\n*Price:* Rs. ${p.price * currentModalQty}`;
+        window.open(`https://wa.me/923406724840?text=${encodeURIComponent(msg)}`, '_blank');
+      };
+
+      document.getElementById('product-detail-modal').classList.remove('hidden');
+    };
+
+    window.closeProductModal = function() {
+      document.getElementById('product-detail-modal').classList.add('hidden');
+    };
+
+    window.changeModalQty = function(delta) {
+      currentModalQty += delta;
+      if (currentModalQty < 1) currentModalQty = 1;
+      document.getElementById('modal-prod-qty').innerText = currentModalQty;
+    };
+
+    // --- HERO PRODUCT SLIDER LOGIC ---
+    window.initHeroSlider = function() {
+      if (sliderInterval) clearInterval(sliderInterval);
+      renderHeroSlide();
+      if (products.length > 1) {
+        sliderInterval = setInterval(() => {
+          nextHeroSlide();
+        }, 3500);
+      }
+    };
+
+    window.renderHeroSlide = function() {
+      const container = document.getElementById('hero-product-slider');
+      if (!container) return;
+
+      if (products.length === 0) {
+        container.innerHTML = `
+          <div class="bg-white/10 rounded-lg p-6 text-center text-xs text-zinc-200">
+            <i class="fa-solid fa-bag-shopping text-2xl text-orange-400 mb-2 block"></i>
+            Add Shawls or Herbal Products from Admin Panel to showcase them here!
+          </div>
+        `;
+        return;
+      }
+
+      if (currentSlideIndex >= products.length) currentSlideIndex = 0;
+      if (currentSlideIndex < 0) currentSlideIndex = products.length - 1;
+
+      const p = products[currentSlideIndex];
+      const isHerbal = (p.name + " " + (p.desc || "")).toLowerCase().includes("herbal");
+      const badgeText = isHerbal ? "Herbal Collection" : "Featured Collection";
+
+      container.innerHTML = `
+        <div class="flex justify-between items-center mb-2">
+          <span class="text-[10px] font-bold tracking-wider text-orange-300 uppercase flex items-center gap-1">
+            <i class="fa-solid fa-fire"></i> ${badgeText}
+          </span>
+          <span class="text-[10px] text-zinc-300 font-mono">${currentSlideIndex + 1} / ${products.length}</span>
+        </div>
+
+        <div class="bg-white text-zinc-900 rounded-lg overflow-hidden shadow-lg slide-fade relative group">
+          <div onclick="openProductDetail('${p.id}')" class="relative h-48 w-full bg-zinc-100 overflow-hidden cursor-pointer" title="Click to view full details">
+            <img src="${p.img || 'https://via.placeholder.com/300'}" alt="${p.name}" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
+            <span class="absolute bottom-2 right-2 bg-black/60 text-white text-[10px] px-2 py-0.5 rounded backdrop-blur-xs">
+              <i class="fa-solid fa-eye mr-1"></i> View Details
+            </span>
+          </div>
+
+          <!-- Prev / Next Arrows -->
+          ${products.length > 1 ? `
+            <button onclick="prevHeroSlide()" class="absolute left-2 top-24 -translate-y-1/2 bg-black/50 hover:bg-black/80 text-white w-7 h-7 rounded-full flex items-center justify-center text-xs transition z-10">
+              <i class="fa-solid fa-chevron-left"></i>
+            </button>
+            <button onclick="nextHeroSlide()" class="absolute right-2 top-24 -translate-y-1/2 bg-black/50 hover:bg-black/80 text-white w-7 h-7 rounded-full flex items-center justify-center text-xs transition z-10">
+              <i class="fa-solid fa-chevron-right"></i>
+            </button>
+          ` : ''}
+
+          <div class="p-3 flex items-center justify-between gap-2 bg-white">
+            <div onclick="openProductDetail('${p.id}')" class="overflow-hidden cursor-pointer">
+              <h4 class="text-xs font-bold text-zinc-800 truncate hover:text-daraz-orange">${p.name}</h4>
+              <div class="flex items-baseline gap-1.5 mt-0.5">
+                <span class="text-sm font-extrabold text-daraz-orange">Rs. ${p.price}</span>
+                <span class="text-[10px] text-zinc-400 line-through">Rs. ${p.oldPrice || p.price + 500}</span>
+              </div>
+            </div>
+            <button onclick="addToCart('${p.id}')" class="bg-daraz-orange hover:bg-orange-700 text-white text-[11px] font-bold px-3 py-1.5 rounded shadow shrink-0 transition">
+              <i class="fa-solid fa-cart-plus mr-1"></i> Buy
+            </button>
+          </div>
+        </div>
+
+        <!-- Dots Indicator -->
+        <div class="flex justify-center gap-1.5 mt-2.5">
+          ${products.slice(0, 8).map((_, idx) => `
+            <button onclick="goToHeroSlide(${idx})" class="h-1.5 rounded-full transition-all ${idx === currentSlideIndex ? 'w-4 bg-orange-400' : 'w-1.5 bg-white/40'}"></button>
+          `).join('')}
+        </div>
+      `;
+    };
+
+    window.nextHeroSlide = function() {
+      currentSlideIndex = (currentSlideIndex + 1) % products.length;
+      renderHeroSlide();
+    };
+
+    window.prevHeroSlide = function() {
+      currentSlideIndex = (currentSlideIndex - 1 + products.length) % products.length;
+      renderHeroSlide();
+      clearInterval(sliderInterval);
+      sliderInterval = setInterval(nextHeroSlide, 3500);
+    };
+
+    window.goToHeroSlide = function(idx) {
+      currentSlideIndex = idx;
+      renderHeroSlide();
+      clearInterval(sliderInterval);
+      sliderInterval = setInterval(nextHeroSlide, 3500);
+    };
+
+    // --- PRODUCTS GRID (Clickable Cards) ---
     window.renderProducts = function(filteredList = null) {
       const list = filteredList || products;
       const grid = document.getElementById('products-grid');
@@ -357,13 +577,18 @@
 
       grid.innerHTML = list.map(p => `
         <div class="bg-white border border-zinc-200 rounded-lg overflow-hidden shadow-sm hover:shadow-md transition flex flex-col justify-between group">
-          <div>
-            <div class="relative bg-zinc-100 h-40 overflow-hidden">
+          <!-- Clickable Area to Open Product Details -->
+          <div onclick="openProductDetail('${p.id}')" class="cursor-pointer">
+            <div class="relative bg-zinc-100 h-44 overflow-hidden">
               <img src="${p.img || 'https://via.placeholder.com/300'}" alt="${p.name}" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
               <span class="absolute top-1.5 left-1.5 bg-red-600 text-white text-[9px] font-bold px-1.5 py-0.5 rounded shadow">Sale</span>
+              <span class="absolute bottom-1.5 right-1.5 bg-black/60 text-white text-[9px] px-2 py-0.5 rounded opacity-0 group-hover:opacity-100 transition">
+                <i class="fa-solid fa-eye mr-1"></i> Details
+              </span>
             </div>
-            <div class="p-3">
-              <h3 class="text-xs font-medium text-zinc-800 line-clamp-2 mb-1.5">${p.name}</h3>
+            <div class="p-3 pb-1">
+              <h3 class="text-xs font-semibold text-zinc-800 group-hover:text-daraz-orange line-clamp-2 mb-1 transition">${p.name}</h3>
+              <p class="text-[11px] text-zinc-500 line-clamp-1 mb-1.5">${p.desc || 'Tap to view full product details'}</p>
               <div class="flex items-baseline space-x-2 mb-2">
                 <span class="text-sm font-bold text-daraz-orange">Rs. ${p.price}</span>
                 <span class="text-[10px] text-zinc-400 line-through">Rs. ${p.oldPrice || p.price + 500}</span>
@@ -380,23 +605,13 @@
       `).join('');
     };
 
+    // --- BANK WIDGETS (Cart & Footer) ---
     window.renderBankWidgets = function() {
-      const heroCard = document.getElementById('hero-bank-card');
       const cartBox = document.getElementById('cart-bank-box');
       const footerInfo = document.getElementById('footer-bank-info');
 
       if(bankAccounts.length === 0) return;
       const b = bankAccounts[0];
-
-      heroCard.innerHTML = `
-        <p class="text-[10px] font-bold tracking-wider text-orange-400 uppercase mb-2">Official Payment Partner</p>
-        <div class="bg-white text-zinc-900 p-4 rounded-lg shadow text-center">
-          <p class="text-xs font-bold text-orange-600 mb-1">${b.bankName}</p>
-          <p class="text-lg font-mono font-extrabold tracking-wider text-zinc-900 mb-1">${b.accNumber}</p>
-          <p class="text-[11px] text-zinc-600">Title: <span class="font-bold text-zinc-800">${b.accTitle}</span></p>
-        </div>
-        <p class="text-[10px] text-zinc-400 text-center mt-2.5"><i class="fa-solid fa-shield-check text-green-400 mr-1"></i> Verified Merchant Account</p>
-      `;
 
       cartBox.innerHTML = `
         <p class="font-bold text-daraz-orange mb-1"><i class="fa-solid fa-wallet"></i> Official ${b.bankName} Details:</p>
@@ -419,6 +634,12 @@
       filterProducts();
     };
 
+    window.resetFilter = function() {
+      document.getElementById('search-input').value = "";
+      renderProducts(products);
+      switchTab('home');
+    };
+
     window.switchTab = function(tabName) {
       document.getElementById('tab-home').classList.add('hidden');
       document.getElementById('tab-cart').classList.add('hidden');
@@ -427,17 +648,21 @@
     };
 
     window.addToCart = function(id) {
+      addToCartWithQty(id, 1);
+    };
+
+    window.addToCartWithQty = function(id, qty) {
       const prod = products.find(p => p.id === id);
       if(!prod) return;
       const existing = cart.find(item => item.id === id);
       if(existing) {
-        existing.qty += 1;
+        existing.qty += qty;
       } else {
-        cart.push({ ...prod, qty: 1 });
+        cart.push({ ...prod, qty: qty });
       }
       updateCartBadge();
       renderCart();
-      alert(`"${prod.name}" added to cart!`);
+      alert(`"${prod.name}" (x${qty}) added to cart!`);
     };
 
     window.updateCartBadge = function() {
@@ -599,9 +824,9 @@
       document.getElementById('edit-prod-price').value = p.price;
       document.getElementById('edit-prod-old-price').value = p.oldPrice || p.price + 500;
       document.getElementById('edit-prod-desc').value = p.desc || "";
-      document.getElementById('edit-prod-img').value = ""; // reset file input
+      document.getElementById('edit-prod-img').value = "";
       document.getElementById('edit-product-box').classList.remove('hidden');
-      window.scrollTo({top: 200, behavior: 'smooth'});
+      document.getElementById('admin-dashboard').scrollTo({top: 0, behavior: 'smooth'});
     };
 
     window.cancelEditProduct = function() {
@@ -610,6 +835,9 @@
 
     window.updateProductInCloud = async function() {
       const id = document.getElementById('edit-prod-id').value;
+      const existing = products.find(item => item.id === id);
+      if(!existing) return;
+
       const name = document.getElementById('edit-prod-name').value.trim();
       const price = parseFloat(document.getElementById('edit-prod-price').value);
       const oldPrice = parseFloat(document.getElementById('edit-prod-old-price').value) || (price + 500);
@@ -617,60 +845,53 @@
       const imgFile = document.getElementById('edit-prod-img').files[0];
 
       if(!name || isNaN(price)) {
-        alert("Please fill in valid title and price.");
+        alert("Please enter valid title and price.");
         return;
       }
 
-      const existing = products.find(item => item.id === id);
-
-      const saveUpdate = async (finalImg) => {
+      const updateDocData = async (finalImg) => {
         try {
-          await setDoc(doc(db, "products", id), {
-            name,
-            price,
-            oldPrice,
-            desc,
-            img: finalImg
-          });
+          await setDoc(doc(db, "products", id), { name, price, oldPrice, desc, img: finalImg });
           cancelEditProduct();
-          alert("Product updated successfully in cloud!");
+          alert("Product updated successfully!");
         } catch(e) {
-          alert("Failed to update product.");
+          alert("Error updating product.");
         }
       };
 
       if(imgFile) {
         const reader = new FileReader();
-        reader.onloadend = () => saveUpdate(reader.result);
+        reader.onloadend = () => updateDocData(reader.result);
         reader.readAsDataURL(imgFile);
       } else {
-        saveUpdate(existing ? existing.img : "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=300");
+        updateDocData(existing.img);
       }
     };
 
     window.deleteProduct = async function(id) {
-      if(confirm("Delete this product permanently from cloud?")) {
-        try {
-          await deleteDoc(doc(db, "products", id));
-          alert("Product deleted permanently!");
-        } catch(e) { alert("Failed to delete."); }
+      if(!confirm("Are you sure you want to delete this product?")) return;
+      try {
+        await deleteDoc(doc(db, "products", id));
+      } catch(e) {
+        alert("Error deleting product.");
       }
     };
 
     // --- ADMIN: BANK ACCOUNTS MANAGEMENT ---
     window.renderAdminBanksList = function() {
       const list = document.getElementById('admin-banks-list');
+      if(!list) return;
       if(bankAccounts.length === 0) {
-        list.innerHTML = `<p class="text-xs text-zinc-500">No bank accounts found.</p>`;
+        list.innerHTML = `<p class="text-xs text-zinc-500">No bank accounts added.</p>`;
         return;
       }
       list.innerHTML = bankAccounts.map(b => `
         <div class="flex items-center justify-between bg-zinc-50 p-2.5 rounded border border-zinc-200 text-xs">
           <div>
-            <p class="font-bold text-zinc-800">${b.bankName} - <span class="font-mono text-orange-600">${b.accNumber}</span></p>
+            <p class="font-bold text-zinc-800">${b.bankName} - <span class="font-mono text-daraz-orange">${b.accNumber}</span></p>
             <p class="text-zinc-500">Title: ${b.accTitle}</p>
           </div>
-          <button onclick="deleteBankAccount('${b.id}')" class="bg-red-100 hover:bg-red-600 text-red-600 hover:text-white px-3 py-1.5 rounded transition font-bold"><i class="fa-solid fa-trash mr-1"></i> Delete</button>
+          <button onclick="deleteBankAccount('${b.id}')" class="bg-red-100 hover:bg-red-600 text-red-600 hover:text-white px-2.5 py-1.5 rounded transition font-bold"><i class="fa-solid fa-trash"></i></button>
         </div>
       `).join('');
     };
@@ -681,40 +902,37 @@
       const accTitle = document.getElementById('new-bank-title').value.trim();
 
       if(!bankName || !accNumber || !accTitle) {
-        alert("Please fill in all bank account details.");
+        alert("Please fill all bank details.");
         return;
       }
 
       try {
-        const bankId = "bank_" + Date.now();
-        await setDoc(doc(db, "banks", bankId), { bankName, accNumber, accTitle });
+        const newId = "bank_" + Date.now();
+        await setDoc(doc(db, "banks", newId), { bankName, accNumber, accTitle });
         document.getElementById('new-bank-name').value = "";
         document.getElementById('new-bank-acc').value = "";
         document.getElementById('new-bank-title').value = "";
-        alert("Bank account added successfully!");
+        alert("Bank account saved!");
       } catch(e) {
-        alert("Failed to save bank account.");
+        alert("Error saving bank account.");
       }
     };
 
     window.deleteBankAccount = async function(id) {
-      if(bankAccounts.length <= 1) {
-        alert("You must keep at least one active bank account!");
-        return;
-      }
-      if(confirm("Delete this bank account?")) {
-        try {
-          await deleteDoc(doc(db, "banks", id));
-          alert("Bank account deleted!");
-        } catch(e) { alert("Failed to delete bank."); }
+      if(!confirm("Delete this bank account?")) return;
+      try {
+        await deleteDoc(doc(db, "banks", id));
+      } catch(e) {
+        alert("Error deleting bank account.");
       }
     };
 
-    window.addEventListener('click', (e) => {
+    // Click Animation Effect
+    document.addEventListener('click', function(e) {
       const circle = document.createElement('div');
       circle.className = 'click-circle';
-      circle.style.left = `${e.pageX}px`;
-      circle.style.top = `${e.pageY}px`;
+      circle.style.left = e.pageX + 'px';
+      circle.style.top = e.pageY + 'px';
       document.body.appendChild(circle);
       setTimeout(() => circle.remove(), 600);
     });
