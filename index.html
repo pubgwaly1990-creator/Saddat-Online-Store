@@ -4,9 +4,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Saddat Online Store - Daraz Style Shopping Pakistan</title>
-  <!-- Preconnect for Faster Loading -->
-  <link rel="preconnect" href="https://www.gstatic.com" crossorigin>
-  <link rel="preconnect" href="https://firestore.googleapis.com" crossorigin>
   <!-- Tailwind CSS & FontAwesome -->
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -21,58 +18,7 @@
     .text-daraz-orange { color: #f85606; }
     .border-daraz-orange { border-color: #f85606; }
     
-    /* 🔥 Intense Real Fire & Flame Animation Effect */
-    @keyframes flameBurn {
-      0% { 
-        box-shadow: 0 0 15px #ff3300, 0 0 30px #ff6600, inset 0 0 20px #ffcc00; 
-        border-color: #ff3300; 
-      }
-      33% { 
-        box-shadow: 0 0 25px #ff0000, 0 0 45px #ff4500, inset 0 0 30px #ff9900; 
-        border-color: #ff4500; 
-      }
-      66% { 
-        box-shadow: 0 0 20px #ff5500, 0 0 35px #ff7700, inset 0 0 25px #ffbb00; 
-        border-color: #ff6600; 
-      }
-      100% { 
-        box-shadow: 0 0 15px #ff3300, 0 0 30px #ff6600, inset 0 0 20px #ffcc00; 
-        border-color: #ff3300; 
-      }
-    }
-
-    .fire-box-effect {
-      position: relative;
-      border: 3px solid #ff4500;
-      animation: flameBurn 2s infinite ease-in-out;
-    }
-
-    @keyframes fallSparks {
-      0% { transform: translateY(-10px) rotate(0deg); opacity: 1; }
-      100% { transform: translateY(100px) rotate(360deg); opacity: 0; }
-    }
-
-    .spark {
-      position: absolute;
-      width: 6px;
-      height: 6px;
-      background: #ffcc00;
-      border-radius: 50%;
-      box-shadow: 0 0 8px #ff4500;
-      pointer-events: none;
-      animation: fallSparks 1.5s linear infinite;
-    }
-
-    .water-card {
-      position: relative;
-      transition: all 0.3s ease-in-out;
-    }
-    .water-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 10px 30px -5px rgba(255, 69, 0, 0.4), 0 0 20px rgba(248, 86, 6, 0.3);
-      border-color: #ff4500;
-    }
-
+    /* Click Circle Animation */
     .click-circle {
       position: absolute;
       width: 20px;
@@ -89,19 +35,21 @@
       100% { width: 60px; height: 60px; opacity: 0; }
     }
 
+    /* Tab Transition Effect */
     .tab-content {
-      animation: fadeIn 0.25s ease-in-out;
+      animation: fadeIn 0.3s ease-in-out;
     }
     @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(4px); }
+      from { opacity: 0; transform: translateY(6px); }
       to { opacity: 1; transform: translateY(0); }
     }
 
+    /* Slider Smooth Fade */
     .slide-fade {
-      animation: slideFade 0.4s ease-in-out;
+      animation: slideFade 0.5s ease-in-out;
     }
     @keyframes slideFade {
-      from { opacity: 0.5; transform: scale(0.99); }
+      from { opacity: 0.4; transform: scale(0.98); }
       to { opacity: 1; transform: scale(1); }
     }
   </style>
@@ -165,7 +113,7 @@
           <span class="cursor-pointer hover:underline text-orange-200" onclick="resetFilter()"><i class="fa-solid fa-bars mr-1"></i> All Products</span>
           <span class="cursor-pointer hover:underline" onclick="filterByCategory('Shawl')">Luxury Velvet Shawls</span>
           <span class="cursor-pointer hover:underline" onclick="filterByCategory('Herbal')">MS Herbal Oil & Shampoo</span>
-          <span class="cursor-pointer hover:underline" onclick="filterByCategory('Flash Sale')">🔥 Hot Deals</span>
+          <span class="cursor-pointer hover:underline" onclick="filterByCategory('Flash Sale')">Flash Sale</span>
         </div>
       </div>
     </header>
@@ -179,7 +127,7 @@
       <!-- Grand Shopping Festival Hero Banner -->
       <div class="mb-8 rounded-xl bg-gradient-to-r from-zinc-900 via-zinc-900 to-orange-600 p-6 md:p-10 text-white shadow-xl relative overflow-hidden flex flex-col md:flex-row justify-between items-center gap-6 border border-orange-500/30">
         <div class="max-w-xl">
-          <span class="bg-orange-500/20 text-orange-400 text-[11px] font-bold px-3 py-1 rounded-full uppercase tracking-wider border border-orange-500/30 mb-3 inline-block">🔥 Mega Fire Sale Live</span>
+          <span class="bg-orange-500/20 text-orange-400 text-[11px] font-bold px-3 py-1 rounded-full uppercase tracking-wider border border-orange-500/30 mb-3 inline-block">Mega Sale Live</span>
           <h2 class="text-2xl md:text-4xl font-extrabold tracking-tight mb-3">Saddat Online Store Grand Shopping Festival</h2>
           <p class="text-xs md:text-sm text-zinc-300 mb-6 leading-relaxed">Discover Luxury Micro Velvet Shawls & 100% Pure Herbal Products across Pakistan! Pay securely via Easypaisa or Cash on Delivery.</p>
           <div class="flex flex-wrap gap-3">
@@ -194,32 +142,23 @@
           </div>
         </div>
 
-        <!-- 🔥 Fire Effect Slider Widget -->
-        <div id="hero-product-slider" class="bg-white/10 backdrop-blur-md p-4 rounded-xl fire-box-effect w-full md:w-80 shadow-2xl relative overflow-hidden">
-          <div class="spark" style="left: 20%; top: 10%; animation-delay: 0.2s;"></div>
-          <div class="spark" style="left: 60%; top: 5%; animation-delay: 0.7s;"></div>
-          <div class="spark" style="left: 80%; top: 15%; animation-delay: 1.1s;"></div>
-          
-          <div class="space-y-2">
-            <div class="h-3 bg-white/20 rounded w-1/3"></div>
-            <div class="h-48 bg-white/20 rounded-lg w-full flex items-center justify-center text-white text-xs">Loading Featured...</div>
-            <div class="h-8 bg-white/20 rounded w-full"></div>
+        <!-- Dynamic Product Image Slider Widget -->
+        <div id="hero-product-slider" class="bg-white/10 backdrop-blur-md p-4 rounded-xl border border-white/20 w-full md:w-80 shadow-2xl relative">
+          <div class="text-center py-10 text-xs text-zinc-300">
+            <i class="fa-solid fa-spinner fa-spin mr-1"></i> Loading Featured Products...
           </div>
         </div>
       </div>
 
-      <!-- 🌟 DYNAMIC BRAND DETAILS BANNER -->
-      <div id="brand-banner-container" class="mb-8"></div>
-
       <!-- Products Header -->
       <div class="flex items-center justify-between mb-4 border-b border-zinc-300 pb-2">
-        <h3 class="text-base font-bold text-zinc-800 border-l-4 border-daraz-orange pl-3">🔥 Hot Burning Deals & Just For You</h3>
-        <span class="text-xs text-zinc-500 font-medium" id="product-count">Instant Load</span>
+        <h3 class="text-base font-bold text-zinc-800 border-l-4 border-daraz-orange pl-3">Just For You</h3>
+        <span class="text-xs text-zinc-500 font-medium" id="product-count">Loading products...</span>
       </div>
 
       <!-- Products Grid -->
       <div id="products-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
-        <!-- Default items instantly shown so it never gets stuck -->
+        <!-- Products Injected Here -->
       </div>
     </div>
 
@@ -229,13 +168,16 @@
         <h2 class="text-base font-bold text-zinc-800 mb-4 border-b border-zinc-200 pb-3 flex items-center">
           <i class="fa-solid fa-cart-shopping text-daraz-orange mr-2"></i> Your Shopping Cart
         </h2>
-        <div id="cart-items-container" class="space-y-3 mb-4"></div>
+        <div id="cart-items-container" class="space-y-3 mb-4">
+          <!-- Cart items injected here -->
+        </div>
         <div id="cart-summary" class="border-t border-zinc-200 pt-4 hidden">
           <div class="flex justify-between text-sm font-bold mb-4">
             <span>Total Amount:</span>
             <span id="cart-total" class="text-daraz-orange">Rs. 0</span>
           </div>
 
+          <!-- Customer Form -->
           <div class="bg-zinc-50 p-4 rounded-lg border border-zinc-200 mb-4 space-y-3">
             <h3 class="text-xs font-bold text-zinc-700">Delivery Information</h3>
             <input type="text" id="cust-name" placeholder="Full Name" class="w-full bg-white border border-zinc-300 rounded p-2 text-xs text-zinc-800">
@@ -243,7 +185,10 @@
             <textarea id="cust-address" placeholder="Delivery Address / City" class="w-full bg-white border border-zinc-300 rounded p-2 text-xs text-zinc-800 h-16"></textarea>
           </div>
 
-          <div id="cart-bank-box" class="bg-orange-50 p-4 rounded-lg border border-orange-200 mb-4 text-xs space-y-1"></div>
+          <!-- Dynamic Cart Payment Info Box -->
+          <div id="cart-bank-box" class="bg-orange-50 p-4 rounded-lg border border-orange-200 mb-4 text-xs space-y-1">
+            <!-- Dynamic bank details injected here -->
+          </div>
 
           <button onclick="checkoutWhatsApp()" class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-2.5 rounded-lg flex items-center justify-center space-x-2 text-xs transition shadow">
             <i class="fa-brands fa-whatsapp text-base"></i>
@@ -255,70 +200,62 @@
 
   </main>
 
-  <!-- PRODUCT DETAIL POPUP MODAL -->
+  <!-- PRODUCT DETAIL POPUP MODAL (Click on Product to Read Description) -->
   <div id="product-detail-modal" class="fixed inset-0 bg-black/75 flex items-center justify-center z-50 hidden p-4 backdrop-blur-xs" onclick="if(event.target === this) closeProductModal()">
-    <div class="bg-white border border-zinc-200 rounded-2xl w-full max-w-3xl overflow-hidden shadow-2xl relative animate-[fadeIn_0.25s_ease-out] max-h-[92vh] flex flex-col">
+    <div class="bg-white border border-zinc-200 rounded-2xl w-full max-w-2xl overflow-hidden shadow-2xl relative animate-[fadeIn_0.25s_ease-out] max-h-[90vh] flex flex-col">
+      <!-- Close Button -->
       <button onclick="closeProductModal()" class="absolute top-3 right-3 z-10 bg-white/90 hover:bg-red-500 hover:text-white text-zinc-700 w-8 h-8 rounded-full flex items-center justify-center shadow-md transition">
         <i class="fa-solid fa-xmark text-sm"></i>
       </button>
 
-      <div class="overflow-y-auto p-6 space-y-6">
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 pb-6 border-b border-zinc-200">
-          <div class="bg-zinc-100 flex items-center justify-center p-4 rounded-xl min-h-[260px]">
-            <img id="modal-prod-img" src="" alt="Product Image" class="max-h-72 w-full object-contain rounded-lg shadow-sm">
-          </div>
-
-          <div class="flex flex-col justify-between">
-            <div>
-              <span id="modal-prod-badge" class="inline-block bg-orange-100 text-daraz-orange text-[10px] font-bold px-2.5 py-0.5 rounded-full uppercase tracking-wide mb-2">In Stock</span>
-              <h2 id="modal-prod-name" class="text-lg font-extrabold text-zinc-900 leading-snug mb-2"></h2>
-              
-              <div class="flex items-baseline gap-2.5 mb-3">
-                <span id="modal-prod-price" class="text-2xl font-extrabold text-daraz-orange"></span>
-                <span id="modal-prod-old-price" class="text-xs text-zinc-400 line-through"></span>
-              </div>
-
-              <div class="mb-4">
-                <h4 class="text-xs font-bold text-zinc-700 uppercase tracking-wider mb-1 flex items-center gap-1.5">
-                  <i class="fa-solid fa-align-left text-daraz-orange"></i> Description
-                </h4>
-                <div id="modal-prod-desc" class="text-xs text-zinc-600 leading-relaxed whitespace-pre-line bg-zinc-50 p-2.5 rounded-lg border border-zinc-200 max-h-28 overflow-y-auto"></div>
-              </div>
-            </div>
-
-            <div class="space-y-3 pt-2">
-              <div class="flex items-center justify-between">
-                <span class="text-xs font-bold text-zinc-700">Quantity:</span>
-                <div class="flex items-center border border-zinc-300 rounded-lg overflow-hidden">
-                  <button onclick="changeModalQty(-1)" class="bg-zinc-100 hover:bg-zinc-200 px-3 py-1 text-sm font-bold text-zinc-700">-</button>
-                  <span id="modal-prod-qty" class="px-4 py-1 text-xs font-extrabold text-zinc-900">1</span>
-                  <button onclick="changeModalQty(1)" class="bg-zinc-100 hover:bg-zinc-200 px-3 py-1 text-sm font-bold text-zinc-700">+</button>
-                </div>
-              </div>
-
-              <div class="grid grid-cols-2 gap-2.5">
-                <button id="modal-add-cart-btn" class="bg-daraz-orange hover:bg-orange-700 text-white font-bold py-2.5 px-3 rounded-lg text-xs flex items-center justify-center gap-1.5 shadow transition">
-                  <i class="fa-solid fa-cart-plus"></i>
-                  <span>Add to Cart</span>
-                </button>
-                <button id="modal-whatsapp-btn" class="bg-green-600 hover:bg-green-700 text-white font-bold py-2.5 px-3 rounded-lg text-xs flex items-center justify-center gap-1.5 shadow transition">
-                  <i class="fa-brands fa-whatsapp text-sm"></i>
-                  <span>Order Direct</span>
-                </button>
-              </div>
-            </div>
-          </div>
+      <div class="overflow-y-auto grid grid-cols-1 md:grid-cols-2">
+        <!-- Left: Large Product Image -->
+        <div class="bg-zinc-100 flex items-center justify-center p-4 min-h-[260px] md:min-h-[360px]">
+          <img id="modal-prod-img" src="" alt="Product Image" class="max-h-80 w-full object-contain rounded-lg shadow-sm">
         </div>
 
-        <div>
-          <div class="flex items-center justify-between mb-3">
-            <h3 class="text-xs font-extrabold text-zinc-800 uppercase tracking-wider flex items-center gap-1.5">
-              <i class="fa-solid fa-star text-amber-500"></i> Verified Customer Reviews & Store Replies (<span id="review-count">50+</span>)
-            </h3>
-            <span class="text-[10px] bg-emerald-100 text-emerald-800 font-bold px-2 py-0.5 rounded">100% Original Feedback</span>
+        <!-- Right: Product Info & Full Description -->
+        <div class="p-6 flex flex-col justify-between">
+          <div>
+            <span id="modal-prod-badge" class="inline-block bg-orange-100 text-daraz-orange text-[10px] font-bold px-2.5 py-0.5 rounded-full uppercase tracking-wide mb-2">In Stock</span>
+            <h2 id="modal-prod-name" class="text-lg font-extrabold text-zinc-900 leading-snug mb-2"></h2>
+            
+            <div class="flex items-baseline gap-2.5 mb-4 pb-3 border-b border-zinc-200">
+              <span id="modal-prod-price" class="text-2xl font-extrabold text-daraz-orange"></span>
+              <span id="modal-prod-old-price" class="text-xs text-zinc-400 line-through"></span>
+            </div>
+
+            <!-- Full Description Section -->
+            <div class="mb-5">
+              <h4 class="text-xs font-bold text-zinc-700 uppercase tracking-wider mb-1.5 flex items-center gap-1.5">
+                <i class="fa-solid fa-align-left text-daraz-orange"></i> Product Details & Description
+              </h4>
+              <div id="modal-prod-desc" class="text-xs text-zinc-600 leading-relaxed whitespace-pre-line bg-zinc-50 p-3 rounded-lg border border-zinc-200 max-h-40 overflow-y-auto"></div>
+            </div>
           </div>
 
-          <div id="modal-reviews-list" class="space-y-3 max-h-72 overflow-y-auto pr-1"></div>
+          <!-- Quantity & Action Buttons -->
+          <div class="space-y-3 pt-2 border-t border-zinc-200">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-bold text-zinc-700">Quantity:</span>
+              <div class="flex items-center border border-zinc-300 rounded-lg overflow-hidden">
+                <button onclick="changeModalQty(-1)" class="bg-zinc-100 hover:bg-zinc-200 px-3 py-1 text-sm font-bold text-zinc-700">-</button>
+                <span id="modal-prod-qty" class="px-4 py-1 text-xs font-extrabold text-zinc-900">1</span>
+                <button onclick="changeModalQty(1)" class="bg-zinc-100 hover:bg-zinc-200 px-3 py-1 text-sm font-bold text-zinc-700">+</button>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-2 gap-2.5">
+              <button id="modal-add-cart-btn" class="bg-daraz-orange hover:bg-orange-700 text-white font-bold py-2.5 px-3 rounded-lg text-xs flex items-center justify-center gap-1.5 shadow transition">
+                <i class="fa-solid fa-cart-plus"></i>
+                <span>Add to Cart</span>
+              </button>
+              <button id="modal-whatsapp-btn" class="bg-green-600 hover:bg-green-700 text-white font-bold py-2.5 px-3 rounded-lg text-xs flex items-center justify-center gap-1.5 shadow transition">
+                <i class="fa-brands fa-whatsapp text-sm"></i>
+                <span>Order Direct</span>
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -341,28 +278,12 @@
       <div class="flex justify-between items-center mb-6 border-b border-zinc-200 pb-3">
         <div>
           <h2 class="text-base font-bold text-zinc-800"><i class="fa-solid fa-gauge-high text-daraz-orange mr-2"></i> Admin Panel - Saddat Online Store</h2>
-          <p class="text-xs text-zinc-500">Manage Products, Banks & Brand Overview Banner</p>
+          <p class="text-xs text-zinc-500">Real-time cloud database management</p>
         </div>
         <button onclick="closeAdminDashboard()" class="bg-zinc-200 hover:bg-zinc-300 px-3 py-1.5 rounded text-xs text-zinc-700 font-medium">Close</button>
       </div>
 
-      <!-- EDIT BRAND BANNER SECTION -->
-      <div class="bg-orange-50 p-4 rounded-lg border border-orange-300 mb-6">
-        <h3 class="text-xs font-bold text-orange-900 mb-3"><i class="fa-solid fa-panorama mr-1"></i> Manage Brand Overview Banner</h3>
-        <div class="space-y-3 mb-3">
-          <input type="text" id="banner-tag" placeholder="Tag (e.g. OFFICIAL BRAND OVERVIEW)" class="w-full bg-white border border-orange-300 rounded p-2 text-xs text-zinc-800">
-          <input type="text" id="banner-title" placeholder="Banner Title" class="w-full bg-white border border-orange-300 rounded p-2 text-xs text-zinc-800">
-          <textarea id="banner-desc" placeholder="Banner Description & Details..." class="w-full bg-white border border-orange-300 rounded p-2 text-xs text-zinc-800 h-20"></textarea>
-          <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
-            <input type="text" id="banner-badge1" placeholder="Badge 1" class="bg-white border border-orange-300 rounded p-2 text-xs text-zinc-800">
-            <input type="text" id="banner-badge2" placeholder="Badge 2" class="bg-white border border-orange-300 rounded p-2 text-xs text-zinc-800">
-            <input type="text" id="banner-badge3" placeholder="Badge 3" class="bg-white border border-orange-300 rounded p-2 text-xs text-zinc-800">
-          </div>
-        </div>
-        <button onclick="saveBrandBanner()" class="bg-orange-600 hover:bg-orange-700 text-white text-xs font-bold px-4 py-2 rounded transition shadow">Save / Update Banner</button>
-      </div>
-
-      <!-- EDIT PRODUCT BOX -->
+      <!-- EDIT PRODUCT BOX WITH IMAGE UPLOAD -->
       <div id="edit-product-box" class="bg-amber-50 p-4 rounded-lg border border-amber-300 mb-6 hidden">
         <h3 class="text-xs font-bold text-amber-900 mb-3"><i class="fa-solid fa-pen-to-square mr-1"></i> Edit Product & Change Photo</h3>
         <input type="hidden" id="edit-prod-id">
@@ -371,45 +292,52 @@
           <input type="number" id="edit-prod-price" placeholder="Price (Rs)" class="bg-white border border-amber-300 rounded p-2 text-xs text-zinc-800">
           <input type="number" id="edit-prod-old-price" placeholder="Original Price (Rs)" class="bg-white border border-amber-300 rounded p-2 text-xs text-zinc-800">
           <div>
-            <label class="block text-[10px] font-bold text-amber-900 mb-1">Choose New Photo:</label>
+            <label class="block text-[10px] font-bold text-amber-900 mb-1">Choose New Photo (Optional):</label>
             <input type="file" id="edit-prod-img" accept="image/*" class="bg-white border border-amber-300 rounded p-1 text-xs text-zinc-600 file:mr-2 file:py-1 file:px-2 file:rounded file:border-0 file:text-[11px] file:bg-amber-600 file:text-white w-full">
           </div>
         </div>
-        <textarea id="edit-prod-desc" placeholder="Product Description..." class="w-full bg-white border border-amber-300 rounded p-2 text-xs text-zinc-800 mb-3 h-24"></textarea>
+        <textarea id="edit-prod-desc" placeholder="Product Description (Size, Fabric, Box Price, Features...)" class="w-full bg-white border border-amber-300 rounded p-2 text-xs text-zinc-800 mb-3 h-24"></textarea>
         <div class="flex gap-2">
-          <button id="btn-update-prod" onclick="updateProductInCloud()" class="bg-amber-600 hover:bg-amber-700 text-white text-xs font-bold px-4 py-2 rounded transition shadow">Update Product</button>
+          <button onclick="updateProductInCloud()" class="bg-amber-600 hover:bg-amber-700 text-white text-xs font-bold px-4 py-2 rounded transition shadow">Update Product</button>
           <button onclick="cancelEditProduct()" class="bg-zinc-300 hover:bg-zinc-400 text-zinc-800 text-xs font-bold px-4 py-2 rounded transition">Cancel</button>
         </div>
       </div>
 
       <!-- ADD PRODUCT FORM -->
       <div class="bg-zinc-50 p-4 rounded-lg border border-zinc-200 mb-6">
-        <h3 class="text-xs font-bold text-zinc-800 mb-3"><i class="fa-solid fa-plus text-daraz-orange mr-1"></i> Add New Product</h3>
+        <h3 class="text-xs font-bold text-zinc-800 mb-3"><i class="fa-solid fa-plus text-daraz-orange mr-1"></i> Add New Product (Shawl / Herbal)</h3>
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-2.5">
-          <input type="text" id="new-prod-name" placeholder="Product Title" class="bg-white border border-zinc-300 rounded p-2 text-xs text-zinc-800">
+          <input type="text" id="new-prod-name" placeholder="Product Title (e.g. Royal Maroon Velvet Shawl)" class="bg-white border border-zinc-300 rounded p-2 text-xs text-zinc-800">
           <input type="number" id="new-prod-price" placeholder="Price (Rs)" class="bg-white border border-zinc-300 rounded p-2 text-xs text-zinc-800">
           <input type="number" id="new-prod-old-price" placeholder="Original Price (Rs)" class="bg-white border border-zinc-300 rounded p-2 text-xs text-zinc-800">
           <input type="file" id="new-prod-img" accept="image/*" class="bg-white border border-zinc-300 rounded p-1 text-xs text-zinc-500 file:mr-2 file:py-1 file:px-2 file:rounded file:border-0 file:text-[11px] file:bg-orange-600 file:text-white">
         </div>
-        <textarea id="new-prod-desc" placeholder="Full Product Description..." class="w-full bg-white border border-zinc-300 rounded p-2 text-xs text-zinc-800 mb-3 h-24"></textarea>
-        <button id="btn-save-prod" onclick="addNewProduct()" class="bg-daraz-orange hover:bg-orange-700 text-white text-xs font-bold px-4 py-2 rounded transition shadow">Save Product to Cloud</button>
+        <textarea id="new-prod-desc" placeholder="Full Product Description (Customers can read this by clicking the product)" class="w-full bg-white border border-zinc-300 rounded p-2 text-xs text-zinc-800 mb-3 h-24"></textarea>
+        <button onclick="addNewProduct()" class="bg-daraz-orange hover:bg-orange-700 text-white text-xs font-bold px-4 py-2 rounded transition shadow">Save Product to Cloud</button>
       </div>
 
-      <h3 class="text-xs font-bold text-zinc-800 mb-3">Manage Existing Products</h3>
-      <div id="admin-products-list" class="space-y-2 mb-8"></div>
+      <!-- MANAGE PRODUCTS LIST -->
+      <h3 class="text-xs font-bold text-zinc-800 mb-3">Manage Existing Products (Edit / Delete)</h3>
+      <div id="admin-products-list" class="space-y-2 mb-8">
+        <!-- Injected list -->
+      </div>
 
-      <!-- BANK ACCOUNTS -->
+      <!-- BANK ACCOUNTS MANAGEMENT SECTION -->
       <div class="border-t border-zinc-200 pt-6">
         <h3 class="text-sm font-bold text-zinc-800 mb-3"><i class="fa-solid fa-wallet text-daraz-orange mr-1"></i> Manage Bank / Payment Accounts</h3>
         <div class="bg-zinc-50 p-4 rounded-lg border border-zinc-200 mb-4">
+          <h4 class="text-xs font-bold text-zinc-800 mb-2">Add New Bank Account</h4>
           <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-2.5">
             <input type="text" id="new-bank-name" placeholder="Bank Name (e.g. Easypaisa)" class="bg-white border border-zinc-300 rounded p-2 text-xs text-zinc-800">
-            <input type="text" id="new-bank-acc" placeholder="Account Number" class="bg-white border border-zinc-300 rounded p-2 text-xs text-zinc-800">
-            <input type="text" id="new-bank-title" placeholder="Account Title" class="bg-white border border-zinc-300 rounded p-2 text-xs text-zinc-800">
+            <input type="text" id="new-bank-acc" placeholder="Account Number (e.g. 0317-0546013)" class="bg-white border border-zinc-300 rounded p-2 text-xs text-zinc-800">
+            <input type="text" id="new-bank-title" placeholder="Account Title (e.g. Kashif Javaid Naqvi)" class="bg-white border border-zinc-300 rounded p-2 text-xs text-zinc-800">
           </div>
           <button onclick="addNewBankAccount()" class="bg-daraz-orange hover:bg-orange-700 text-white text-xs font-bold px-4 py-2 rounded transition shadow">Save Bank Account</button>
         </div>
-        <div id="admin-banks-list" class="space-y-2"></div>
+        <h4 class="text-xs font-bold text-zinc-800 mb-2">Existing Bank Accounts</h4>
+        <div id="admin-banks-list" class="space-y-2">
+          <!-- Injected bank accounts list -->
+        </div>
       </div>
 
     </div>
@@ -423,9 +351,10 @@
     </div>
   </footer>
 
-  <!-- Firebase & Anti-Stuck Instant App Script -->
+  <!-- Firebase & App Script -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/13.3.0/firebase-app.js";
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/13.3.0/firebase-analytics.js";
     import { 
       getFirestore, 
       collection, 
@@ -447,269 +376,52 @@
     };
 
     const app = initializeApp(firebaseConfig);
+    const analytics = getAnalytics(app);
     const db = getFirestore(app);
 
-    // Default built-in products so it never stays empty or stuck on loading
-    const defaultProducts = [
-      {
-        id: "default_1",
-        name: "Luxury Micro Velvet Heavy Embroidered Shawl",
-        price: 2499,
-        oldPrice: 3500,
-        desc: "Pure micro velvet fabric with 9MM heavy sequence embroidery. Warm, soft, and elegant for winter weddings and parties.",
-        img: "https://images.unsplash.com/photo-1606760227091-3dd870d97f1d?w=400"
-      },
-      {
-        id: "default_2",
-        name: "MS Pure Herbal Hair Growth Oil (250ml)",
-        price: 999,
-        oldPrice: 1500,
-        desc: "100% organic herbal ingredients to stop hair fall, promote new hair growth, and remove dandruff naturally.",
-        img: "https://images.unsplash.com/photo-1608248597359-f37b42c56a84?w=400"
-      },
-      {
-        id: "default_3",
-        name: "MS Organic Herbal Anti-Hairfall Shampoo",
-        price: 799,
-        oldPrice: 1200,
-        desc: "Deep cleansing herbal shampoo infused with aloe vera, amla, and reetha for strong, shiny hair.",
-        img: "https://images.unsplash.com/photo-1535585209827-a15fcdbc4c2d?w=400"
-      },
-      {
-        id: "default_4",
-        name: "Bridal Red Velvet Shawl with Zari Work",
-        price: 2899,
-        oldPrice: 4000,
-        desc: "Royal red bridal velvet shawl featuring intricate gold zari and tilla hand embroidery.",
-        img: "https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=400"
-      }
-    ];
-
-    let products = defaultProducts;
-    let bankAccounts = [{ id: "bank_default", bankName: "Easypaisa Mobile Account", accNumber: "0317-0546013", accTitle: "Kashif Javaid Naqvi" }];
+    let products = [];
+    let bankAccounts = [];
     let cart = [];
     let currentSlideIndex = 0;
     let sliderInterval = null;
     let currentModalQty = 1;
 
-    const defaultBanner = {
-      id: "main_brand_banner",
-      tag: "OFFICIAL BRAND OVERVIEW",
-      title: "Welcome to Saddat Online Store — Premium Quality Delivered Nationwide",
-      desc: "We specialize in bringing you the finest luxury micro velvet shawls with 9MM heavy embroidery, alongside 100% pure organic herbal hair oils and shampoos. Every item is hand-inspected to ensure supreme quality, elegant gifting presentation, and complete customer satisfaction. Fast delivery across Pakistan with secure payment via Easypaisa or Cash on Delivery.",
-      badge1: "100% Original Fabric & Oils",
-      badge2: "Fast Nationwide Shipping",
-      badge3: "Verified Merchant Store"
-    };
+    const defaultBank = { id: "bank_default", bankName: "Easypaisa Mobile Account", accNumber: "0317-0546013", accTitle: "Kashif Javaid Naqvi" };
 
-    let brandBanner = defaultBanner;
-
-    const reviewPool = [
-      { name: "Ayesha Khan", city: "Lahore", comment: "Bohat hi pyari quality hai! Velvet bilkul pure aur soft hai, embroidery bhi bohat neat hai.", reply: "Jazakallah Ayesha! Aap ka bohat shukria positive feedback ke liye. Saddat Online Store mein aap ko khushamdeed!" },
-      { name: "Muhammad Ali", city: "Karachi", comment: "10/10 product! Gift box mein mangwaya tha, presentation zabardast thi.", reply: "Shukria Muhammad Ali! Hamari koshish hoti hai ke har customer ko best packaging aur quality mile." },
-      { name: "Fatima Noor", city: "Islamabad", comment: "Color bilkul waisa hi hai jaisa picture mein dikhaya gaya tha. Very elegant!", reply: "Thank you so much Fatima! Aap ke review se hamari team ka hosla barha hai." },
-      { name: "Usman Ghani", city: "Faisalabad", comment: "Bibi ke liye li thi, unhein bohat pasand aayi. Fast delivery aur secure packaging.", reply: "Bohat shukria Usman bhai! Ummeed hai bhabhi ko yeh gift bohat pasand aya hoga." },
-      { name: "Sana Tariq", city: "Rawalpindi", comment: "Fabric bohat warm aur comfortable hai winter ke liye. Highly recommended!", reply: "Shukria Sana! Sardiyon ke liye yeh hamara best-seller item hai." },
-      { name: "Bilal Ahmed", city: "Multan", comment: "Price ke hisaab se quality exceptional hai. Daraz se bhi achha experience raha.", reply: "Jazakallah Bilal! Saddat Online Store hamesha affordable price mein premium quality deta hai." },
-      { name: "Zainab Bibi", city: "Peshawar", comment: "Embroidery ka kaam bohat heavy aur fine hai. Shadi ke function pe pehni thi sab ne tareef ki.", reply: "Bohat shukria Zainab! Aap ki tareef ka shukria, aage bhi mazeed achhi collections milti rahengi." },
-      { name: "Hamza Malik", city: "Gujranwala", comment: "Easypaisa payment ki thi, order 2 din mein ghar aa gaya. Great service!", reply: "Shukria Hamza bhai! Hamari delivery nationwide fast aur reliable hai." },
-      { name: "Ayesha Siddiqui", city: "Quetta", comment: "Packing bohat shandar thi aur product bilkul safe condition mein pohnchi.", reply: "Thank you Ayesha! Customer ki satisfaction hi hamara asal sarmaya hai." },
-      { name: "Tariq Jamil", city: "Sialkot", comment: "Very good customer support on WhatsApp. Prompt response and guide kiya.", reply: "Jazakallah Tariq bhai! Aap ki khidmat mein 24/7 hazir hain." },
-      { name: "Mehwish Hayat", city: "Hyderabad", comment: "Soft velvet material hai, bilkul chubhta nahi hai. Bohat cozy hai.", reply: "Shukria Mehwish! Pure micro velvet ka yahi faida hai ke yeh ultra-soft hoti hai." },
-      { name: "Saad Riaz", city: "Abbottabad", comment: "Awesome product! Pic se zyada achhi real mein lag rahi hai.", reply: "Bohat shukria Saad bhai! Real quality hamesha tasweer se barh kar hoti hai." },
-      { name: "Nida Yasir", city: "Bahawalpur", comment: "Bohat hi umda cheez hai, sab ko suggest karungi ke zaroor buy karein.", reply: "Jazakallah Nida! Is tarah ke support ke liye bohat shukria." },
-      { name: "Danish Ali", city: "Sargodha", comment: "Delivery time pe mil gayi thi. Quality solid hai.", reply: "Shukria Danish bhai! Timely delivery hamari pehli tarjeeh hai." },
-      { name: "Hira Mani", city: "Sukkur", comment: "Amazing finishing! Koi thread bahar nahi tha, bohat clean stitching hai.", reply: "Thank you Hira! Hamare karigar quality check ke baad hi dispatch karte hain." },
-      { name: "Kamran Akmal", city: "Mardan", comment: "Pehli baar online shopping ki aur itna acha experience hua. Jazakallah!", reply: "Jazakallah Kamran bhai! Saddat Online Store par bharosa karne ka shukria." },
-      { name: "Rabia Anum", city: "Kasur", comment: "Color fade nahi hota wash karne ke baad bhi. Best quality.", reply: "Shukria Rabia! Micro velvet color fastness mein best hoti hai." },
-      { name: "Farhan Saeed", city: "Rahim Yar Khan", comment: "Gift box ki look bohat royal lag rahi thi. Perfect for gifting.", reply: "Bohat shukria Farhan bhai! Gift box specially weddings aur anniversaries ke liye design kiya gaya hai." },
-      { name: "Sadia Khan", city: "Dera Ghazi Khan", comment: "Bohat hi khubsurat shawls hain, maine doosra color bhi order kar liya hai.", reply: "Jazakallah Sadia! Aap ka doosra order bhi dispatch kiya ja raha hai." },
-      { name: "Imran Khan", city: "Jhelum", comment: "Good store! Reliable aur trustworthy log hain.", reply: "Shukria Imran bhai! Aap ke is trust ke liye dil se shukria." }
-    ];
-
-    function getProductReviews(prodName) {
-      let list = [];
-      for (let i = 0; i < 50; i++) {
-        let base = reviewPool[i % reviewPool.length];
-        let rating = (i % 5 === 0) ? 4 : 5;
-        list.push({
-          name: base.name + (i >= 20 ? ` (${i+1})` : ''),
-          city: base.city,
-          rating: rating,
-          comment: base.comment,
-          reply: base.reply,
-          time: `${(i % 24) + 1} hours ago`
-        });
-      }
-      return list;
-    }
-
-    // Render immediately using defaults or cache
-    function renderEverythingInstant() {
-      try {
-        const cachedProds = localStorage.getItem('saddat_products_cache');
-        if (cachedProds) {
-          const parsed = JSON.parse(cachedProds);
-          if (parsed.length > 0) products = parsed;
-        }
-        const cachedBanks = localStorage.getItem('saddat_banks_cache');
-        if (cachedBanks) {
-          const parsedB = JSON.parse(cachedBanks);
-          if (parsedB.length > 0) bankAccounts = parsedB;
-        }
-        const cachedBanner = localStorage.getItem('saddat_banner_cache');
-        if (cachedBanner) {
-          brandBanner = JSON.parse(cachedBanner);
-        }
-      } catch (e) {}
-
-      renderProducts();
-      initHeroSlider();
-      renderBrandBanner();
-      renderBankWidgets();
-    }
-
-    renderEverythingInstant();
-
-    function saveInstantCache() {
-      try {
-        localStorage.setItem('saddat_products_cache', JSON.stringify(products));
-        localStorage.setItem('saddat_banks_cache', JSON.stringify(bankAccounts));
-        localStorage.setItem('saddat_banner_cache', JSON.stringify(brandBanner));
-      } catch (e) {}
-    }
-
-    function compressImage(file, maxWidth = 600, quality = 0.70) {
-      return new Promise((resolve) => {
-        const reader = new FileReader();
-        reader.onload = (event) => {
-          const img = new Image();
-          img.onload = () => {
-            const canvas = document.createElement('canvas');
-            let width = img.width;
-            let height = img.height;
-            if (width > maxWidth) {
-              height = Math.round((height * maxWidth) / width);
-              width = maxWidth;
-            }
-            canvas.width = width;
-            canvas.height = height;
-            const ctx = canvas.getContext('2d');
-            ctx.drawImage(img, 0, 0, width, height);
-            resolve(canvas.toDataURL('image/jpeg', quality));
-          };
-          img.src = event.target.result;
-        };
-        reader.readAsDataURL(file);
-      });
-    }
-
-    // --- NON-BLOCKING BACKGROUND FIREBASE SYNC ---
     async function initFirestoreSync() {
       try {
-        const prodSnapshot = await getDocs(collection(db, "products"));
-        if (!prodSnapshot.empty) {
-          const cloudProds = [];
-          prodSnapshot.forEach(docSnap => cloudProds.push({ id: docSnap.id, ...docSnap.data() }));
-          products = cloudProds;
-          saveInstantCache();
-          renderProducts();
-          initHeroSlider();
-        }
-
         onSnapshot(collection(db, "products"), (snapshot) => {
-          if (!snapshot.empty) {
-            const freshProducts = [];
-            snapshot.forEach((docSnap) => {
-              freshProducts.push({ id: docSnap.id, ...docSnap.data() });
-            });
-            products = freshProducts;
-            saveInstantCache();
-            renderProducts();
-            renderAdminProductsList();
-            initHeroSlider();
-          }
+          products = [];
+          snapshot.forEach((docSnap) => {
+            products.push({ id: docSnap.id, ...docSnap.data() });
+          });
+          renderProducts();
+          renderAdminProductsList();
+          initHeroSlider();
         });
 
         const bankSnapshot = await getDocs(collection(db, "banks"));
-        if (!bankSnapshot.empty) {
-          const cloudBanks = [];
-          bankSnapshot.forEach(docSnap => cloudBanks.push({ id: docSnap.id, ...docSnap.data() }));
-          bankAccounts = cloudBanks;
-          renderBankWidgets();
-          renderAdminBanksList();
+        if (bankSnapshot.empty) {
+          await setDoc(doc(db, "banks", defaultBank.id), defaultBank);
         }
 
-        const bannerDocRef = doc(db, "settings", "brand_banner");
-        onSnapshot(bannerDocRef, (docSnap) => {
-          if (docSnap.exists()) {
-            brandBanner = docSnap.data();
-            saveInstantCache();
-            renderBrandBanner();
-          }
+        onSnapshot(collection(db, "banks"), (snapshot) => {
+          bankAccounts = [];
+          snapshot.forEach((docSnap) => {
+            bankAccounts.push({ id: docSnap.id, ...docSnap.data() });
+          });
+          renderBankWidgets();
+          renderAdminBanksList();
         });
 
       } catch (err) {
-        console.log("Using local offline mode due to network:", err);
+        console.error("Firestore error:", err);
       }
     }
 
     initFirestoreSync();
 
-    window.renderBrandBanner = function() {
-      const container = document.getElementById('brand-banner-container');
-      if (!container) return;
-
-      container.innerHTML = `
-        <div class="bg-gradient-to-r from-orange-600 via-amber-600 to-zinc-900 text-white p-6 md:p-8 rounded-2xl shadow-xl border border-orange-400 relative overflow-hidden">
-          <div class="absolute -right-10 -bottom-10 opacity-10 text-9xl">
-            <i class="fa-solid fa-crown"></i>
-          </div>
-          <div class="relative z-10 max-w-3xl space-y-3">
-            <span class="bg-white/20 text-orange-200 text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-widest border border-white/20 inline-block">
-              <i class="fa-solid fa-award mr-1"></i> ${brandBanner.tag || 'OFFICIAL BRAND OVERVIEW'}
-            </span>
-            <h3 class="text-xl md:text-2xl font-extrabold tracking-tight">${brandBanner.title || ''}</h3>
-            <p class="text-xs md:text-sm text-zinc-100 leading-relaxed">
-              ${brandBanner.desc || ''}
-            </p>
-            <div class="flex flex-wrap gap-4 pt-2 text-xs font-semibold">
-              ${brandBanner.badge1 ? `<span class="flex items-center gap-1.5 bg-black/30 px-3 py-1.5 rounded-lg border border-white/10"><i class="fa-solid fa-check text-green-400"></i> ${brandBanner.badge1}</span>` : ''}
-              ${brandBanner.badge2 ? `<span class="flex items-center gap-1.5 bg-black/30 px-3 py-1.5 rounded-lg border border-white/10"><i class="fa-solid fa-truck-fast text-orange-300"></i> ${brandBanner.badge2}</span>` : ''}
-              ${brandBanner.badge3 ? `<span class="flex items-center gap-1.5 bg-black/30 px-3 py-1.5 rounded-lg border border-white/10"><i class="fa-solid fa-shield-halved text-amber-300"></i> ${brandBanner.badge3}</span>` : ''}
-            </div>
-          </div>
-        </div>
-      `;
-    };
-
-    window.saveBrandBanner = async function() {
-      const tag = document.getElementById('banner-tag').value.trim();
-      const title = document.getElementById('banner-title').value.trim();
-      const desc = document.getElementById('banner-desc').value.trim();
-      const badge1 = document.getElementById('banner-badge1').value.trim();
-      const badge2 = document.getElementById('banner-badge2').value.trim();
-      const badge3 = document.getElementById('banner-badge3').value.trim();
-
-      if (!title || !desc) {
-        alert("Please fill at least Title and Description.");
-        return;
-      }
-
-      brandBanner = { id: "main_brand_banner", tag, title, desc, badge1, badge2, badge3 };
-
-      try {
-        await setDoc(doc(db, "settings", "brand_banner"), brandBanner);
-        saveInstantCache();
-        renderBrandBanner();
-        alert("Brand Overview Banner updated successfully!");
-      } catch (e) {
-        saveInstantCache();
-        renderBrandBanner();
-        alert("Banner updated locally!");
-      }
-    };
-
+    // --- PRODUCT DETAIL MODAL LOGIC ---
     window.openProductDetail = function(id) {
       const p = products.find(item => item.id === id);
       if (!p) return;
@@ -727,41 +439,13 @@
       const isHerbal = (p.name + " " + (p.desc || "")).toLowerCase().includes("herbal");
       document.getElementById('modal-prod-badge').innerText = isHerbal ? "100% Pure Herbal" : "Luxury Collection";
 
-      const reviewsList = document.getElementById('modal-reviews-list');
-      const allReviews = getProductReviews(p.name);
-      document.getElementById('review-count').innerText = allReviews.length + "+";
-
-      reviewsList.innerHTML = allReviews.map(r => `
-        <div class="bg-zinc-50 border border-zinc-200 p-3 rounded-xl text-xs space-y-2">
-          <div class="flex justify-between items-center">
-            <div class="flex items-center gap-1.5">
-              <span class="font-bold text-zinc-800">${r.name}</span>
-              <span class="text-[10px] text-zinc-500">(${r.city})</span>
-              <span class="bg-emerald-50 text-emerald-700 text-[9px] font-bold px-1.5 py-0.5 rounded ml-1"><i class="fa-solid fa-check-circle mr-0.5"></i> Verified Buyer</span>
-            </div>
-            <div class="flex items-center gap-1">
-              <span class="text-[10px] text-zinc-400">${r.time}</span>
-              <div class="text-amber-400 text-[10px] ml-1">
-                ${'<i class="fa-solid fa-star"></i>'.repeat(r.rating)}
-              </div>
-            </div>
-          </div>
-          <p class="text-zinc-700 leading-relaxed">${r.comment}</p>
-          
-          <div class="ml-4 pl-3 border-l-2 border-daraz-orange bg-orange-50/50 p-2 rounded-r-lg space-y-0.5 mt-1.5">
-            <div class="flex items-center justify-between">
-              <span class="font-bold text-[11px] text-daraz-orange"><i class="fa-solid fa-store mr-1"></i> Saddat Online Store (Seller)</span>
-            </div>
-            <p class="text-zinc-600 text-[11px]">${r.reply}</p>
-          </div>
-        </div>
-      `).join('');
-
+      // Attach Add to Cart inside Modal
       document.getElementById('modal-add-cart-btn').onclick = function() {
         addToCartWithQty(p.id, currentModalQty);
         closeProductModal();
       };
 
+      // Attach Direct WhatsApp Order inside Modal
       document.getElementById('modal-whatsapp-btn').onclick = function() {
         const msg = `Assalam-o-Alaikum Saddat Online Store!\nI want to order:\n*Product:* ${p.name}\n*Quantity:* ${currentModalQty}\n*Price:* Rs. ${p.price * currentModalQty}`;
         window.open(`https://wa.me/923406724840?text=${encodeURIComponent(msg)}`, '_blank');
@@ -780,6 +464,7 @@
       document.getElementById('modal-prod-qty').innerText = currentModalQty;
     };
 
+    // --- HERO PRODUCT SLIDER LOGIC ---
     window.initHeroSlider = function() {
       if (sliderInterval) clearInterval(sliderInterval);
       renderHeroSlide();
@@ -794,7 +479,15 @@
       const container = document.getElementById('hero-product-slider');
       if (!container) return;
 
-      if (products.length === 0) return;
+      if (products.length === 0) {
+        container.innerHTML = `
+          <div class="bg-white/10 rounded-lg p-6 text-center text-xs text-zinc-200">
+            <i class="fa-solid fa-bag-shopping text-2xl text-orange-400 mb-2 block"></i>
+            Add Shawls or Herbal Products from Admin Panel to showcase them here!
+          </div>
+        `;
+        return;
+      }
 
       if (currentSlideIndex >= products.length) currentSlideIndex = 0;
       if (currentSlideIndex < 0) currentSlideIndex = products.length - 1;
@@ -805,20 +498,21 @@
 
       container.innerHTML = `
         <div class="flex justify-between items-center mb-2">
-          <span class="text-[10px] font-bold tracking-wider text-orange-200 uppercase flex items-center gap-1">
-            <i class="fa-solid fa-fire text-amber-300 animate-bounce"></i> ${badgeText}
+          <span class="text-[10px] font-bold tracking-wider text-orange-300 uppercase flex items-center gap-1">
+            <i class="fa-solid fa-fire"></i> ${badgeText}
           </span>
-          <span class="text-[10px] text-zinc-200 font-mono">${currentSlideIndex + 1} / ${products.length}</span>
+          <span class="text-[10px] text-zinc-300 font-mono">${currentSlideIndex + 1} / ${products.length}</span>
         </div>
 
         <div class="bg-white text-zinc-900 rounded-lg overflow-hidden shadow-lg slide-fade relative group">
           <div onclick="openProductDetail('${p.id}')" class="relative h-48 w-full bg-zinc-100 overflow-hidden cursor-pointer" title="Click to view full details">
             <img src="${p.img || 'https://via.placeholder.com/300'}" alt="${p.name}" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
             <span class="absolute bottom-2 right-2 bg-black/60 text-white text-[10px] px-2 py-0.5 rounded backdrop-blur-xs">
-              <i class="fa-solid fa-eye mr-1"></i> View Details & Reviews
+              <i class="fa-solid fa-eye mr-1"></i> View Details
             </span>
           </div>
 
+          <!-- Prev / Next Arrows -->
           ${products.length > 1 ? `
             <button onclick="prevHeroSlide()" class="absolute left-2 top-24 -translate-y-1/2 bg-black/50 hover:bg-black/80 text-white w-7 h-7 rounded-full flex items-center justify-center text-xs transition z-10">
               <i class="fa-solid fa-chevron-left"></i>
@@ -842,6 +536,7 @@
           </div>
         </div>
 
+        <!-- Dots Indicator -->
         <div class="flex justify-center gap-1.5 mt-2.5">
           ${products.slice(0, 8).map((_, idx) => `
             <button onclick="goToHeroSlide(${idx})" class="h-1.5 rounded-full transition-all ${idx === currentSlideIndex ? 'w-4 bg-orange-400' : 'w-1.5 bg-white/40'}"></button>
@@ -869,6 +564,7 @@
       sliderInterval = setInterval(nextHeroSlide, 3500);
     };
 
+    // --- PRODUCTS GRID (Clickable Cards) ---
     window.renderProducts = function(filteredList = null) {
       const list = filteredList || products;
       const grid = document.getElementById('products-grid');
@@ -880,18 +576,19 @@
       }
 
       grid.innerHTML = list.map(p => `
-        <div class="water-card fire-box-effect bg-white rounded-lg overflow-hidden shadow-md transition flex flex-col justify-between group">
+        <div class="bg-white border border-zinc-200 rounded-lg overflow-hidden shadow-sm hover:shadow-md transition flex flex-col justify-between group">
+          <!-- Clickable Area to Open Product Details -->
           <div onclick="openProductDetail('${p.id}')" class="cursor-pointer">
             <div class="relative bg-zinc-100 h-44 overflow-hidden">
-              <img src="${p.img || 'https://via.placeholder.com/300'}" loading="lazy" decoding="async" alt="${p.name}" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
-              <span class="absolute top-1.5 left-1.5 bg-red-600 text-white text-[9px] font-bold px-1.5 py-0.5 rounded shadow animate-pulse">🔥 Hot Sale</span>
+              <img src="${p.img || 'https://via.placeholder.com/300'}" alt="${p.name}" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
+              <span class="absolute top-1.5 left-1.5 bg-red-600 text-white text-[9px] font-bold px-1.5 py-0.5 rounded shadow">Sale</span>
               <span class="absolute bottom-1.5 right-1.5 bg-black/60 text-white text-[9px] px-2 py-0.5 rounded opacity-0 group-hover:opacity-100 transition">
-                <i class="fa-solid fa-star text-amber-400 mr-1"></i> 50+ Reviews
+                <i class="fa-solid fa-eye mr-1"></i> Details
               </span>
             </div>
             <div class="p-3 pb-1">
               <h3 class="text-xs font-semibold text-zinc-800 group-hover:text-daraz-orange line-clamp-2 mb-1 transition">${p.name}</h3>
-              <p class="text-[11px] text-zinc-500 line-clamp-1 mb-1.5">${p.desc || 'Tap to view details & reviews'}</p>
+              <p class="text-[11px] text-zinc-500 line-clamp-1 mb-1.5">${p.desc || 'Tap to view full product details'}</p>
               <div class="flex items-baseline space-x-2 mb-2">
                 <span class="text-sm font-bold text-daraz-orange">Rs. ${p.price}</span>
                 <span class="text-[10px] text-zinc-400 line-through">Rs. ${p.oldPrice || p.price + 500}</span>
@@ -908,6 +605,7 @@
       `).join('');
     };
 
+    // --- BANK WIDGETS (Cart & Footer) ---
     window.renderBankWidgets = function() {
       const cartBox = document.getElementById('cart-bank-box');
       const footerInfo = document.getElementById('footer-bank-info');
@@ -915,18 +613,14 @@
       if(bankAccounts.length === 0) return;
       const b = bankAccounts[0];
 
-      if (cartBox) {
-        cartBox.innerHTML = `
-          <p class="font-bold text-daraz-orange mb-1"><i class="fa-solid fa-wallet"></i> Official ${b.bankName} Details:</p>
-          <p><strong>Account No:</strong> <span class="font-mono font-bold">${b.accNumber}</span></p>
-          <p><strong>Account Title:</strong> <span class="font-bold">${b.accTitle}</span></p>
-          <p class="text-zinc-600 text-[11px] mt-1">Transfer payment to above account before confirming your order via WhatsApp.</p>
-        `;
-      }
+      cartBox.innerHTML = `
+        <p class="font-bold text-daraz-orange mb-1"><i class="fa-solid fa-wallet"></i> Official ${b.bankName} Details:</p>
+        <p><strong>Account No:</strong> <span class="font-mono font-bold">${b.accNumber}</span></p>
+        <p><strong>Account Title:</strong> <span class="font-bold">${b.accTitle}</span></p>
+        <p class="text-zinc-600 text-[11px] mt-1">Transfer payment to above account before confirming your order via WhatsApp.</p>
+      `;
 
-      if (footerInfo) {
-        footerInfo.innerHTML = `${b.bankName}: ${b.accNumber} (${b.accTitle})`;
-      }
+      footerInfo.innerHTML = `${b.bankName}: ${b.accNumber} (${b.accTitle})`;
     };
 
     window.filterProducts = function() {
@@ -1049,17 +743,7 @@
       window.open(`https://wa.me/923406724840?text=${encoded}`, '_blank');
     };
 
-    window.openAdminModal = function() { 
-      if (brandBanner) {
-        document.getElementById('banner-tag').value = brandBanner.tag || '';
-        document.getElementById('banner-title').value = brandBanner.title || '';
-        document.getElementById('banner-desc').value = brandBanner.desc || '';
-        document.getElementById('banner-badge1').value = brandBanner.badge1 || '';
-        document.getElementById('banner-badge2').value = brandBanner.badge2 || '';
-        document.getElementById('banner-badge3').value = brandBanner.badge3 || '';
-      }
-      document.getElementById('admin-modal').classList.remove('hidden'); 
-    };
+    window.openAdminModal = function() { document.getElementById('admin-modal').classList.remove('hidden'); };
     window.closeAdminModal = function() { document.getElementById('admin-modal').classList.add('hidden'); };
     window.verifyAdminPin = function() {
       const pin = document.getElementById('admin-pin-input').value;
@@ -1067,19 +751,17 @@
         closeAdminModal();
         document.getElementById('admin-pin-input').value = "";
         document.getElementById('admin-dashboard').classList.remove('hidden');
-        renderAdminProductsList();
-        renderAdminBanksList();
       } else {
         alert("Incorrect PIN! Correct PIN is 7866.");
       }
     };
     window.closeAdminDashboard = function() { document.getElementById('admin-dashboard').classList.add('hidden'); };
 
+    // --- ADMIN: PRODUCTS MANAGEMENT ---
     window.renderAdminProductsList = function() {
       const list = document.getElementById('admin-products-list');
-      if(!list) return;
       if(products.length === 0) {
-        list.innerHTML = `<p class="text-xs text-zinc-500">No products found.</p>`;
+        list.innerHTML = `<p class="text-xs text-zinc-500">No products found in cloud database.</p>`;
         return;
       }
       list.innerHTML = products.map(p => `
@@ -1111,40 +793,26 @@
         return;
       }
 
-      const btn = document.getElementById('btn-save-prod');
-      btn.disabled = true;
-      btn.innerText = "Saving...";
-
-      try {
-        let finalImg = "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=300";
-        if (imgFile) {
-          finalImg = await compressImage(imgFile);
-        }
-
-        const newId = "prod_" + Date.now();
-        const newProd = { id: newId, name, price, oldPrice, desc: desc || "Quality product", img: finalImg };
-        
-        products.unshift(newProd);
-        saveInstantCache();
-        renderProducts();
-        renderAdminProductsList();
-        initHeroSlider();
-
+      let imgUrl = "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=300";
+      const save = async (finalImg) => {
         try {
-          await setDoc(doc(db, "products", newId), newProd);
-        } catch(e) {}
+          const newId = "prod_" + Date.now();
+          await setDoc(doc(db, "products", newId), { name, price, oldPrice, desc: desc || "Quality product", img: finalImg });
+          document.getElementById('new-prod-name').value = "";
+          document.getElementById('new-prod-price').value = "";
+          document.getElementById('new-prod-old-price').value = "";
+          document.getElementById('new-prod-desc').value = "";
+          document.getElementById('new-prod-img').value = "";
+          alert("Product added successfully to live cloud database!");
+        } catch(e) { alert("Error saving product."); }
+      };
 
-        document.getElementById('new-prod-name').value = "";
-        document.getElementById('new-prod-price').value = "";
-        document.getElementById('new-prod-old-price').value = "";
-        document.getElementById('new-prod-desc').value = "";
-        document.getElementById('new-prod-img').value = "";
-        alert("Product added successfully!");
-      } catch(e) {
-        alert("Error saving product.");
-      } finally {
-        btn.disabled = false;
-        btn.innerText = "Save Product to Cloud";
+      if(imgFile) {
+        const reader = new FileReader();
+        reader.onloadend = () => save(reader.result);
+        reader.readAsDataURL(imgFile);
+      } else {
+        save(imgUrl);
       }
     };
 
@@ -1181,51 +849,35 @@
         return;
       }
 
-      const btn = document.getElementById('btn-update-prod');
-      btn.disabled = true;
-      btn.innerText = "Updating...";
-
-      try {
-        let finalImg = existing.img;
-        if (imgFile) {
-          finalImg = await compressImage(imgFile);
-        }
-
-        const updated = { id, name, price, oldPrice, desc, img: finalImg };
-        const index = products.findIndex(item => item.id === id);
-        if(index !== -1) products[index] = updated;
-
-        saveInstantCache();
-        renderProducts();
-        renderAdminProductsList();
-        initHeroSlider();
-        cancelEditProduct();
-
+      const updateDocData = async (finalImg) => {
         try {
-          await setDoc(doc(db, "products", id), updated);
-        } catch(e) {}
+          await setDoc(doc(db, "products", id), { name, price, oldPrice, desc, img: finalImg });
+          cancelEditProduct();
+          alert("Product updated successfully!");
+        } catch(e) {
+          alert("Error updating product.");
+        }
+      };
 
-        alert("Product updated successfully!");
-      } catch(e) {
-        alert("Error updating product.");
-      } finally {
-        btn.disabled = false;
-        btn.innerText = "Update Product";
+      if(imgFile) {
+        const reader = new FileReader();
+        reader.onloadend = () => updateDocData(reader.result);
+        reader.readAsDataURL(imgFile);
+      } else {
+        updateDocData(existing.img);
       }
     };
 
     window.deleteProduct = async function(id) {
       if(!confirm("Are you sure you want to delete this product?")) return;
-      products = products.filter(item => item.id !== id);
-      saveInstantCache();
-      renderProducts();
-      renderAdminProductsList();
-      initHeroSlider();
       try {
         await deleteDoc(doc(db, "products", id));
-      } catch(e) {}
+      } catch(e) {
+        alert("Error deleting product.");
+      }
     };
 
+    // --- ADMIN: BANK ACCOUNTS MANAGEMENT ---
     window.renderAdminBanksList = function() {
       const list = document.getElementById('admin-banks-list');
       if(!list) return;
@@ -1256,16 +908,7 @@
 
       try {
         const newId = "bank_" + Date.now();
-        const newBank = { id: newId, bankName, accNumber, accTitle };
-        bankAccounts.push(newBank);
-        saveInstantCache();
-        renderBankWidgets();
-        renderAdminBanksList();
-
-        try {
-          await setDoc(doc(db, "banks", newId), newBank);
-        } catch(e) {}
-
+        await setDoc(doc(db, "banks", newId), { bankName, accNumber, accTitle });
         document.getElementById('new-bank-name').value = "";
         document.getElementById('new-bank-acc').value = "";
         document.getElementById('new-bank-title').value = "";
@@ -1277,15 +920,14 @@
 
     window.deleteBankAccount = async function(id) {
       if(!confirm("Delete this bank account?")) return;
-      bankAccounts = bankAccounts.filter(b => b.id !== id);
-      saveInstantCache();
-      renderBankWidgets();
-      renderAdminBanksList();
       try {
         await deleteDoc(doc(db, "banks", id));
-      } catch(e) {}
+      } catch(e) {
+        alert("Error deleting bank account.");
+      }
     };
 
+    // Click Animation Effect
     document.addEventListener('click', function(e) {
       const circle = document.createElement('div');
       circle.className = 'click-circle';
