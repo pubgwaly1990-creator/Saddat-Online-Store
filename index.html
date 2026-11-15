@@ -82,7 +82,7 @@
 
         <!-- Search Bar -->
         <div class="flex-grow max-w-2xl relative">
-          <input type="text" id="search-input" oninput="filterProducts()" placeholder="Search in Saddat Online Store (e.g. MS Herbal, Oil, Watch)..." class="w-full bg-white rounded-sm pl-4 pr-10 py-2.5 text-xs text-zinc-800 focus:outline-none shadow-inner">
+          <input type="text" id="search-input" oninput="filterProducts()" placeholder="Search in Saddat Online Store..." class="w-full bg-white rounded-sm pl-4 pr-10 py-2.5 text-xs text-zinc-800 focus:outline-none shadow-inner">
           <button class="absolute right-0 top-0 h-full px-4 bg-orange-100 hover:bg-orange-200 text-daraz-orange rounded-r-sm transition">
             <i class="fa-solid fa-magnifying-glass"></i>
           </button>
@@ -133,7 +133,7 @@
           </div>
         </div>
 
-        <!-- Dynamic Payment Partner Card Widget (Loaded live from Firestore) -->
+        <!-- Dynamic Payment Partner Card Widget -->
         <div id="hero-bank-card" class="bg-white/10 backdrop-blur-md p-5 rounded-xl border border-white/20 w-full md:w-80 shadow-2xl">
           <!-- Dynamic bank details injected here -->
         </div>
@@ -200,25 +200,29 @@
     </div>
   </div>
 
-  <!-- Admin Dashboard Modal with Add/Edit/Delete for Products & Bank Accounts -->
+  <!-- Admin Dashboard Modal -->
   <div id="admin-dashboard" class="fixed inset-0 bg-black/80 flex flex-col z-50 hidden overflow-y-auto p-4 md:p-8">
     <div class="max-w-4xl mx-auto w-full bg-white border border-zinc-200 rounded-xl p-6 shadow-2xl relative mb-10">
       <div class="flex justify-between items-center mb-6 border-b border-zinc-200 pb-3">
         <div>
           <h2 class="text-base font-bold text-zinc-800"><i class="fa-solid fa-gauge-high text-daraz-orange mr-2"></i> Admin Panel - Saddat Online Store</h2>
-          <p class="text-xs text-zinc-500">Real-time cloud database management for Products & Bank Accounts</p>
+          <p class="text-xs text-zinc-500">Real-time cloud database management</p>
         </div>
         <button onclick="closeAdminDashboard()" class="bg-zinc-200 hover:bg-zinc-300 px-3 py-1.5 rounded text-xs text-zinc-700 font-medium">Close</button>
       </div>
 
-      <!-- EDIT PRODUCT MODAL (Hidden by default) -->
+      <!-- EDIT PRODUCT BOX WITH IMAGE UPLOAD -->
       <div id="edit-product-box" class="bg-amber-50 p-4 rounded-lg border border-amber-300 mb-6 hidden">
-        <h3 class="text-xs font-bold text-amber-900 mb-3"><i class="fa-solid fa-pen-to-square mr-1"></i> Edit Product</h3>
+        <h3 class="text-xs font-bold text-amber-900 mb-3"><i class="fa-solid fa-pen-to-square mr-1"></i> Edit Product & Change Photo</h3>
         <input type="hidden" id="edit-prod-id">
-        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-2.5">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-2.5">
           <input type="text" id="edit-prod-name" placeholder="Product Title" class="bg-white border border-amber-300 rounded p-2 text-xs text-zinc-800">
           <input type="number" id="edit-prod-price" placeholder="Price (Rs)" class="bg-white border border-amber-300 rounded p-2 text-xs text-zinc-800">
           <input type="number" id="edit-prod-old-price" placeholder="Original Price (Rs)" class="bg-white border border-amber-300 rounded p-2 text-xs text-zinc-800">
+          <div>
+            <label class="block text-[10px] font-bold text-amber-900 mb-1">Choose New Photo (Optional):</label>
+            <input type="file" id="edit-prod-img" accept="image/*" class="bg-white border border-amber-300 rounded p-1 text-xs text-zinc-600 file:mr-2 file:py-1 file:px-2 file:rounded file:border-0 file:text-[11px] file:bg-amber-600 file:text-white w-full">
+          </div>
         </div>
         <textarea id="edit-prod-desc" placeholder="Product Description" class="w-full bg-white border border-amber-300 rounded p-2 text-xs text-zinc-800 mb-3 h-14"></textarea>
         <div class="flex gap-2">
@@ -249,8 +253,6 @@
       <!-- BANK ACCOUNTS MANAGEMENT SECTION -->
       <div class="border-t border-zinc-200 pt-6">
         <h3 class="text-sm font-bold text-zinc-800 mb-3"><i class="fa-solid fa-wallet text-daraz-orange mr-1"></i> Manage Bank / Payment Accounts</h3>
-        
-        <!-- Add Bank Account Form -->
         <div class="bg-zinc-50 p-4 rounded-lg border border-zinc-200 mb-4">
           <h4 class="text-xs font-bold text-zinc-800 mb-2">Add New Bank Account</h4>
           <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-2.5">
@@ -260,7 +262,6 @@
           </div>
           <button onclick="addNewBankAccount()" class="bg-daraz-orange hover:bg-orange-700 text-white text-xs font-bold px-4 py-2 rounded transition shadow">Save Bank Account</button>
         </div>
-
         <h4 class="text-xs font-bold text-zinc-800 mb-2">Existing Bank Accounts</h4>
         <div id="admin-banks-list" class="space-y-2">
           <!-- Injected bank accounts list -->
@@ -310,13 +311,10 @@
     let bankAccounts = [];
     let cart = [];
 
-    // Default Bank Account Seed if empty
     const defaultBank = { id: "bank_default", bankName: "Easypaisa Mobile Account", accNumber: "0317-0546013", accTitle: "Kashif Javaid Naqvi" };
 
-    // Real-time Cloud Synchronization for Products & Banks
     async function initFirestoreSync() {
       try {
-        // Sync Products
         onSnapshot(collection(db, "products"), (snapshot) => {
           products = [];
           snapshot.forEach((docSnap) => {
@@ -326,7 +324,6 @@
           renderAdminProductsList();
         });
 
-        // Sync Bank Accounts
         const bankSnapshot = await getDocs(collection(db, "banks"));
         if (bankSnapshot.empty) {
           await setDoc(doc(db, "banks", defaultBank.id), defaultBank);
@@ -388,13 +385,7 @@
       const cartBox = document.getElementById('cart-bank-box');
       const footerInfo = document.getElementById('footer-bank-info');
 
-      if(bankAccounts.length === 0) {
-        heroCard.innerHTML = `<p class="text-xs text-zinc-300">No payment partner configured.</p>`;
-        cartBox.innerHTML = `<p class="text-xs text-zinc-500">No payment details available.</p>`;
-        return;
-      }
-
-      // Display the first available bank account (or loop if needed)
+      if(bankAccounts.length === 0) return;
       const b = bankAccounts[0];
 
       heroCard.innerHTML = `
@@ -541,7 +532,7 @@
     };
     window.closeAdminDashboard = function() { document.getElementById('admin-dashboard').classList.add('hidden'); };
 
-    // --- ADMIN: PRODUCTS MANAGEMENT (ADD, EDIT, DELETE) ---
+    // --- ADMIN: PRODUCTS MANAGEMENT ---
     window.renderAdminProductsList = function() {
       const list = document.getElementById('admin-products-list');
       if(products.length === 0) {
@@ -608,6 +599,7 @@
       document.getElementById('edit-prod-price').value = p.price;
       document.getElementById('edit-prod-old-price').value = p.oldPrice || p.price + 500;
       document.getElementById('edit-prod-desc').value = p.desc || "";
+      document.getElementById('edit-prod-img').value = ""; // reset file input
       document.getElementById('edit-product-box').classList.remove('hidden');
       window.scrollTo({top: 200, behavior: 'smooth'});
     };
@@ -622,25 +614,37 @@
       const price = parseFloat(document.getElementById('edit-prod-price').value);
       const oldPrice = parseFloat(document.getElementById('edit-prod-old-price').value) || (price + 500);
       const desc = document.getElementById('edit-prod-desc').value.trim();
+      const imgFile = document.getElementById('edit-prod-img').files[0];
 
       if(!name || isNaN(price)) {
         alert("Please fill in valid title and price.");
         return;
       }
 
-      try {
-        const existing = products.find(item => item.id === id);
-        await setDoc(doc(db, "products", id), {
-          name,
-          price,
-          oldPrice,
-          desc,
-          img: existing ? existing.img : "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=300"
-        });
-        cancelEditProduct();
-        alert("Product updated successfully in cloud!");
-      } catch(e) {
-        alert("Failed to update product.");
+      const existing = products.find(item => item.id === id);
+
+      const saveUpdate = async (finalImg) => {
+        try {
+          await setDoc(doc(db, "products", id), {
+            name,
+            price,
+            oldPrice,
+            desc,
+            img: finalImg
+          });
+          cancelEditProduct();
+          alert("Product updated successfully in cloud!");
+        } catch(e) {
+          alert("Failed to update product.");
+        }
+      };
+
+      if(imgFile) {
+        const reader = new FileReader();
+        reader.onloadend = () => saveUpdate(reader.result);
+        reader.readAsDataURL(imgFile);
+      } else {
+        saveUpdate(existing ? existing.img : "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=300");
       }
     };
 
@@ -653,7 +657,7 @@
       }
     };
 
-    // --- ADMIN: BANK ACCOUNTS MANAGEMENT (ADD & DELETE) ---
+    // --- ADMIN: BANK ACCOUNTS MANAGEMENT ---
     window.renderAdminBanksList = function() {
       const list = document.getElementById('admin-banks-list');
       if(bankAccounts.length === 0) {
