@@ -136,7 +136,7 @@
           </div>
         </div>
 
-        <!-- Official Payment Partner Card Widget (Exact match to screenshot) -->
+        <!-- Official Payment Partner Card Widget -->
         <div class="bg-white/10 backdrop-blur-md p-5 rounded-xl border border-white/20 w-full md:w-80 shadow-2xl">
           <p class="text-[10px] font-bold tracking-wider text-orange-400 uppercase mb-2">Official Payment Partner</p>
           <div class="bg-white text-zinc-900 p-4 rounded-lg shadow text-center">
@@ -279,24 +279,12 @@
     const analytics = getAnalytics(app);
     const db = getFirestore(app);
 
-    const defaultProducts = [
-      { id: "prod_1", name: "Wireless Bluetooth Earbuds Pro High Bass", price: 1499, oldPrice: 2999, img: "https://images.unsplash.com/photo-1572569511254-d8f925fe2cbb?w=300", desc: "High quality sound with deep bass." },
-      { id: "prod_2", name: "Smart Fitness Watch Series 8 AMOLED", price: 2499, oldPrice: 4999, img: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=300", desc: "Track your health and sports activities." },
-      { id: "prod_3", name: "HD Ring Light 10 Inch with Stand", price: 1899, oldPrice: 3500, img: "https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?w=300", desc: "Perfect for TikTok and photography." },
-      { id: "prod_4", name: "Mini Portable Thermal Pocket Printer", price: 3299, oldPrice: 5999, img: "https://images.unsplash.com/photo-1612817288484-6f916006741a?w=300", desc: "Print notes and receipts instantly." }
-    ];
-
     let products = [];
     let cart = [];
 
-    async function initFirestoreSync() {
+    // Real-time Cloud Synchronization (Without automatic re-seeding bug)
+    function initFirestoreSync() {
       try {
-        const querySnapshot = await getDocs(collection(db, "products"));
-        if (querySnapshot.empty) {
-          for (let p of defaultProducts) {
-            await setDoc(doc(db, "products", p.id), p);
-          }
-        }
         onSnapshot(collection(db, "products"), (snapshot) => {
           products = [];
           snapshot.forEach((docSnap) => {
@@ -307,8 +295,6 @@
         });
       } catch (err) {
         console.error("Firestore error:", err);
-        products = defaultProducts;
-        renderProducts();
       }
     }
 
@@ -320,7 +306,7 @@
       document.getElementById('product-count').innerText = `${list.length} Items Available`;
       
       if(list.length === 0) {
-        grid.innerHTML = `<div class="col-span-full text-center py-10 text-zinc-500 text-xs">No products found.</div>`;
+        grid.innerHTML = `<div class="col-span-full text-center py-10 text-zinc-500 text-xs">No products found in store.</div>`;
         return;
       }
 
@@ -474,7 +460,7 @@
     window.renderAdminProductsList = function() {
       const list = document.getElementById('admin-products-list');
       if(products.length === 0) {
-        list.innerHTML = `<p class="text-xs text-zinc-500">No products found.</p>`;
+        list.innerHTML = `<p class="text-xs text-zinc-500">No products found in cloud database.</p>`;
         return;
       }
       list.innerHTML = products.map(p => `
