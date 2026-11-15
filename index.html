@@ -56,42 +56,6 @@
 </head>
 <body class="min-h-screen flex flex-col justify-between">
 
-  <!-- 🌟 20-SECOND LOADING / WELCOME SPLASH BANNER -->
-  <div id="splash-banner" class="fixed inset-0 bg-black/90 z-50 flex items-center justify-center p-4 backdrop-blur-md">
-    <div class="bg-gradient-to-br from-zinc-900 via-zinc-900 to-orange-950 border-2 border-orange-500 rounded-2xl max-w-xl w-full p-6 md:p-8 text-white shadow-2xl relative text-center space-y-4">
-      <span class="bg-orange-500/30 text-orange-400 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-widest border border-orange-500/50 inline-block">
-        🌟 Saddat Online Store Grand Festival
-      </span>
-
-      <h2 class="text-xl md:text-3xl font-extrabold text-white leading-tight">
-        Welcome to Pakistan's Premium Shopping Destination
-      </h2>
-
-      <p class="text-xs md:text-sm text-zinc-300 leading-relaxed">
-        We are loading our exclusive collection of <strong>Luxury Micro Velvet Shawls</strong> & <strong>100% Pure Herbal Hair Growth Oils & Shampoos</strong>. Please wait while products load securely...
-      </p>
-
-      <div class="bg-black/50 p-4 rounded-xl border border-orange-500/30 text-left space-y-2 text-xs">
-        <p class="font-bold text-orange-400"><i class="fa-solid fa-bolt mr-1"></i> What's Loading in Store:</p>
-        <ul class="list-disc list-inside text-zinc-300 space-y-1">
-          <li>9MM Heavy Embroidered Velvet Shawls</li>
-          <li>MS Organic Herbal Hair Oils & Shampoos</li>
-          <li>Unique Verified Customer Reviews & Store Replies</li>
-          <li>Instant Cash on Delivery & Easypaisa Payment</li>
-        </ul>
-      </div>
-
-      <div class="pt-2 flex flex-col sm:flex-row items-center justify-between gap-3">
-        <div class="text-xs text-orange-300 font-mono">
-          <i class="fa-solid fa-spinner fa-spin mr-1"></i> Auto entering in <span id="splash-timer" class="font-bold text-white text-sm">20</span> seconds...
-        </div>
-        <button onclick="closeSplashBanner()" class="w-full sm:w-auto bg-daraz-orange hover:bg-orange-700 text-white font-extrabold px-6 py-2.5 rounded-xl text-xs transition shadow-lg">
-          Skip & Enter Store Now <i class="fa-solid fa-arrow-right ml-1"></i>
-        </button>
-      </div>
-    </div>
-  </div>
-
   <div>
     <!-- Top Utility Bar -->
     <div class="bg-zinc-100 text-zinc-600 text-[11px] py-1.5 px-4 border-b border-zinc-200">
@@ -440,28 +404,6 @@
 
     const defaultBank = { id: "bank_default", bankName: "Easypaisa Mobile Account", accNumber: "0317-0546013", accTitle: "Kashif Javaid Naqvi" };
 
-    // --- 20-SECOND SPLASH TIMER LOGIC ---
-    let splashSeconds = 20;
-    const splashTimerInterval = setInterval(() => {
-      splashSeconds--;
-      const timerEl = document.getElementById('splash-timer');
-      if (timerEl) timerEl.innerText = splashSeconds;
-      if (splashSeconds <= 0) {
-        clearInterval(splashTimerInterval);
-        closeSplashBanner();
-      }
-    }, 1000);
-
-    window.closeSplashBanner = function() {
-      const banner = document.getElementById('splash-banner');
-      if (banner) {
-        banner.style.opacity = '0';
-        banner.style.transition = 'opacity 0.5s ease';
-        setTimeout(() => banner.remove(), 500);
-      }
-      clearInterval(splashTimerInterval);
-    };
-
     // --- 50+ UNIQUE CUSTOMER FEEDBACKS & REPLIES POOL (Product Specific Variations) ---
     const reviewFirstNames = ["Ayesha", "Muhammad", "Fatima", "Usman", "Sana", "Bilal", "Zainab", "Hamza", "Ayesha", "Tariq", "Mehwish", "Saad", "Nida", "Danish", "Hira", "Kamran", "Rabia", "Farhan", "Sadia", "Imran", "Kashif", "Mariam", "Ali", "Hassan", "Tayyaba", "Zohaib", "Sidra", "Nabeel", "Aliza", "Ahsan", "Mahnoor", "Waqas", "Kinza", "Omer", "Sobia", "Fahad", "Rabia", "Bilal", "Bushra", "Shoaib", "Amna", "Zeeshan", "Mehak", "Danial", "Anum", "Junaid", "Hajra", "Salman", "Rimsha", "Yasir"];
     
@@ -473,7 +415,7 @@
       { c: "Quality aisi hai ke dil khush ho gaya! Pure material aur zabardast finishing hai.", r: "Jazakallah! Aap ki pasand aur appreciation ka bohat shukria. Saddat Online Store hamesha best quality deta hai." },
       { c: "Bohat hi umda cheez hai, maine apnay ghar walon ke liye bhi order ki hai.", r: "Bohat shukria! Ummeed hai aap ke ghar walon ko bhi hamari product bohat pasand aaye gi." },
       { c: "Delivery time pe mil gayi aur packing bhi bohat royal thi. Highly recommended!", r: "Shukria! Timely delivery aur secure packaging hamari pehli tarjeeh hai." },
-      { c: "Price ke hisaab se exceptional quality hai. Market mein is rate pe aisi cheez nahi milti.", r: "Jazakallah! Hamari koshish yahi hoti hai keaffordable price mein premium quality provide karein." },
+      { c: "Price ke hisaab se exceptional quality hai. Market mein is rate pe aisi cheez nahi milti.", r: "Jazakallah! Hamari koshish yahi hoti hai ke affordable price mein premium quality provide karein." },
       { c: "Color bilkul waisa hi hai jaisa picture mein dikhaya gaya tha. Very elegant look!", r: "Thank you so much! Real product hamesha tasweer se barh kar hoti hai." },
       { c: "Fabric aur material bohat soft aur comfortable hai. Use karke maza aa gaya.", r: "Bohat shukria positive feedback ke liye! Aap ki satisfaction hi hamara asal sarmaya hai." },
       { c: "Customer support walon ne WhatsApp pe bohat achay se guide kiya. 10/10 service!", r: "Jazakallah bhai! Hum 24/7 apne customers ki khidmat ke liye hazir hain." },
@@ -484,7 +426,6 @@
 
     function getUniqueProductReviews(productId) {
       let list = [];
-      // Use productId string to generate unique variations per product
       let seed = 0;
       for (let i = 0; i < productId.length; i++) seed += productId.charCodeAt(i);
 
@@ -494,7 +435,6 @@
         let city = reviewCities[(seed + i * 5) % reviewCities.length];
         let template = commentTemplates[(seed + i) % commentTemplates.length];
         
-        // Add slight unique twist to comments based on product index
         let variationText = template.c;
         if (i % 3 === 1) variationText = "Zabardast experience raha! " + variationText;
         if (i % 4 === 2) variationText = variationText + " Bohat fit item hai.";
@@ -546,7 +486,7 @@
 
     initFirestoreSync();
 
-    // --- PRODUCT DETAIL MODAL LOGIC (With Unique 50+ Feedback per Product) ---
+    // --- PRODUCT DETAIL MODAL LOGIC (With Unique 50+ Feedback) ---
     window.openProductDetail = function(id) {
       const p = products.find(item => item.id === id);
       if (!p) return;
@@ -720,7 +660,7 @@
       sliderInterval = setInterval(nextHeroSlide, 3500);
     };
 
-    // --- PRODUCTS GRID (Clean, Fire Effect Removed) ---
+    // --- PRODUCTS GRID ---
     window.renderProducts = function(filteredList = null) {
       const list = filteredList || products;
       const grid = document.getElementById('products-grid');
