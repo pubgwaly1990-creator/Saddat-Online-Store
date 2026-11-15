@@ -3,28 +3,27 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Saddat Online Store</title>
+  <title>Saddat Online Store - Daraz Style Shopping Pakistan</title>
   <!-- Tailwind CSS & FontAwesome -->
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
     body {
-      background-color: #121212;
-      color: #e0e0e0;
+      background-color: #f4f4f5;
+      color: #18181b;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       overflow-x: hidden;
     }
-    /* Custom Dark Gray Theme */
-    .bg-dark-card { background-color: #1e1e1e; }
-    .bg-dark-main { background-color: #121212; }
-    .border-dark { border-color: #2d2d2d; }
+    .bg-daraz-orange { background-color: #f85606; }
+    .text-daraz-orange { color: #f85606; }
+    .border-daraz-orange { border-color: #f85606; }
     
     /* Click Circle Animation */
     .click-circle {
       position: absolute;
       width: 20px;
       height: 20px;
-      border: 2px solid #3b82f6;
+      border: 2px solid #f85606;
       border-radius: 50%;
       transform: translate(-50%, -50%);
       pointer-events: none;
@@ -38,107 +37,162 @@
 
     /* Tab Transition Effect */
     .tab-content {
-      animation: fadeIn 0.4s ease-in-out;
+      animation: fadeIn 0.3s ease-in-out;
     }
     @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(8px); }
+      from { opacity: 0; transform: translateY(6px); }
       to { opacity: 1; transform: translateY(0); }
     }
   </style>
 </head>
-<body class="bg-dark-main min-h-screen flex flex-col justify-between">
+<body class="min-h-screen flex flex-col justify-between">
 
-  <!-- Top Announcement Bar -->
-  <div class="bg-zinc-800 text-zinc-300 text-xs py-2 px-4 text-center font-medium border-b border-dark">
-    🔥 Welcome to Saddat Online Store | Easy & Fast Shopping Experience | Helpline: 0340-6724840 🔥
-  </div>
-
-  <!-- Header / Navigation -->
-  <header class="bg-dark-card border-b border-dark sticky top-0 z-50 shadow-md">
-    <div class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
-      <div class="flex items-center space-x-3 cursor-pointer" onclick="switchTab('home')">
-        <div class="bg-blue-600 text-white p-2 rounded-lg font-bold text-lg"><i class="fa-solid fa-store"></i></div>
-        <div>
-          <h1 class="text-lg font-bold text-white tracking-wide">Saddat Online Store</h1>
-          <p class="text-xs text-zinc-400">Daraz Style E-Commerce Platform</p>
+  <div>
+    <!-- Top Utility Bar -->
+    <div class="bg-zinc-100 text-zinc-600 text-[11px] py-1.5 px-4 border-b border-zinc-200">
+      <div class="max-w-7xl mx-auto flex justify-between items-center">
+        <div class="flex space-x-6 font-medium">
+          <span class="hover:text-orange-600 cursor-pointer"><i class="fa-solid fa-mobile-screen mr-1"></i> SAVE MORE ON APP</span>
+          <span class="hover:text-orange-600 cursor-pointer">SADDAT AFFILIATE PROGRAM</span>
+          <span class="hover:text-orange-600 cursor-pointer">HELP & SUPPORT</span>
+        </div>
+        <div class="flex items-center space-x-4">
+          <span class="font-medium"><i class="fa-brands fa-whatsapp text-green-600 mr-1"></i> WhatsApp: 0340-6724840</span>
+          <button onclick="openAdminModal()" class="hover:text-orange-600 font-bold flex items-center space-x-1">
+            <i class="fa-solid fa-lock text-xs"></i>
+            <span>Admin Panel</span>
+          </button>
         </div>
       </div>
-      <!-- Nav Links & Cart/Admin -->
-      <div class="flex items-center space-x-4">
-        <button onclick="switchTab('home')" class="text-sm font-medium hover:text-blue-400 transition hidden sm:inline-block">Home</button>
-        <button onclick="switchTab('cart')" class="relative bg-zinc-800 hover:bg-zinc-700 px-3 py-2 rounded-lg text-sm flex items-center space-x-1 border border-dark">
-          <i class="fa-solid fa-cart-shopping text-blue-400"></i>
-          <span class="hidden sm:inline">Cart</span>
-          <span id="cart-count" class="bg-blue-600 text-white text-xs px-1.5 py-0.5 rounded-full font-bold">0</span>
-        </button>
-        <button onclick="openAdminModal()" class="bg-zinc-800 hover:bg-zinc-700 px-3 py-2 rounded-lg text-sm flex items-center space-x-1 border border-dark text-amber-400">
-          <i class="fa-solid fa-lock"></i>
-          <span class="hidden sm:inline">Admin</span>
-        </button>
-      </div>
     </div>
-  </header>
+
+    <!-- Main Orange Header -->
+    <header class="bg-daraz-orange sticky top-0 z-50 shadow-md">
+      <div class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between gap-4">
+        <!-- Logo -->
+        <div class="flex items-center space-x-3 cursor-pointer" onclick="switchTab('home')">
+          <div class="bg-white text-daraz-orange px-3 py-1.5 rounded font-extrabold text-xl shadow flex items-center gap-1.5">
+            <i class="fa-solid fa-bag-shopping"></i> SADDAT
+          </div>
+          <div class="hidden sm:block text-white">
+            <h1 class="text-xs font-bold uppercase tracking-wider">ONLINE STORE</h1>
+            <p class="text-[10px] opacity-90">Daraz Style Shopping Pakistan</p>
+          </div>
+        </div>
+
+        <!-- Search Bar -->
+        <div class="flex-grow max-w-2xl relative">
+          <input type="text" id="search-input" oninput="filterProducts()" placeholder="Search in Saddat Online Store (e.g. Watch, Earbuds, Kurti)..." class="w-full bg-white rounded-sm pl-4 pr-10 py-2.5 text-xs text-zinc-800 focus:outline-none shadow-inner">
+          <button class="absolute right-0 top-0 h-full px-4 bg-orange-100 hover:bg-orange-200 text-daraz-orange rounded-r-sm transition">
+            <i class="fa-solid fa-magnifying-glass"></i>
+          </button>
+        </div>
+
+        <!-- Wishlist & Cart -->
+        <div class="flex items-center space-x-4">
+          <button onclick="switchTab('cart')" class="relative text-white flex items-center space-x-1.5 bg-orange-700/40 hover:bg-orange-700/60 px-3 py-2 rounded transition">
+            <i class="fa-solid fa-cart-shopping text-lg"></i>
+            <span class="text-xs font-bold hidden sm:inline">Cart</span>
+            <span id="cart-count" class="absolute -top-1.5 -right-1.5 bg-white text-daraz-orange text-[10px] w-5 h-5 rounded-full font-extrabold flex items-center justify-center shadow">0</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Sub Navigation Bar -->
+      <div class="bg-orange-800 text-white text-xs py-2 px-4 shadow-inner">
+        <div class="max-w-7xl mx-auto flex items-center space-x-6 overflow-x-auto whitespace-nowrap font-medium">
+          <span class="cursor-pointer hover:underline text-orange-200" onclick="switchTab('home')"><i class="fa-solid fa-bars mr-1"></i> All Categories</span>
+          <span class="cursor-pointer hover:underline" onclick="filterByCategory('Flash Sale')"><i class="fa-solid fa-bolt mr-1"></i> Flash Sale</span>
+          <span class="cursor-pointer hover:underline" onclick="filterByCategory('Electronics')">Electronics</span>
+          <span class="cursor-pointer hover:underline" onclick="filterByCategory('Fashion')">Fashion & Apparel</span>
+          <span class="cursor-pointer hover:underline" onclick="filterByCategory('Mobile')">Mobile Accessories</span>
+          <span class="cursor-pointer hover:underline" onclick="filterByCategory('Home')">Home & Living</span>
+          <span class="cursor-pointer hover:underline" onclick="filterByCategory('Groceries')">Groceries</span>
+        </div>
+      </div>
+    </header>
+  </div>
 
   <!-- Main Container -->
   <main class="max-w-7xl mx-auto px-4 py-6 flex-grow w-full">
 
     <!-- HOME TAB -->
     <div id="tab-home" class="tab-content">
-      <!-- Search & Banner -->
-      <div class="mb-6 flex flex-col md:flex-row gap-4 items-center justify-between bg-dark-card p-4 rounded-xl border border-dark">
-        <div class="w-full md:w-1/2 relative">
-          <i class="fa-solid fa-magnifying-glass absolute left-3 top-3.5 text-zinc-400"></i>
-          <input type="text" id="search-input" oninput="filterProducts()" placeholder="Search products like Daraz..." class="w-full bg-zinc-900 border border-dark rounded-lg pl-10 pr-4 py-2.5 text-sm text-zinc-200 focus:outline-none focus:border-blue-500">
+      <!-- Original Hero Banner Section -->
+      <div class="mb-8 rounded-xl bg-gradient-to-r from-zinc-900 via-zinc-900 to-orange-600 p-6 md:p-10 text-white shadow-xl relative overflow-hidden flex flex-col md:flex-row justify-between items-center gap-6 border border-orange-500/30">
+        <div class="max-w-xl">
+          <span class="bg-orange-500/20 text-orange-400 text-[11px] font-bold px-3 py-1 rounded-full uppercase tracking-wider border border-orange-500/30 mb-3 inline-block">Mega Sale Live</span>
+          <h2 class="text-2xl md:text-4xl font-extrabold tracking-tight mb-3">Saddat Online Store Grand Shopping Festival</h2>
+          <p class="text-xs md:text-sm text-zinc-300 mb-6 leading-relaxed">Discover unbeatable deals across Pakistan! Pay securely via Easypaisa or Cash on Delivery. Fast shipping nationwide[cite: 3].</p>
+          <div class="flex flex-wrap gap-3">
+            <button onclick="switchTab('home')" class="bg-daraz-orange hover:bg-orange-700 text-white font-bold px-5 py-2.5 rounded-lg text-xs flex items-center space-x-2 shadow-lg transition">
+              <i class="fa-solid fa-bolt"></i>
+              <span>Shop Flash Sale</span>
+            </button>
+            <a href="https://wa.me/923406724840?text=Hello%20Saddat%20Online%20Store,%20I%20want%20to%20place%20an%20order." target="_blank" class="bg-green-600 hover:bg-green-700 text-white font-bold px-5 py-2.5 rounded-lg text-xs flex items-center space-x-2 shadow-lg transition">
+              <i class="fa-brands fa-whatsapp text-sm"></i>
+              <span>WhatsApp Order</span>
+            </a>
+          </div>
         </div>
-        <div class="text-xs text-zinc-400 flex items-center gap-2">
-          <span class="inline-block w-2 h-2 rounded-full bg-green-500 animate-pulse"></span> Cloud Sync Active (Firebase)
+
+        <!-- Official Payment Partner Card Widget (Exact match to screenshot) -->
+        <div class="bg-white/10 backdrop-blur-md p-5 rounded-xl border border-white/20 w-full md:w-80 shadow-2xl">
+          <p class="text-[10px] font-bold tracking-wider text-orange-400 uppercase mb-2">Official Payment Partner</p>
+          <div class="bg-white text-zinc-900 p-4 rounded-lg shadow text-center">
+            <p class="text-xs font-bold text-orange-600 mb-1">Easypaisa Mobile Account</p>
+            <p class="text-lg font-mono font-extrabold tracking-wider text-zinc-900 mb-1">0317-0546013</p>
+            <p class="text-[11px] text-zinc-600">Title: <span class="font-bold text-zinc-800">Kashif Javaid Naqvi</span></p>
+          </div>
+          <p class="text-[10px] text-zinc-400 text-center mt-2.5"><i class="fa-solid fa-shield-check text-green-400 mr-1"></i> Verified Merchant Account</p>
         </div>
       </div>
 
-      <!-- Categories / Flash Deals Header -->
-      <div class="flex items-center justify-between mb-4">
-        <h2 class="text-xl font-bold text-white border-l-4 border-blue-600 pl-3">All Products</h2>
-        <span class="text-xs text-zinc-400" id="product-count">Loading products...</span>
+      <!-- Products Header -->
+      <div class="flex items-center justify-between mb-4 border-b border-zinc-300 pb-2">
+        <h3 class="text-base font-bold text-zinc-800 border-l-4 border-daraz-orange pl-3">Just For You</h3>
+        <span class="text-xs text-zinc-500 font-medium" id="product-count">Loading products...</span>
       </div>
 
       <!-- Products Grid -->
-      <div id="products-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
-        <!-- Dynamic Products Will Load Here -->
+      <div id="products-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+        <!-- Products Injected Here -->
       </div>
     </div>
 
     <!-- CART TAB -->
     <div id="tab-cart" class="tab-content hidden">
-      <div class="max-w-2xl mx-auto bg-dark-card border border-dark rounded-xl p-6 shadow-lg">
-        <h2 class="text-xl font-bold text-white mb-4 border-b border-dark pb-3"><i class="fa-solid fa-cart-shopping text-blue-500 mr-2"></i> Your Shopping Cart</h2>
-        <div id="cart-items-container" class="space-y-4 mb-6">
+      <div class="max-w-2xl mx-auto bg-white border border-zinc-200 rounded-xl p-6 shadow-xl">
+        <h2 class="text-base font-bold text-zinc-800 mb-4 border-b border-zinc-200 pb-3 flex items-center">
+          <i class="fa-solid fa-cart-shopping text-daraz-orange mr-2"></i> Your Shopping Cart
+        </h2>
+        <div id="cart-items-container" class="space-y-3 mb-4">
           <!-- Cart items injected here -->
         </div>
-        <div id="cart-summary" class="border-t border-dark pt-4 hidden">
-          <div class="flex justify-between text-lg font-bold mb-4">
+        <div id="cart-summary" class="border-t border-zinc-200 pt-4 hidden">
+          <div class="flex justify-between text-sm font-bold mb-4">
             <span>Total Amount:</span>
-            <span id="cart-total" class="text-blue-400">Rs. 0</span>
+            <span id="cart-total" class="text-daraz-orange">Rs. 0</span>
           </div>
 
-          <!-- Checkout Form -->
-          <div class="bg-zinc-900 p-4 rounded-lg border border-dark mb-4">
-            <h3 class="text-sm font-semibold mb-3 text-zinc-300">Customer Details</h3>
-            <input type="text" id="cust-name" placeholder="Full Name" class="w-full bg-zinc-800 border border-dark rounded p-2 mb-2 text-sm text-zinc-200">
-            <input type="text" id="cust-phone" placeholder="Phone Number" class="w-full bg-zinc-800 border border-dark rounded p-2 mb-2 text-sm text-zinc-200">
-            <textarea id="cust-address" placeholder="Delivery Address / City" class="w-full bg-zinc-800 border border-dark rounded p-2 text-sm text-zinc-200 h-20"></textarea>
+          <!-- Customer Form -->
+          <div class="bg-zinc-50 p-4 rounded-lg border border-zinc-200 mb-4 space-y-3">
+            <h3 class="text-xs font-bold text-zinc-700">Delivery Information</h3>
+            <input type="text" id="cust-name" placeholder="Full Name" class="w-full bg-white border border-zinc-300 rounded p-2 text-xs text-zinc-800">
+            <input type="text" id="cust-phone" placeholder="Phone Number (e.g. 03xxxxxxxx)" class="w-full bg-white border border-zinc-300 rounded p-2 text-xs text-zinc-800">
+            <textarea id="cust-address" placeholder="Delivery Address / City" class="w-full bg-white border border-zinc-300 rounded p-2 text-xs text-zinc-800 h-16"></textarea>
           </div>
 
-          <!-- Bank / Payment Info Box -->
-          <div class="bg-zinc-900 p-4 rounded-lg border border-dark mb-4 text-xs space-y-1">
-            <p class="font-bold text-blue-400 mb-1"><i class="fa-solid fa-wallet"></i> Payment Details (Easypaisa):</p>
-            <p><strong>Store:</strong> Saddat Online Store</p>
-            <p><strong>Easypaisa No:</strong> <span class="text-white font-mono">0317-0546013</span></p>
-            <p><strong>Account Title:</strong> <span class="text-white">Kashif Javaid Naqvi</span></p>
-            <p class="text-zinc-400 mt-2">Send payment to the above account & place order via WhatsApp.</p>
+          <!-- Easypaisa Info Box -->
+          <div class="bg-orange-50 p-4 rounded-lg border border-orange-200 mb-4 text-xs space-y-1">
+            <p class="font-bold text-daraz-orange mb-1"><i class="fa-solid fa-wallet"></i> Official Easypaisa Details:</p>
+            <p><strong>Easypaisa No:</strong> <span class="font-mono font-bold">0317-0546013</span></p>
+            <p><strong>Account Title:</strong> <span class="font-bold">Kashif Javaid Naqvi</span></p>
+            <p class="text-zinc-600 text-[11px] mt-1">Transfer payment to above account before confirming your order via WhatsApp.</p>
           </div>
 
-          <button onclick="checkoutWhatsApp()" class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 rounded-lg flex items-center justify-center space-x-2 transition">
-            <i class="fa-brands fa-whatsapp text-lg"></i>
+          <button onclick="checkoutWhatsApp()" class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-2.5 rounded-lg flex items-center justify-center space-x-2 text-xs transition shadow">
+            <i class="fa-brands fa-whatsapp text-base"></i>
             <span>Confirm Order via WhatsApp</span>
           </button>
         </div>
@@ -147,43 +201,42 @@
 
   </main>
 
-  <!-- Admin Modal PIN Prompt -->
-  <div id="admin-modal" class="fixed inset-0 bg-black/80 flex items-center justify-center z-50 hidden">
-    <div class="bg-dark-card border border-dark p-6 rounded-xl w-full max-w-sm relative">
-      <button onclick="closeAdminModal()" class="absolute top-3 right-3 text-zinc-400 hover:text-white"><i class="fa-solid fa-xmark text-lg"></i></button>
-      <h3 class="text-lg font-bold text-white mb-4"><i class="fa-solid fa-lock text-amber-500 mr-2"></i> Admin Login</h3>
-      <p class="text-xs text-zinc-400 mb-4">Enter Admin PIN to manage products & bank accounts.</p>
-      <input type="password" id="admin-pin-input" placeholder="Enter PIN (7866)" class="w-full bg-zinc-900 border border-dark rounded p-2.5 mb-4 text-sm text-center text-zinc-200 tracking-widest focus:outline-none focus:border-amber-500">
-      <button onclick="verifyAdminPin()" class="w-full bg-amber-600 hover:bg-amber-700 text-white font-bold py-2.5 rounded text-sm transition">Access Admin Panel</button>
+  <!-- Admin PIN Modal -->
+  <div id="admin-modal" class="fixed inset-0 bg-black/70 flex items-center justify-center z-50 hidden p-4">
+    <div class="bg-white border border-zinc-200 p-6 rounded-xl w-full max-w-sm relative shadow-2xl">
+      <button onclick="closeAdminModal()" class="absolute top-3 right-3 text-zinc-400 hover:text-zinc-700"><i class="fa-solid fa-xmark text-base"></i></button>
+      <h3 class="text-base font-bold text-zinc-800 mb-2"><i class="fa-solid fa-lock text-daraz-orange mr-2"></i> Admin Secure Login</h3>
+      <p class="text-xs text-zinc-500 mb-4">Enter PIN (7866) to access management panel.</p>
+      <input type="password" id="admin-pin-input" placeholder="Enter PIN" class="w-full bg-zinc-50 border border-zinc-300 rounded p-2.5 mb-4 text-sm text-center text-zinc-800 tracking-widest focus:outline-none focus:border-orange-500">
+      <button onclick="verifyAdminPin()" class="w-full bg-daraz-orange hover:bg-orange-700 text-white font-bold py-2.5 rounded text-xs transition shadow">Login</button>
     </div>
   </div>
 
   <!-- Admin Dashboard Modal -->
-  <div id="admin-dashboard" class="fixed inset-0 bg-black/90 flex flex-col z-50 hidden overflow-y-auto p-4 md:p-8">
-    <div class="max-w-4xl mx-auto w-full bg-dark-card border border-dark rounded-xl p-6 shadow-2xl relative mb-10">
-      <div class="flex justify-between items-center mb-6 border-b border-dark pb-4">
+  <div id="admin-dashboard" class="fixed inset-0 bg-black/80 flex flex-col z-50 hidden overflow-y-auto p-4 md:p-8">
+    <div class="max-w-4xl mx-auto w-full bg-white border border-zinc-200 rounded-xl p-6 shadow-2xl relative mb-10">
+      <div class="flex justify-between items-center mb-6 border-b border-zinc-200 pb-3">
         <div>
-          <h2 class="text-xl font-bold text-white"><i class="fa-solid fa-gauge-high text-amber-500 mr-2"></i> Admin Control Panel</h2>
-          <p class="text-xs text-zinc-400">Manage real-time cloud inventory for Saddat Online Store</p>
+          <h2 class="text-base font-bold text-zinc-800"><i class="fa-solid fa-gauge-high text-daraz-orange mr-2"></i> Admin Panel - Saddat Online Store</h2>
+          <p class="text-xs text-zinc-500">Real-time cloud database management</p>
         </div>
-        <button onclick="closeAdminDashboard()" class="bg-zinc-800 hover:bg-zinc-700 px-3 py-1.5 rounded text-xs text-zinc-300">Close Panel</button>
+        <button onclick="closeAdminDashboard()" class="bg-zinc-200 hover:bg-zinc-300 px-3 py-1.5 rounded text-xs text-zinc-700 font-medium">Close</button>
       </div>
 
-      <!-- Add New Product Form -->
-      <div class="bg-zinc-900 p-4 rounded-lg border border-dark mb-6">
-        <h3 class="text-sm font-bold text-white mb-3"><i class="fa-solid fa-plus text-blue-500 mr-1"></i> Add New Product</h3>
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-3">
-          <input type="text" id="new-prod-name" placeholder="Product Title" class="bg-zinc-800 border border-dark rounded p-2 text-xs text-zinc-200">
-          <input type="number" id="new-prod-price" placeholder="Price (Rs)" class="bg-zinc-800 border border-dark rounded p-2 text-xs text-zinc-200">
-          <input type="number" id="new-prod-old-price" placeholder="Original Price (Rs)" class="bg-zinc-800 border border-dark rounded p-2 text-xs text-zinc-200">
-          <input type="file" id="new-prod-img" accept="image/*" class="bg-zinc-800 border border-dark rounded p-1.5 text-xs text-zinc-400 file:mr-2 file:py-1 file:px-2 file:rounded file:border-0 file:text-xs file:bg-blue-600 file:text-white">
+      <!-- Add Product Form -->
+      <div class="bg-zinc-50 p-4 rounded-lg border border-zinc-200 mb-6">
+        <h3 class="text-xs font-bold text-zinc-800 mb-3"><i class="fa-solid fa-plus text-daraz-orange mr-1"></i> Add New Product</h3>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-2.5">
+          <input type="text" id="new-prod-name" placeholder="Product Title" class="bg-white border border-zinc-300 rounded p-2 text-xs text-zinc-800">
+          <input type="number" id="new-prod-price" placeholder="Price (Rs)" class="bg-white border border-zinc-300 rounded p-2 text-xs text-zinc-800">
+          <input type="number" id="new-prod-old-price" placeholder="Original Price (Rs)" class="bg-white border border-zinc-300 rounded p-2 text-xs text-zinc-800">
+          <input type="file" id="new-prod-img" accept="image/*" class="bg-white border border-zinc-300 rounded p-1 text-xs text-zinc-500 file:mr-2 file:py-1 file:px-2 file:rounded file:border-0 file:text-[11px] file:bg-orange-600 file:text-white">
         </div>
-        <textarea id="new-prod-desc" placeholder="Product Description / Details" class="w-full bg-zinc-800 border border-dark rounded p-2 text-xs text-zinc-200 mb-3 h-16"></textarea>
-        <button onclick="addNewProduct()" class="bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold px-4 py-2 rounded transition">Save Product to Cloud</button>
+        <textarea id="new-prod-desc" placeholder="Product Description" class="w-full bg-white border border-zinc-300 rounded p-2 text-xs text-zinc-800 mb-3 h-14"></textarea>
+        <button onclick="addNewProduct()" class="bg-daraz-orange hover:bg-orange-700 text-white text-xs font-bold px-4 py-2 rounded transition shadow">Save to Live Cloud</button>
       </div>
 
-      <!-- Live Product Management List -->
-      <h3 class="text-sm font-bold text-white mb-3">Existing Live Products</h3>
+      <h3 class="text-xs font-bold text-zinc-800 mb-3">Manage Existing Products</h3>
       <div id="admin-products-list" class="space-y-2">
         <!-- Injected list -->
       </div>
@@ -191,11 +244,14 @@
   </div>
 
   <!-- Footer -->
-  <footer class="bg-dark-card border-t border-dark py-4 text-center text-xs text-zinc-500 mt-auto">
-    <p>&copy; 2026 Saddat Online Store. All rights reserved. | Powered by Firebase Realtime Cloud</p>
+  <footer class="bg-zinc-900 text-zinc-400 border-t border-zinc-800 py-6 text-center text-xs mt-auto">
+    <div class="max-w-7xl mx-auto px-4 space-y-2">
+      <p>&copy; 2026 Saddat Online Store. All rights reserved. | Official WhatsApp: 0340-6724840</p>
+      <p class="text-[11px] text-zinc-500">Easypaisa: 0317-0546013 (Kashif Javaid Naqvi)[cite: 3]</p>
+    </div>
   </footer>
 
-  <!-- Firebase SDKs & App Logic -->
+  <!-- Firebase & App Script -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/13.3.0/firebase-app.js";
     import { getAnalytics } from "https://www.gstatic.com/firebasejs/13.3.0/firebase-analytics.js";
@@ -209,7 +265,6 @@
       onSnapshot 
     } from "https://www.gstatic.com/firebasejs/13.3.0/firebase-firestore.js";
 
-    // Firebase Configuration
     const firebaseConfig = {
       apiKey: "AIzaSyCQDTxaq51WEDum1QbUxxHsEYiMrtQre80",
       authDomain: "saddatonlinestore.firebaseapp.com",
@@ -224,37 +279,24 @@
     const analytics = getAnalytics(app);
     const db = getFirestore(app);
 
-    window.db = db;
-    window.colCollection = collection;
-    window.setDocRef = setDoc;
-    window.deleteDocRef = deleteDoc;
-    window.docRef = doc;
-    window.onSnapshotRef = onSnapshot;
-    window.getDocsRef = getDocs;
-
-    // Default Products Seed if Database is empty
     const defaultProducts = [
-      { id: "prod_1", name: "Wireless Bluetooth Earbuds Pro", price: 1499, oldPrice: 2999, img: "https://images.unsplash.com/photo-1572569511254-d8f925fe2cbb?w=300", desc: "High quality sound with deep bass and long battery life." },
-      { id: "prod_2", name: "Smart Fitness Watch Series 8", price: 2499, oldPrice: 4999, img: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=300", desc: "Track your health, heart rate, and sports activities instantly." },
-      { id: "prod_3", name: "HD Ring Light 10 Inch with Stand", price: 1899, oldPrice: 3500, img: "https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?w=300", desc: "Perfect for TikTok videos, live streaming, and photography." },
-      { id: "prod_4", name: "Mini Portable Thermal Printer", price: 3299, oldPrice: 5999, img: "https://images.unsplash.com/photo-1612817288484-6f916006741a?w=300", desc: "Print notes, receipts, and photos instantly without ink." }
+      { id: "prod_1", name: "Wireless Bluetooth Earbuds Pro High Bass", price: 1499, oldPrice: 2999, img: "https://images.unsplash.com/photo-1572569511254-d8f925fe2cbb?w=300", desc: "High quality sound with deep bass." },
+      { id: "prod_2", name: "Smart Fitness Watch Series 8 AMOLED", price: 2499, oldPrice: 4999, img: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=300", desc: "Track your health and sports activities." },
+      { id: "prod_3", name: "HD Ring Light 10 Inch with Stand", price: 1899, oldPrice: 3500, img: "https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?w=300", desc: "Perfect for TikTok and photography." },
+      { id: "prod_4", name: "Mini Portable Thermal Pocket Printer", price: 3299, oldPrice: 5999, img: "https://images.unsplash.com/photo-1612817288484-6f916006741a?w=300", desc: "Print notes and receipts instantly." }
     ];
 
     let products = [];
     let cart = [];
 
-    // Real-time Listener on Firestore
     async function initFirestoreSync() {
       try {
         const querySnapshot = await getDocs(collection(db, "products"));
         if (querySnapshot.empty) {
-          // Seed default products once
           for (let p of defaultProducts) {
             await setDoc(doc(db, "products", p.id), p);
           }
         }
-
-        // Real-time listener
         onSnapshot(collection(db, "products"), (snapshot) => {
           products = [];
           snapshot.forEach((docSnap) => {
@@ -264,8 +306,7 @@
           renderAdminProductsList();
         });
       } catch (err) {
-        console.error("Firestore sync error:", err);
-        // Fallback to defaults if offline
+        console.error("Firestore error:", err);
         products = defaultProducts;
         renderProducts();
       }
@@ -273,34 +314,33 @@
 
     initFirestoreSync();
 
-    // Global Functions Attached to Window
     window.renderProducts = function(filteredList = null) {
       const list = filteredList || products;
       const grid = document.getElementById('products-grid');
       document.getElementById('product-count').innerText = `${list.length} Items Available`;
       
       if(list.length === 0) {
-        grid.innerHTML = `<div class="col-span-full text-center py-10 text-zinc-500">No products found.</div>`;
+        grid.innerHTML = `<div class="col-span-full text-center py-10 text-zinc-500 text-xs">No products found.</div>`;
         return;
       }
 
       grid.innerHTML = list.map(p => `
-        <div class="bg-dark-card border border-dark rounded-xl overflow-hidden shadow-md flex flex-col justify-between hover:border-blue-600 transition group">
+        <div class="bg-white border border-zinc-200 rounded-lg overflow-hidden shadow-sm hover:shadow-md transition flex flex-col justify-between group">
           <div>
-            <div class="relative overflow-hidden bg-zinc-900 h-40">
+            <div class="relative bg-zinc-100 h-40 overflow-hidden">
               <img src="${p.img || 'https://via.placeholder.com/300'}" alt="${p.name}" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
-              <span class="absolute top-2 left-2 bg-red-600 text-white text-[10px] font-bold px-1.5 py-0.5 rounded">Sale</span>
+              <span class="absolute top-1.5 left-1.5 bg-red-600 text-white text-[9px] font-bold px-1.5 py-0.5 rounded shadow">Sale</span>
             </div>
             <div class="p-3">
-              <h3 class="text-xs font-semibold text-zinc-200 line-clamp-2 mb-1">${p.name}</h3>
+              <h3 class="text-xs font-medium text-zinc-800 line-clamp-2 mb-1.5">${p.name}</h3>
               <div class="flex items-baseline space-x-2 mb-2">
-                <span class="text-sm font-bold text-blue-400">Rs. ${p.price}</span>
-                <span class="text-[10px] text-zinc-500 line-through">Rs. ${p.oldPrice || p.price + 500}</span>
+                <span class="text-sm font-bold text-daraz-orange">Rs. ${p.price}</span>
+                <span class="text-[10px] text-zinc-400 line-through">Rs. ${p.oldPrice || p.price + 500}</span>
               </div>
             </div>
           </div>
           <div class="p-3 pt-0">
-            <button onclick="addToCart('${p.id}')" class="w-full bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold py-2 rounded-lg flex items-center justify-center space-x-1 transition">
+            <button onclick="addToCart('${p.id}')" class="w-full bg-daraz-orange hover:bg-orange-700 text-white text-xs font-bold py-2 rounded flex items-center justify-center space-x-1 transition shadow">
               <i class="fa-solid fa-cart-plus"></i>
               <span>Add to Cart</span>
             </button>
@@ -313,6 +353,11 @@
       const query = document.getElementById('search-input').value.toLowerCase();
       const filtered = products.filter(p => p.name.toLowerCase().includes(query) || (p.desc && p.desc.toLowerCase().includes(query)));
       renderProducts(filtered);
+    };
+
+    window.filterByCategory = function(category) {
+      document.getElementById('search-input').value = category;
+      filterProducts();
     };
 
     window.switchTab = function(tabName) {
@@ -351,19 +396,19 @@
       }
       summary.classList.remove('hidden');
       container.innerHTML = cart.map((item, index) => `
-        <div class="flex items-center justify-between bg-zinc-900 p-3 rounded-lg border border-dark text-xs">
-          <div class="flex items-center space-x-3">
+        <div class="flex items-center justify-between bg-zinc-50 p-2.5 rounded border border-zinc-200 text-xs">
+          <div class="flex items-center space-x-2.5">
             <img src="${item.img}" class="w-10 h-10 object-cover rounded">
             <div>
-              <p class="font-bold text-white">${item.name}</p>
-              <p class="text-blue-400">Rs. ${item.price} x ${item.qty}</p>
+              <p class="font-bold text-zinc-800">${item.name}</p>
+              <p class="text-daraz-orange font-bold">Rs. ${item.price} x ${item.qty}</p>
             </div>
           </div>
-          <div class="flex items-center space-x-2">
-            <button onclick="changeQty(${index}, 1)" class="bg-zinc-800 px-2 py-1 rounded text-white">+</button>
-            <span>${item.qty}</span>
-            <button onclick="changeQty(${index}, -1)" class="bg-zinc-800 px-2 py-1 rounded text-white">-</button>
-            <button onclick="removeFromCart(${index})" class="text-red-500 ml-2"><i class="fa-solid fa-trash"></i></button>
+          <div class="flex items-center space-x-1.5">
+            <button onclick="changeQty(${index}, 1)" class="bg-zinc-200 hover:bg-zinc-300 px-2 py-0.5 rounded text-zinc-800 font-bold">+</button>
+            <span class="px-1 font-bold">${item.qty}</span>
+            <button onclick="changeQty(${index}, -1)" class="bg-zinc-200 hover:bg-zinc-300 px-2 py-0.5 rounded text-zinc-800 font-bold">-</button>
+            <button onclick="removeFromCart(${index})" class="text-red-500 ml-1.5 hover:text-red-700"><i class="fa-solid fa-trash"></i></button>
           </div>
         </div>
       `).join('');
@@ -391,7 +436,7 @@
       const address = document.getElementById('cust-address').value.trim();
 
       if(!name || !phone || !address) {
-        alert("Please fill in all customer details (Name, Phone, Address).");
+        alert("Please fill in Name, Phone and Address.");
         return;
       }
 
@@ -399,26 +444,21 @@
       msg += `👤 *Name:* ${name}\n`;
       msg += `📞 *Phone:* ${phone}\n`;
       msg += `📍 *Address:* ${address}\n\n`;
-      msg += `🛒 *Ordered Items:*\n`;
+      msg += `🛒 *Items:*\n`;
       cart.forEach((item, i) => {
         msg += `${i+1}. ${item.name} (x${item.qty}) - Rs. ${item.price * item.qty}\n`;
       });
       const total = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
       msg += `\n💰 *Total Amount:* Rs. ${total}\n`;
-      msg += `🏦 *Payment Method:* Easypaisa (0317-0546013 / Kashif Javaid Naqvi)\n`;
+      msg += `🏦 *Payment:* Easypaisa (0317-0546013 / Kashif Javaid Naqvi)\n`;
       msg += `✅ Please confirm my order!`;
 
       const encoded = encodeURIComponent(msg);
       window.open(`https://wa.me/923406724840?text=${encoded}`, '_blank');
     };
 
-    // Admin Authentication & Dashboard
-    window.openAdminModal = function() {
-      document.getElementById('admin-modal').classList.remove('hidden');
-    };
-    window.closeAdminModal = function() {
-      document.getElementById('admin-modal').classList.add('hidden');
-    };
+    window.openAdminModal = function() { document.getElementById('admin-modal').classList.remove('hidden'); };
+    window.closeAdminModal = function() { document.getElementById('admin-modal').classList.add('hidden'); };
     window.verifyAdminPin = function() {
       const pin = document.getElementById('admin-pin-input').value;
       if(pin === "7866") {
@@ -429,26 +469,24 @@
         alert("Incorrect PIN! Correct PIN is 7866.");
       }
     };
-    window.closeAdminDashboard = function() {
-      document.getElementById('admin-dashboard').classList.add('hidden');
-    };
+    window.closeAdminDashboard = function() { document.getElementById('admin-dashboard').classList.add('hidden'); };
 
     window.renderAdminProductsList = function() {
       const list = document.getElementById('admin-products-list');
       if(products.length === 0) {
-        list.innerHTML = `<p class="text-xs text-zinc-500">No products in cloud database.</p>`;
+        list.innerHTML = `<p class="text-xs text-zinc-500">No products found.</p>`;
         return;
       }
       list.innerHTML = products.map(p => `
-        <div class="flex items-center justify-between bg-zinc-900 p-2.5 rounded border border-dark text-xs">
-          <div class="flex items-center space-x-2">
+        <div class="flex items-center justify-between bg-zinc-50 p-2.5 rounded border border-zinc-200 text-xs">
+          <div class="flex items-center space-x-2.5">
             <img src="${p.img}" class="w-8 h-8 object-cover rounded">
             <div>
-              <p class="font-bold text-white">${p.name}</p>
-              <p class="text-blue-400">Rs. ${p.price}</p>
+              <p class="font-bold text-zinc-800">${p.name}</p>
+              <p class="text-daraz-orange font-bold">Rs. ${p.price}</p>
             </div>
           </div>
-          <button onclick="deleteProduct('${p.id}')" class="bg-red-600/20 hover:bg-red-600 text-red-400 hover:text-white px-2.5 py-1.5 rounded transition"><i class="fa-solid fa-trash"></i> Delete</button>
+          <button onclick="deleteProduct('${p.id}')" class="bg-red-100 hover:bg-red-600 text-red-600 hover:text-white px-3 py-1.5 rounded transition font-bold"><i class="fa-solid fa-trash mr-1"></i> Delete</button>
         </div>
       `).join('');
     };
@@ -461,59 +499,43 @@
       const imgFile = document.getElementById('new-prod-img').files[0];
 
       if(!name || isNaN(price)) {
-        alert("Please enter product name and price.");
+        alert("Please enter title and price.");
         return;
       }
 
       let imgUrl = "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=300";
-
-      const saveToFirestore = async (finalImg) => {
+      const save = async (finalImg) => {
         try {
           const newId = "prod_" + Date.now();
-          await setDoc(doc(db, "products", newId), {
-            name,
-            price,
-            oldPrice,
-            desc: desc || "High quality product.",
-            img: finalImg
-          });
+          await setDoc(doc(db, "products", newId), { name, price, oldPrice, desc: desc || "Quality product", img: finalImg });
           document.getElementById('new-prod-name').value = "";
           document.getElementById('new-prod-price').value = "";
           document.getElementById('new-prod-old-price').value = "";
           document.getElementById('new-prod-desc').value = "";
           document.getElementById('new-prod-img').value = "";
           alert("Product added successfully to live cloud database!");
-        } catch(err) {
-          console.error("Error adding product:", err);
-          alert("Failed to save product.");
-        }
+        } catch(e) { alert("Error saving product."); }
       };
 
       if(imgFile) {
         const reader = new FileReader();
-        reader.onloadend = function() {
-          saveToFirestore(reader.result);
-        };
+        reader.onloadend = () => save(reader.result);
         reader.readAsDataURL(imgFile);
       } else {
-        saveToFirestore(imgUrl);
+        save(imgUrl);
       }
     };
 
     window.deleteProduct = async function(id) {
-      if(confirm("Are you sure you want to delete this product from live database?")) {
+      if(confirm("Delete this product permanently from cloud?")) {
         try {
           await deleteDoc(doc(db, "products", id));
           alert("Product deleted permanently!");
-        } catch(err) {
-          console.error("Error deleting product:", err);
-          alert("Failed to delete product.");
-        }
+        } catch(e) { alert("Failed to delete."); }
       }
     };
 
-    // Click Circle Animation & Tab Transitions Effect Handler
-    window.addEventListener('click', function(e) {
+    window.addEventListener('click', (e) => {
       const circle = document.createElement('div');
       circle.className = 'click-circle';
       circle.style.left = `${e.pageX}px`;
