@@ -63,7 +63,7 @@
     <div class="bg-zinc-100 text-zinc-600 text-[11px] py-1.5 px-4 border-b border-zinc-200">
       <div class="max-w-7xl mx-auto flex justify-between items-center">
         <div class="flex space-x-6 font-medium">
-          <a href="#" id="top-apk-btn" download class="text-green-700 hover:underline font-bold flex items-center"><i class="fa-solid fa-download mr-1"></i> DOWNLOAD APP APK</a>
+          <a href="https://www.appcreator24.com/app4246511-b5hkve" target="_blank" id="top-apk-btn" class="text-green-700 hover:underline font-bold flex items-center"><i class="fa-solid fa-download mr-1"></i> DOWNLOAD APP APK</a>
           <span class="hover:text-orange-600 cursor-pointer" onclick="switchTab('analytics')"><i class="fa-solid fa-chart-line text-daraz-orange mr-1"></i> Live Traffic Analytics</span>
           <span class="hover:text-orange-600 cursor-pointer">HELP & SUPPORT</span>
         </div>
@@ -137,7 +137,7 @@
           <h2 class="text-2xl md:text-4xl font-extrabold tracking-tight mb-3">Saddat Online Store Grand Shopping Festival</h2>
           <p class="text-xs md:text-sm text-zinc-300 mb-6 leading-relaxed">Discover Luxury Micro Velvet Shawls & 100% Pure Herbal Products across Pakistan! Download our Android App or order via WhatsApp.</p>
           <div class="flex flex-wrap gap-3">
-            <a href="#" id="hero-apk-btn" download class="bg-green-600 hover:bg-green-700 text-white font-bold px-5 py-2.5 rounded-lg text-xs flex items-center space-x-2 shadow-lg transition">
+            <a href="https://www.appcreator24.com/app4246511-b5hkve" target="_blank" id="hero-apk-btn" class="bg-green-600 hover:bg-green-700 text-white font-bold px-5 py-2.5 rounded-lg text-xs flex items-center space-x-2 shadow-lg transition">
               <i class="fa-solid fa-download text-sm"></i>
               <span>Download App (APK)</span>
             </a>
@@ -477,11 +477,6 @@
     const analytics = getAnalytics(app);
     const db = getFirestore(app);
 
-    // NOTE: Yahan apni APK ka direct download link dal dein
-    const apkDownloadUrl = "YOUR_DIRECT_APK_DOWNLOAD_LINK_HERE";
-    document.getElementById('top-apk-btn').href = apkDownloadUrl;
-    document.getElementById('hero-apk-btn').href = apkDownloadUrl;
-
     let products = [];
     let bankAccounts = [];
     let cart = [];
@@ -576,7 +571,6 @@
 
     // --- ANALYTICS DASHBOARD RENDERER ---
     window.renderAnalyticsDashboard = function() {
-      // Minimum reach between 200 and 380 daily as requested
       const todayReach = Math.floor(Math.random() * (380 - 200 + 1)) + 200;
       const totalClicks = todayReach * 4 + Math.floor(Math.random() * 150);
       
@@ -584,7 +578,6 @@
       document.getElementById('stat-total-clicks').innerText = totalClicks.toLocaleString();
       document.getElementById('stat-live-visitors').innerText = `${Math.floor(Math.random() * 12) + 8} Online`;
 
-      // 7 Days Table Generation
       const daysAgo = (n) => {
         const d = new Date();
         d.setDate(d.getDate() - n);
@@ -610,7 +603,6 @@
       }
       tableBody.innerHTML = tableHtml;
 
-      // Product Clicks Breakdown
       const prodClicksContainer = document.getElementById('analytics-products-clicks');
       if(products.length > 0) {
         prodClicksContainer.innerHTML = products.map((p) => {
@@ -653,7 +645,6 @@
       const isHerbal = (p.name + " " + (p.desc || "")).toLowerCase().includes("herbal");
       document.getElementById('modal-prod-badge').innerText = isHerbal ? "100% Pure Herbal" : "Luxury Collection";
 
-      // Render Unique 50 Reviews for this specific product
       const reviewsContainer = document.getElementById('modal-reviews-list');
       const allReviews = getUniqueProductReviews(p.id);
       document.getElementById('review-count').innerText = allReviews.length + "+";
@@ -682,7 +673,6 @@
         </div>
       `).join('');
 
-      // Wire Action Buttons inside Modal
       document.getElementById('modal-add-cart-btn').onclick = function() {
         addToCartWithOptions(p.id, currentModalQty);
         closeProductModal();
